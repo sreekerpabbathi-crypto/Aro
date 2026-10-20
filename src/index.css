@@ -1,0 +1,112 @@
+@import "tailwindcss";
+@import "maplibre-gl/dist/maplibre-gl.css";
+
+@theme {
+  --font-serif: 'Fraunces', Georgia, serif;
+  --font-condensed: 'Oswald', sans-serif;
+  --font-display: 'Outfit', sans-serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Master Specification Editorial Color Palette */
+  --color-aro-orange: #FF650D;
+  --color-aro-burgundy: #641820;
+  --color-aro-cream: #FFF0D5;
+  --color-aro-cream-subtle: #FAF5EE;
+  --color-aro-cream-border: #EADBCE;
+  --color-aro-tomato: #E9432E;
+  --color-aro-ink: #211A19;
+  --color-aro-ink-subtle: #3A2F2D;
+  
+  /* Retain brand aliases */
+  --color-aro-primary: #FF650D;
+  --color-aro-primary-hover: #E55400;
+  --color-aro-accent: #E9432E;
+  --color-aro-bg: #211A19;
+  --color-aro-surface: #2E2423;
+  --color-aro-surface-elevated: #3C302E;
+  --color-aro-surface-border: #4D3F3C;
+  --color-aro-muted: #A89A97;
+  --color-aro-text: #FFF0D5;
+}
+
+:root {
+  color-scheme: dark light;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  background-color: #211A19;
+  color: #FFF0D5;
+  margin: 0;
+  padding: 0;
+}
+
+/* Retro Editorial Grain Texture */
+.paper-grain {
+  background-image: radial-gradient(rgba(255, 240, 213, 0.04) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+.paper-grain-light {
+  background-image: radial-gradient(rgba(33, 26, 25, 0.05) 1px, transparent 0);
+  background-size: 20px 20px;
+}
+
+/* Editorial Circular Stamp Seal */
+.editorial-seal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 2px dashed #FF650D;
+  text-transform: uppercase;
+  font-family: 'Oswald', sans-serif;
+  letter-spacing: 0.15em;
+  transform: rotate(-4deg);
+}
+
+/* Tilted editorial panel */
+.tilted-panel-left {
+  transform: rotate(-1.5deg);
+}
+
+.tilted-panel-right {
+  transform: rotate(1.5deg);
+}
+
+/* Glassmorphism / Editorial Surface Utilities */
+.editorial-card {
+  background-color: #2E2423;
+  border: 1px solid #4D3F3C;
+  border-radius: 1.25rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.editorial-card:hover {
+  border-color: #FF650D;
+  box-shadow: 0 16px 32px -8px rgba(255, 101, 13, 0.15);
+}
+
+.editorial-card-light {
+  background-color: #FAF5EE;
+  color: #211A19;
+  border: 1px solid #EADBCE;
+  border-radius: 1.25rem;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #211A19;
+}
+::-webkit-scrollbar-thumb {
+  background: #4D3F3C;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #FF650D;
+}
