@@ -97,35 +97,59 @@ export async function fetchCustomerOrders(profileId: string): Promise<Order[]> {
     }
 
     // Map DB orders back to frontend Order interface
-    return data.map((row) => ({
-      id: row.id,
-      orderNumber: row.order_number,
-      customerId: row.profile_id,
-      restaurantId: row.restaurant_id,
-      restaurantNameSnapshot: row.restaurant_name_snapshot,
-      restaurantAddressSnapshot: row.restaurant_address_snapshot,
-      status: row.status,
-      items: [],
-      itemTotal: Number(row.item_total),
-      deliveryFee: Number(row.delivery_fee),
-      taxAmount: Number(row.tax_amount),
-      discountAmount: Number(row.discount_amount),
-      finalPaidAmount: Number(row.final_paid_amount),
-      deliveryAddress: row.delivery_address_json,
-      placedAt: row.placed_at,
-      estimatedDeliveryAt: row.delivered_at || new Date(Date.now() + 30 * 60 * 1000).toISOString(),
-      timeline: [
-        {
-          status: 'placed',
-          title: 'Order Confirmed',
-          description: 'Payment verified and sent to restaurant.',
-          timestamp: row.placed_at,
-          isCompleted: true,
-        },
-      ],
-      paymentMethod: (row.payment_method as Order['paymentMethod']) || 'UPI',
-      paymentStatus: (row.payment_status as Order['paymentStatus']) || 'PAID',
-    }))
+    return data.map((row) => {
+      let deliveryAddress = row.delivery_address_json
+      // Guard against stale pre-migration Bengaluru demo addresses for Sreeram
+      if (
+        deliveryAddress &&
+        (deliveryAddress.city === 'Bengaluru' || deliveryAddress.city === 'Bangalore') &&
+        row.profile_id === '00000001-0000-0000-0000-000000000001'
+      ) {
+        deliveryAddress = {
+          ...deliveryAddress,
+          label: 'Home',
+          recipientName: deliveryAddress.recipientName || 'Sreeram K',
+          recipientPhone: deliveryAddress.recipientPhone || '+91 98765 01234',
+          addressLine1: 'Villa 14, Whispering Palms',
+          addressLine2: 'Road No. 36, Jubilee Hills',
+          landmark: 'Near Peddamma Temple Metro',
+          city: 'Hyderabad',
+          pincode: '500033',
+          latitude: 17.4325,
+          longitude: 78.4072,
+        }
+      }
+
+      return {
+        id: row.id,
+        orderNumber: row.order_number,
+        customerId: row.profile_id,
+        restaurantId: row.restaurant_id,
+        restaurantNameSnapshot: row.restaurant_name_snapshot,
+        restaurantAddressSnapshot: row.restaurant_address_snapshot,
+        status: row.status,
+        items: [],
+        itemTotal: Number(row.item_total),
+        deliveryFee: Number(row.delivery_fee),
+        taxAmount: Number(row.tax_amount),
+        discountAmount: Number(row.discount_amount),
+        finalPaidAmount: Number(row.final_paid_amount),
+        deliveryAddress,
+        placedAt: row.placed_at,
+        estimatedDeliveryAt: row.delivered_at || new Date(Date.now() + 30 * 60 * 1000).toISOString(),
+        timeline: [
+          {
+            status: 'placed',
+            title: 'Order Confirmed',
+            description: 'Payment verified and sent to restaurant.',
+            timestamp: row.placed_at,
+            isCompleted: true,
+          },
+        ],
+        paymentMethod: (row.payment_method as Order['paymentMethod']) || 'UPI',
+        paymentStatus: (row.payment_status as Order['paymentStatus']) || 'PAID',
+      }
+    })
   } catch (err) {
     console.error('[ARO Supabase] Failed to fetch customer orders:', err)
     return []

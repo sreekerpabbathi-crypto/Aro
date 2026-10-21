@@ -49,7 +49,7 @@ export const StorefrontPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#211A19] text-[#FFF0D5]">
+    <div className="min-h-screen flex flex-col bg-[#FAF6EE] text-[#121212] paper-grid selection:bg-[#FFD13B] selection:text-[#121212]">
       {/* Sticky Storefront Navbar */}
       <StorefrontNavbar
         cartCount={totals.itemTotal > 0 ? 1 : 0}
@@ -98,22 +98,22 @@ export const StorefrontPage: React.FC = () => {
 
       {/* Floating Cart Toast notification */}
       {lastAddedDish && (
-        <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-4 py-3 rounded-2xl bg-[#2E2423]/95 backdrop-blur-xl border border-[#FF650D]/50 shadow-2xl shadow-black/80 animate-in fade-in slide-in-from-bottom-4 duration-300">
-          <div className="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
-            <Check className="w-4 h-4" />
+        <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-4 py-3 rounded-xl bg-white border-2 border-[#121212] shadow-[4px_4px_0px_#121212] text-[#121212] animate-in fade-in slide-in-from-bottom-4 duration-300">
+          <div className="w-8 h-8 rounded-lg bg-[#E8F8F0] border border-[#121212] text-[#059669] flex items-center justify-center shrink-0">
+            <Check className="w-4 h-4 stroke-[3]" />
           </div>
           <div className="flex flex-col">
-            <span className="text-xs font-semibold text-white">
+            <span className="text-xs font-black uppercase font-['Oswald'] text-[#121212]">
               Added to order
             </span>
-            <span className="text-[11px] text-[#A89A97] max-w-[180px] truncate">
+            <span className="text-[11px] text-[#5E5854] max-w-[180px] truncate font-medium">
               {lastAddedDish.name}
             </span>
           </div>
           <button
             type="button"
             onClick={() => navigate('/cart')}
-            className="ml-2 px-3 py-1.5 rounded-lg bg-[#FF650D] text-white text-xs font-semibold hover:bg-[#E55400] transition-colors flex items-center gap-1 cursor-pointer"
+            className="ml-2 px-3 py-1.5 rounded-lg bg-[#FF650D] border-2 border-[#121212] shadow-[2px_2px_0px_#121212] text-white text-xs font-black uppercase font-['Oswald'] tracking-wider hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_#121212] transition-all flex items-center gap-1 cursor-pointer"
           >
             <span>View Cart</span>
             <ArrowRight className="w-3 h-3" />

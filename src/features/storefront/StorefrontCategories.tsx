@@ -1,5 +1,4 @@
 import React from 'react'
-import { Card } from '@/components/common/Card'
 
 interface Category {
   id: string
@@ -54,6 +53,8 @@ const categories: Category[] = [
   },
 ]
 
+import { BiryaniPotDoodle } from '@/components/sketch/SketchDoodles'
+
 interface StorefrontCategoriesProps {
   onSelectCategory: (slug: string) => void
 }
@@ -62,45 +63,51 @@ export const StorefrontCategories: React.FC<StorefrontCategoriesProps> = ({
   onSelectCategory,
 }) => {
   return (
-    <section id="categories" className="py-12 border-t border-white/[0.04]">
+    <section id="categories" className="py-12 border-t-2 border-[#121212]/15">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-end justify-between mb-8">
           <div>
-            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white font-['Outfit']">
-              Explore by Culinary Tradition
+            <div className="flex items-center gap-2 mb-1">
+              <BiryaniPotDoodle className="w-5 h-5 text-[#FF650D]" />
+              <span className="font-['Oswald'] text-xs font-black uppercase tracking-wider text-[#FF650D]">
+                Authentic Traditions
+              </span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-[#121212] font-['Outfit']">
+              EXPLORE BY CUISINE
             </h2>
-            <p className="text-sm text-[#8e95a5] mt-1">
-              Curated gastronomy categorized by authenticity and technique
+            <p className="text-sm text-[#5E5854] mt-1 font-medium">
+              Curated gastronomy categorized by authenticity, spice profile, and technique
             </p>
           </div>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           {categories.map((cat) => (
-            <Card
+            <div
               key={cat.id}
-              variant="surface"
-              interactive
               onClick={() => onSelectCategory(cat.slug)}
-              className="p-3 overflow-hidden group cursor-pointer border-[#262a34] hover:border-[#ff5733]/50 transition-all flex flex-col"
+              className="p-3 bg-white border-2 border-[#121212] rounded-xl shadow-[3px_3px_0px_#121212] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0px_#121212] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#121212] transition-all cursor-pointer flex flex-col justify-between group"
             >
-              <div className="relative w-full h-32 rounded-xl overflow-hidden mb-3">
+              <div className="relative w-full h-32 rounded-lg overflow-hidden mb-3 border-2 border-[#121212] bg-[#FAF6EE]">
                 <img
                   src={cat.imageUrl}
                   alt={cat.name}
                   className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
               </div>
 
-              <div className="space-y-0.5">
-                <h3 className="text-sm font-semibold text-white font-['Outfit'] group-hover:text-[#ff7854] transition-colors leading-snug">
+              <div className="space-y-1">
+                <h3 className="text-xs sm:text-sm font-bold text-[#121212] font-['Outfit'] group-hover:text-[#FF650D] transition-colors leading-snug">
                   {cat.name}
                 </h3>
-                <p className="text-[11px] text-[#8e95a5]">{cat.count}</p>
+                <span className="inline-block px-2 py-0.5 rounded bg-[#FAF6EE] border border-[#121212] text-[10px] font-black font-['Oswald'] text-[#121212]">
+                  {cat.count}
+                </span>
               </div>
-            </Card>
+            </div>
           ))}
         </div>
       </div>

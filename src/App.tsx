@@ -47,22 +47,26 @@ export const App: React.FC = () => {
             <Route
               path="*"
               element={
-                <div className="min-h-screen flex flex-col items-center justify-center bg-[#211A19] text-[#FFF0D5] p-6 text-center">
-                  <span className="text-8xl font-black text-[#FF650D] font-['Oswald'] mb-2">
-                    404
-                  </span>
-                  <h1 className="text-2xl font-bold font-['Outfit'] text-white mb-2">
-                    Gastronomic Coordinate Not Found
-                  </h1>
-                  <p className="text-xs text-[#A89A97] max-w-sm mb-6 leading-relaxed">
-                    The dining destination or course you requested does not exist or has been retired.
-                  </p>
-                  <Link
-                    to="/home"
-                    className="inline-flex px-6 py-3 rounded-xl bg-[#FF650D] hover:bg-[#E55400] text-white font-bold text-xs transition-colors shadow-lg shadow-[#FF650D]/20"
-                  >
-                    Return to Storefront →
-                  </Link>
+                <div className="min-h-screen flex flex-col items-center justify-center bg-[#FAF6EE] text-[#121212] paper-grid p-6 text-center">
+                  <div className="bg-white border-2 sm:border-[2.5px] border-[#121212] rounded-3xl p-8 sm:p-12 shadow-[8px_8px_0px_#121212] max-w-md w-full space-y-4">
+                    <span className="text-8xl font-black text-[#FF650D] font-['Oswald'] block tracking-tighter">
+                      404
+                    </span>
+                    <h1 className="text-2xl sm:text-3xl font-black font-['Outfit'] text-[#121212]">
+                      Coordinate Not Found
+                    </h1>
+                    <p className="text-xs sm:text-sm text-[#5E5854] font-medium leading-relaxed">
+                      The dining destination or tasting course you requested does not exist in our Hyderabad catalog or has been retired.
+                    </p>
+                    <div className="pt-2">
+                      <Link
+                        to="/home"
+                        className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#FF650D] hover:bg-[#E55400] text-white font-black font-['Outfit'] text-sm border-2 border-[#121212] shadow-[3px_3px_0px_#121212] hover:translate-x-[1px] hover:translate-y-[1px] transition-all"
+                      >
+                        Return to Storefront →
+                      </Link>
+                    </div>
+                  </div>
                 </div>
               }
             />

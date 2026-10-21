@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Star, Clock, MapPin, ArrowRight } from 'lucide-react'
-import { Card } from '@/components/common/Card'
 import { Badge } from '@/components/common/Badge'
 import { fetchRestaurants } from '@/services/catalogService'
 
@@ -129,91 +128,92 @@ export const StorefrontFeaturedRestaurants: React.FC<StorefrontFeaturedRestauran
   }, [])
 
   return (
-    <section id="featured-restaurants" className="py-12 border-t border-white/[0.04]">
+    <section id="featured-restaurants" className="py-12 border-t-2 border-[#121212]/15">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
           <div>
-            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white font-['Outfit']">
-              Featured Culinary Ateliers
+            <span className="font-['Oswald'] text-xs font-black uppercase tracking-wider text-[#FF650D] block mb-1">
+              Top Rated In Hyderabad
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-[#121212] font-['Outfit']">
+              FEATURED KITCHENS
             </h2>
-            <p className="text-sm text-[#8e95a5] mt-1">
-              Hyderabad’s highest-rated dining partners with proven culinary pedigree
+            <p className="text-sm text-[#5E5854] mt-1 font-medium">
+              Direct chef partnerships with proven hygiene and legendary recipes
             </p>
           </div>
 
           <button
             type="button"
             onClick={() => navigate('/restaurants')}
-            className="text-xs font-semibold text-[#ff5733] hover:underline cursor-pointer bg-transparent border-0 p-0 text-left"
+            className="px-4 py-2 rounded-lg bg-white border-2 border-[#121212] shadow-[2px_2px_0px_#121212] text-xs font-black font-['Oswald'] uppercase tracking-wider text-[#121212] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0px_#121212] transition-all cursor-pointer"
           >
-            Browse All Restaurants →
+            Browse All 36+ Restaurants →
           </button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {restaurants.map((res) => (
-            <Card
+            <article
               key={res.id}
-              variant="surface"
-              interactive
-              onClick={() => onSelectRestaurant?.(res.slug)}
-              className="p-0 overflow-hidden group cursor-pointer border-[#262a34] hover:border-[#ff5733]/50 transition-all flex flex-col justify-between"
+              onClick={() => onSelectRestaurant ? onSelectRestaurant(res.slug) : navigate(`/restaurants/${res.slug}`)}
+              className="bg-white border-[2.5px] border-[#121212] rounded-2xl overflow-hidden shadow-[4px_4px_0px_#121212] hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[7px_7px_0px_#121212] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#121212] transition-all cursor-pointer flex flex-col justify-between group"
             >
               <div>
                 {/* Cover Image */}
-                <div className="relative w-full h-48 overflow-hidden">
+                <div className="relative w-full h-48 overflow-hidden bg-[#FAF6EE] border-b-2 border-[#121212]">
                   <img
                     src={res.coverImage}
                     alt={res.name}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#121418] via-transparent to-black/20" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
                   {/* Rating Tag */}
-                  <div className="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-[#121418]/90 backdrop-blur-md border border-white/10 text-xs font-bold text-amber-400 flex items-center gap-1">
-                    <Star className="w-3.5 h-3.5 fill-current" />
+                  <div className="absolute top-3 right-3 px-2.5 py-1 rounded-md bg-white border-2 border-[#121212] text-xs font-black text-[#121212] shadow-[2px_2px_0px_#121212] flex items-center gap-1">
+                    <Star className="w-3.5 h-3.5 fill-[#FFD13B] text-[#121212]" />
                     <span>{res.rating.toFixed(1)}</span>
-                    <span className="text-[10px] text-[#8e95a5] font-normal">
+                    <span className="text-[#5E5854] text-[10px] font-normal">
                       ({res.ratingCount})
                     </span>
                   </div>
 
                   {/* Price Tier */}
-                  <div className="absolute bottom-3 left-3 px-2 py-0.5 rounded-md bg-black/60 backdrop-blur-md text-[11px] font-semibold text-white/90">
+                  <div className="absolute bottom-3 left-3 px-2 py-0.5 rounded bg-[#121212] text-white text-[11px] font-mono font-bold border border-white/20">
                     {res.priceTier}
                   </div>
                 </div>
 
                 {/* Content */}
-                <div className="p-5 space-y-3">
+                <div className="p-4 space-y-3">
                   <div>
-                    <h3 className="text-lg font-bold text-white font-['Outfit'] group-hover:text-[#ff7854] transition-colors leading-snug">
+                    <h3 className="text-base sm:text-lg font-black text-[#121212] font-['Outfit'] group-hover:text-[#FF650D] transition-colors leading-snug">
                       {res.name}
                     </h3>
-                    <p className="text-xs text-[#8e95a5] line-clamp-1 mt-0.5">
+                    <p className="text-xs text-[#5E5854] line-clamp-1 mt-0.5 font-medium">
                       {res.tagline}
                     </p>
                   </div>
 
                   {/* Cuisines Tags */}
                   <div className="flex flex-wrap gap-1.5">
-                    {res.cuisines.map((c, i) => (
-                      <Badge key={i} variant="default" className="text-[10px] py-0 px-2">
+                    {res.cuisines.slice(0, 2).map((c, i) => (
+                      <Badge key={i} variant="accent" className="text-[10px] py-0 px-2">
                         {c}
                       </Badge>
                     ))}
                   </div>
 
                   {/* Location & ETA */}
-                  <div className="pt-2 border-t border-white/5 flex items-center justify-between text-xs text-[#8e95a5]">
+                  <div className="pt-2 border-t border-[#121212]/10 flex items-center justify-between text-xs text-[#5E5854] font-medium">
                     <div className="flex items-center gap-1 text-[11px] truncate max-w-[150px]">
-                      <MapPin className="w-3 h-3 text-[#ff5733] shrink-0" />
+                      <MapPin className="w-3.5 h-3.5 text-[#FF650D] shrink-0" />
                       <span className="truncate">{res.addressLine}</span>
                     </div>
 
-                    <div className="flex items-center gap-1 text-[11px] text-white/90 font-medium shrink-0">
-                      <Clock className="w-3 h-3 text-[#ff5733]" />
+                    <div className="flex items-center gap-1 text-[11px] text-[#121212] font-bold shrink-0">
+                      <Clock className="w-3.5 h-3.5 text-[#FF650D]" />
                       <span>{res.deliveryTimeMin}-{res.deliveryTimeMax}m</span>
                     </div>
                   </div>
@@ -222,12 +222,12 @@ export const StorefrontFeaturedRestaurants: React.FC<StorefrontFeaturedRestauran
 
               {/* Action Bar */}
               <div className="p-4 pt-0">
-                <div className="w-full py-2.5 rounded-xl bg-white/5 group-hover:bg-[#ff5733] text-white text-xs font-semibold flex items-center justify-center gap-2 transition-colors">
+                <div className="w-full py-2.5 rounded-xl bg-[#FAF6EE] group-hover:bg-[#FF650D] border-2 border-[#121212] group-hover:text-white text-[#121212] text-xs font-black uppercase font-['Oswald'] tracking-wider shadow-[2px_2px_0px_#121212] flex items-center justify-center gap-2 transition-all">
                   <span>View Menu</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </div>
               </div>
-            </Card>
+            </article>
           ))}
         </div>
       </div>

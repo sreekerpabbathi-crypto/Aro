@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { TicketPercent, Copy, Check, Sparkles } from 'lucide-react'
-import { Card } from '@/components/common/Card'
 
 export const StorefrontOffers: React.FC = () => {
   const [copiedCode, setCopiedCode] = useState<string | null>(null)
@@ -27,18 +26,18 @@ export const StorefrontOffers: React.FC = () => {
   ]
 
   return (
-    <section id="offers" className="py-12 border-t border-white/[0.04]">
+    <section id="offers" className="py-12 border-t-2 border-[#121212]/15">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-end justify-between mb-8">
           <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#ff5733]/10 border border-[#ff5733]/20 text-xs text-[#ff7854] font-medium mb-2">
-              <Sparkles className="w-3.5 h-3.5" />
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#FFD13B] border-2 border-[#121212] shadow-[2px_2px_0px_#121212] text-xs font-black uppercase font-['Oswald'] text-[#121212] mb-2">
+              <Sparkles className="w-3.5 h-3.5 text-[#121212]" />
               <span>Privileges & Perks</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white font-['Outfit']">
-              Curated Dining Privileges
+            <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-[#121212] font-['Outfit']">
+              CURATED DINING PRIVILEGES
             </h2>
-            <p className="text-sm text-[#8e95a5] mt-1">
+            <p className="text-sm text-[#5E5854] mt-1 font-medium">
               Complimentary seasonal privileges and promo codes applied directly at checkout
             </p>
           </div>
@@ -46,32 +45,31 @@ export const StorefrontOffers: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {offers.map((offer, idx) => (
-            <Card
+            <div
               key={idx}
-              variant="glow"
-              className="p-6 relative overflow-hidden flex flex-col justify-between"
+              className="p-6 sm:p-7 rounded-2xl bg-[#FFF4C2] border-[2.5px] border-[#121212] shadow-[5px_5px_0px_#121212] relative overflow-hidden flex flex-col justify-between"
             >
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-[11px] font-semibold uppercase tracking-wider text-[#ff7854]">
+                  <span className="text-[11px] font-black uppercase font-['Oswald'] tracking-wider text-[#FF650D] px-2.5 py-0.5 rounded bg-white border border-[#121212]">
                     {offer.badge}
                   </span>
-                  <div className="w-8 h-8 rounded-lg bg-[#ff5733]/15 flex items-center justify-center text-[#ff5733]">
-                    <TicketPercent className="w-4 h-4" />
+                  <div className="w-9 h-9 rounded-lg bg-white border-2 border-[#121212] shadow-[2px_2px_0px_#121212] flex items-center justify-center text-[#121212]">
+                    <TicketPercent className="w-5 h-5 text-[#FF650D]" />
                   </div>
                 </div>
 
-                <h3 className="text-lg font-bold text-white font-['Outfit']">
+                <h3 className="text-lg sm:text-xl font-black text-[#121212] font-['Outfit']">
                   {offer.title}
                 </h3>
-                <p className="text-xs text-[#8e95a5] leading-relaxed">
+                <p className="text-xs sm:text-sm text-[#5E5854] leading-relaxed font-medium">
                   {offer.desc}
                 </p>
               </div>
 
-              <div className="pt-6 flex items-center justify-between">
+              <div className="pt-6 flex items-center justify-between gap-4">
                 <div className="flex items-center gap-2">
-                  <span className="px-3 py-1.5 rounded-lg bg-[#0b0c0e] border border-dashed border-[#ff5733]/40 font-mono font-bold text-sm text-white tracking-wider">
+                  <span className="px-3.5 py-1.5 rounded-lg bg-white border-2 border-dashed border-[#121212] font-['Oswald'] font-black text-sm text-[#121212] tracking-wider shadow-[2px_2px_0px_#121212]">
                     {offer.code}
                   </span>
                 </div>
@@ -79,22 +77,22 @@ export const StorefrontOffers: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => copyToClipboard(offer.code)}
-                  className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-white/10 hover:bg-white/15 text-xs font-semibold text-white transition-colors cursor-pointer"
+                  className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white hover:bg-[#FAF6EE] border-2 border-[#121212] text-xs font-black uppercase font-['Oswald'] tracking-wider text-[#121212] shadow-[2px_2px_0px_#121212] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0px_#121212] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#121212] transition-all cursor-pointer"
                 >
                   {copiedCode === offer.code ? (
                     <>
-                      <Check className="w-3.5 h-3.5 text-emerald-400" />
-                      <span className="text-emerald-400">Copied</span>
+                      <Check className="w-4 h-4 text-emerald-600 stroke-[3]" />
+                      <span className="text-emerald-700">Copied</span>
                     </>
                   ) : (
                     <>
-                      <Copy className="w-3.5 h-3.5 text-[#ff5733]" />
+                      <Copy className="w-4 h-4 text-[#FF650D]" />
                       <span>Copy Code</span>
                     </>
                   )}
                 </button>
               </div>
-            </Card>
+            </div>
           ))}
         </div>
       </div>

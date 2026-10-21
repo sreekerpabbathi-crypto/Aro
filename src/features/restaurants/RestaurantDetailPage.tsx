@@ -36,29 +36,10 @@ export const RestaurantDetailPage: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [addedItemNotice, setAddedItemNotice] = useState<string | null>(null)
 
-  if (!restaurant) {
-    return (
-      <div className="min-h-screen flex flex-col bg-[#211A19] text-[#FFF0D5]">
-        <StorefrontNavbar />
-        <div className="flex-1 max-w-xl mx-auto px-4 py-24 text-center space-y-4">
-          <h1 className="text-3xl font-bold font-['Outfit'] text-white">Restaurant Not Found</h1>
-          <p className="text-sm text-[#A89A97]">The culinary kitchen you requested is unavailable or has moved.</p>
-          <Link
-            to="/restaurants"
-            className="inline-flex px-6 py-2.5 rounded-xl bg-[#FF650D] text-white font-bold text-xs"
-          >
-            Browse All Restaurants
-          </Link>
-        </div>
-        <StorefrontFooter />
-      </div>
-    )
-  }
-
-  const isFavorited = favorites.includes(restaurant.id)
+  const isFavorited = Boolean(restaurant && favorites.includes(restaurant.id))
 
   const filteredCategories = useMemo(() => {
-    if (!restaurant.categories) return []
+    if (!restaurant?.categories) return []
     return restaurant.categories
       .map((cat) => {
         const matchesCategory = activeCategory === 'all' || activeCategory === cat.id
@@ -75,6 +56,25 @@ export const RestaurantDetailPage: React.FC = () => {
       })
       .filter(Boolean) as NonNullable<typeof restaurant.categories>
   }, [restaurant, activeCategory, menuSearch])
+
+  if (!restaurant) {
+    return (
+      <div className="min-h-screen flex flex-col bg-[#FAF6EE] text-[#121212] paper-grid">
+        <StorefrontNavbar />
+        <div className="flex-1 max-w-xl mx-auto px-4 py-24 text-center space-y-4">
+          <h1 className="text-3xl font-black font-['Outfit'] text-[#121212]">Restaurant Not Found</h1>
+          <p className="text-sm text-[#5E5854] font-medium">The culinary kitchen you requested is unavailable or has moved.</p>
+          <Link
+            to="/restaurants"
+            className="inline-flex px-6 py-2.5 rounded-xl bg-[#FF650D] border-2 border-[#121212] shadow-[3px_3px_0px_#121212] text-white font-black text-xs uppercase font-['Oswald'] tracking-wider"
+          >
+            Browse All Restaurants
+          </Link>
+        </div>
+        <StorefrontFooter />
+      </div>
+    )
+  }
 
   const handleOpenCustomization = (dish: MenuItem) => {
     // If dish has options, open customization modal; otherwise add directly
@@ -99,24 +99,24 @@ export const RestaurantDetailPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#211A19] text-[#FFF0D5]">
+    <div className="min-h-screen flex flex-col bg-[#FAF6EE] text-[#121212] paper-grid selection:bg-[#FFD13B] selection:text-[#121212]">
       <StorefrontNavbar cartCount={totals.itemTotal > 0 ? 1 : 0} />
 
       <main className="flex-1 pb-20">
         {/* Restaurant Cover Banner */}
-        <div className="relative w-full h-72 sm:h-96 overflow-hidden">
+        <div className="relative w-full h-72 sm:h-96 overflow-hidden bg-[#FAF6EE] border-b-[2.5px] border-[#121212]">
           <img
             src={restaurant.coverImage}
             alt={restaurant.name}
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#211A19] via-[#211A19]/50 to-black/30" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/20" />
 
           {/* Back Navigation Button */}
           <div className="absolute top-6 left-6 z-10">
             <Link
               to="/restaurants"
-              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-black/60 hover:bg-black/80 backdrop-blur-md text-xs font-semibold text-white border border-white/10 transition-colors"
+              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white border-2 border-[#121212] shadow-[3px_3px_0px_#121212] text-xs font-black uppercase font-['Oswald'] tracking-wider text-[#121212] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0px_#121212] transition-all"
             >
               <ArrowLeft className="w-4 h-4 text-[#FF650D]" />
               <span>Back to Discovery</span>
@@ -128,10 +128,10 @@ export const RestaurantDetailPage: React.FC = () => {
             <button
               type="button"
               onClick={() => toggleFavorite(restaurant.id)}
-              className={`p-2.5 rounded-xl backdrop-blur-md border border-white/10 transition-colors cursor-pointer ${
+              className={`p-2.5 rounded-xl border-2 border-[#121212] shadow-[3px_3px_0px_#121212] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0px_#121212] transition-all cursor-pointer ${
                 isFavorited
-                  ? 'bg-[#E9432E] text-white'
-                  : 'bg-black/60 hover:bg-black/80 text-white'
+                  ? 'bg-[#EF4444] text-white'
+                  : 'bg-white text-[#121212]'
               }`}
             >
               <Heart className={`w-4 h-4 ${isFavorited ? 'fill-current' : ''}`} />
@@ -140,8 +140,8 @@ export const RestaurantDetailPage: React.FC = () => {
         </div>
 
         {/* Restaurant Header Details Card */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-24 relative z-10">
-          <div className="rounded-3xl bg-[#2E2423] border border-[#4D3F3C] p-6 sm:p-8 shadow-2xl space-y-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-20 relative z-10">
+          <div className="rounded-2xl bg-white border-[2.5px] border-[#121212] p-6 sm:p-8 shadow-[6px_6px_0px_#121212] space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
               <div className="space-y-2">
                 <div className="flex flex-wrap items-center gap-2">
@@ -150,44 +150,44 @@ export const RestaurantDetailPage: React.FC = () => {
                       {c.name}
                     </Badge>
                   ))}
-                  <span className="text-xs font-mono font-bold text-white px-2 py-0.5 rounded-md bg-[#3C302E]">
+                  <span className="text-xs font-mono font-bold text-[#121212] px-2.5 py-0.5 rounded-md bg-[#FAF6EE] border border-[#121212]">
                     {restaurant.priceTier}
                   </span>
                 </div>
 
-                <h1 className="text-3xl sm:text-4xl font-extrabold text-white font-['Outfit']">
+                <h1 className="text-3xl sm:text-4xl font-black text-[#121212] font-['Outfit'] tracking-tight">
                   {restaurant.name}
                 </h1>
-                <p className="text-sm text-[#A89A97] max-w-2xl leading-relaxed">
+                <p className="text-sm text-[#5E5854] max-w-2xl leading-relaxed font-medium">
                   {restaurant.description}
                 </p>
               </div>
 
               {/* Rating Card */}
-              <div className="flex sm:flex-col items-center sm:items-end gap-3 sm:gap-1 p-3.5 rounded-2xl bg-[#211A19] border border-[#4D3F3C] shrink-0">
-                <div className="flex items-center gap-1.5 text-base font-bold text-amber-400">
-                  <Star className="w-5 h-5 fill-current" />
+              <div className="flex sm:flex-col items-center sm:items-end gap-3 sm:gap-1 p-3.5 rounded-xl bg-[#FFF4C2] border-2 border-[#121212] shadow-[3px_3px_0px_#121212] shrink-0">
+                <div className="flex items-center gap-1.5 text-base font-black text-[#121212]">
+                  <Star className="w-5 h-5 fill-[#FFD13B] text-[#121212]" />
                   <span>{restaurant.rating.toFixed(1)}</span>
                 </div>
-                <span className="text-[11px] text-[#A89A97]">
-                  {restaurant.ratingCount} guest reviews
+                <span className="text-[11px] text-[#5E5854] font-bold">
+                  {restaurant.ratingCount} reviews
                 </span>
               </div>
             </div>
 
             {/* Quick Metrics Bar */}
-            <div className="pt-4 border-t border-[#4D3F3C] flex flex-wrap items-center gap-y-2 gap-x-6 text-xs text-[#A89A97]">
+            <div className="pt-4 border-t-2 border-[#121212]/10 flex flex-wrap items-center gap-y-2 gap-x-6 text-xs text-[#5E5854] font-bold">
               <div className="flex items-center gap-1.5">
                 <MapPin className="w-4 h-4 text-[#FF650D]" />
-                <span className="text-white">{restaurant.addressLine}, {restaurant.city}</span>
+                <span className="text-[#121212]">{restaurant.addressLine}, {restaurant.city}</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <Clock className="w-4 h-4 text-[#FF650D]" />
-                <span className="text-white">{restaurant.deliveryTimeEstimateMin}-{restaurant.deliveryTimeEstimateMax} min preparation & dispatch</span>
+                <span className="text-[#121212]">{restaurant.deliveryTimeEstimateMin}-{restaurant.deliveryTimeEstimateMax} min preparation & dispatch</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                <span className="text-emerald-300">Min. order ₹{restaurant.minimumOrderAmount}</span>
+                <ShieldCheck className="w-4 h-4 text-[#10B981]" />
+                <span className="text-[#059669]">Min. order ₹{restaurant.minimumOrderAmount}</span>
               </div>
             </div>
           </div>
@@ -195,16 +195,16 @@ export const RestaurantDetailPage: React.FC = () => {
 
         {/* Menu Navigation & Search */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 space-y-8">
-          <div className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center justify-between pb-4 border-b border-[#4D3F3C]">
+          <div className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center justify-between pb-4 border-b-2 border-[#121212]/15">
             {/* Category Pills */}
             <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
               <button
                 type="button"
                 onClick={() => setActiveCategory('all')}
-                className={`px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-colors cursor-pointer ${
+                className={`px-4 py-2 rounded-lg text-xs font-black uppercase font-['Oswald'] tracking-wider border-2 border-[#121212] whitespace-nowrap transition-all cursor-pointer ${
                   activeCategory === 'all'
-                    ? 'bg-[#FF650D] text-white'
-                    : 'bg-[#2E2423] border border-[#4D3F3C] text-[#A89A97] hover:text-white'
+                    ? 'bg-[#121212] text-[#FFD13B] shadow-[2px_2px_0px_#FF650D] -translate-y-0.5'
+                    : 'bg-white text-[#121212] shadow-[2px_2px_0px_#121212] hover:-translate-y-0.5'
                 }`}
               >
                 All Courses
@@ -214,10 +214,10 @@ export const RestaurantDetailPage: React.FC = () => {
                   key={cat.id}
                   type="button"
                   onClick={() => setActiveCategory(cat.id)}
-                  className={`px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-colors cursor-pointer ${
+                  className={`px-4 py-2 rounded-lg text-xs font-black uppercase font-['Oswald'] tracking-wider border-2 border-[#121212] whitespace-nowrap transition-all cursor-pointer ${
                     activeCategory === cat.id
-                      ? 'bg-[#FF650D] text-white'
-                      : 'bg-[#2E2423] border border-[#4D3F3C] text-[#A89A97] hover:text-white'
+                      ? 'bg-[#FF650D] text-white shadow-[2px_2px_0px_#121212] -translate-y-0.5'
+                      : 'bg-white text-[#121212] shadow-[2px_2px_0px_#121212] hover:-translate-y-0.5 hover:bg-[#FFF4C2]'
                   }`}
                 >
                   {cat.name}
@@ -227,13 +227,13 @@ export const RestaurantDetailPage: React.FC = () => {
 
             {/* Menu Search */}
             <div className="relative w-full sm:w-64">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#A89A97]" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#5E5854]" />
               <input
                 type="text"
                 value={menuSearch}
                 onChange={(e) => setMenuSearch(e.target.value)}
                 placeholder="Search dish in menu..."
-                className="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-[#2E2423] border border-[#4D3F3C] text-white placeholder-[#A89A97] focus:outline-none focus:border-[#FF650D]"
+                className="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-white border-2 border-[#121212] shadow-[2px_2px_0px_#121212] text-[#121212] placeholder-[#5E5854] font-medium focus:outline-none focus:ring-2 focus:ring-[#FF650D]"
               />
             </div>
           </div>
@@ -242,15 +242,15 @@ export const RestaurantDetailPage: React.FC = () => {
           <div className="space-y-12">
             {filteredCategories.map((category) => (
               <div key={category.id} className="space-y-4">
-                <h2 className="text-xl font-bold text-white font-['Outfit'] border-l-4 border-[#FF650D] pl-3">
+                <h2 className="text-xl sm:text-2xl font-black text-[#121212] font-['Outfit'] border-l-4 border-[#FF650D] pl-3 uppercase tracking-wide">
                   {category.name}
                 </h2>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   {category.items.map((dish) => (
                     <div
                       key={dish.id}
-                      className="p-4 rounded-2xl bg-[#2E2423] border border-[#4D3F3C] hover:border-[#FF650D]/50 transition-all flex justify-between gap-4 group"
+                      className="p-4 sm:p-5 rounded-2xl bg-white border-2 border-[#121212] shadow-[4px_4px_0px_#121212] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_#121212] transition-all flex justify-between gap-4 group"
                     >
                       <div className="space-y-2 flex-1">
                         <div className="flex items-center gap-2">
@@ -260,26 +260,26 @@ export const RestaurantDetailPage: React.FC = () => {
                           {dish.isChefSpecial && <Badge variant="accent">Chef Special</Badge>}
                         </div>
 
-                        <h3 className="text-base font-bold text-white font-['Outfit'] group-hover:text-[#FF650D] transition-colors">
+                        <h3 className="text-base sm:text-lg font-black text-[#121212] font-['Outfit'] group-hover:text-[#FF650D] transition-colors">
                           {dish.name}
                         </h3>
 
-                        <p className="text-xs text-[#A89A97] line-clamp-2 leading-relaxed">
+                        <p className="text-xs text-[#5E5854] line-clamp-2 leading-relaxed font-medium">
                           {dish.description}
                         </p>
 
                         <div className="pt-2 flex items-center gap-3">
-                          <span className="text-base font-bold text-white font-mono">
+                          <span className="text-base font-black text-[#121212] font-['Oswald']">
                             {formatCurrency(dish.price, 'INR')}
                           </span>
-                          <span className="text-[11px] text-[#A89A97]">
+                          <span className="text-[11px] text-[#5E5854] font-mono font-bold">
                             • {dish.preparationTimeMinutes} min prep
                           </span>
                         </div>
                       </div>
 
                       {/* Image & Action */}
-                      <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-xl overflow-hidden shrink-0 flex flex-col justify-end">
+                      <div className="relative w-28 h-28 sm:w-32 sm:h-32 rounded-xl overflow-hidden shrink-0 flex flex-col justify-end border-2 border-[#121212] bg-[#FAF6EE]">
                         {dish.imageUrl ? (
                           <img
                             src={dish.imageUrl}
@@ -288,16 +288,16 @@ export const RestaurantDetailPage: React.FC = () => {
                             loading="lazy"
                           />
                         ) : (
-                          <div className="w-full h-full bg-[#3C302E]" />
+                          <div className="w-full h-full bg-[#FFF4C2]" />
                         )}
 
                         <div className="absolute bottom-2 left-1/2 -translate-x-1/2">
                           <button
                             type="button"
                             onClick={() => handleOpenCustomization(dish)}
-                            className="px-4 py-1.5 rounded-lg bg-[#FF650D] hover:bg-[#E55400] text-white text-xs font-bold shadow-lg shadow-black/80 flex items-center gap-1 active:scale-95 transition-all cursor-pointer whitespace-nowrap"
+                            className="px-3.5 py-1.5 rounded-lg bg-[#FF650D] hover:bg-[#E55400] text-white text-xs font-black uppercase font-['Oswald'] tracking-wider border-2 border-[#121212] shadow-[2px_2px_0px_#121212] flex items-center gap-1 active:scale-95 transition-all cursor-pointer whitespace-nowrap"
                           >
-                            <Plus className="w-3.5 h-3.5" />
+                            <Plus className="w-3.5 h-3.5 stroke-[3]" />
                             <span>
                               {dish.customizationGroups && dish.customizationGroups.length > 0
                                 ? 'Customize'
@@ -337,12 +337,12 @@ export const RestaurantDetailPage: React.FC = () => {
       {/* Floating Bottom Bar if Cart Has Items */}
       {totals.itemTotal > 0 && (
         <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 max-w-xl w-full px-4">
-          <div className="p-4 rounded-2xl bg-[#641820] text-[#FFF0D5] border border-[#FF650D]/40 shadow-2xl flex items-center justify-between">
+          <div className="p-4 rounded-2xl bg-[#121212] text-[#FFF0D5] border-2 border-[#121212] shadow-[5px_5px_0px_#FF650D] flex items-center justify-between">
             <div className="flex flex-col">
-              <span className="text-[11px] uppercase font-['Oswald'] text-[#FF650D] font-bold tracking-wider">
+              <span className="text-[11px] uppercase font-['Oswald'] text-[#FFD13B] font-black tracking-wider">
                 Current Basket
               </span>
-              <span className="text-sm font-bold text-white">
+              <span className="text-sm font-black font-['Outfit'] text-white">
                 {formatCurrency(totals.finalPayable, 'INR')} • {restaurant.name}
               </span>
             </div>
@@ -350,7 +350,7 @@ export const RestaurantDetailPage: React.FC = () => {
             <button
               type="button"
               onClick={() => navigate('/cart')}
-              className="px-5 py-2.5 rounded-xl bg-[#FF650D] hover:bg-[#E55400] text-white text-xs font-bold transition-all cursor-pointer"
+              className="px-5 py-2.5 rounded-xl bg-[#FF650D] border-2 border-white shadow-[2px_2px_0px_white] text-white text-xs font-black uppercase font-['Oswald'] tracking-wider hover:bg-[#E55400] transition-all cursor-pointer"
             >
               Review Order →
             </button>
@@ -359,9 +359,9 @@ export const RestaurantDetailPage: React.FC = () => {
       )}
 
       {addedItemNotice && (
-        <div className="fixed top-24 right-6 z-50 bg-[#2E2423] border border-[#FF650D] text-white text-xs px-4 py-3 rounded-2xl shadow-2xl animate-in fade-in slide-in-from-top-4 flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-emerald-400" />
-          <span>Added <strong>{addedItemNotice}</strong> to basket</span>
+        <div className="fixed top-24 right-6 z-50 bg-white border-2 border-[#121212] text-[#121212] text-xs font-bold px-4 py-3 rounded-xl shadow-[4px_4px_0px_#121212] animate-in fade-in slide-in-from-top-4 flex items-center gap-2">
+          <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 border border-[#121212]" />
+          <span>Added <strong className="text-[#FF650D]">{addedItemNotice}</strong> to basket</span>
         </div>
       )}
 

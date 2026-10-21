@@ -7,6 +7,8 @@
   --font-display: 'Outfit', sans-serif;
   --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
+  --font-hand: 'Caveat', cursive;
+  --font-kalam: 'Kalam', cursive;
 
   /* Master Specification Editorial Color Palette */
   --color-aro-orange: #FF650D;
@@ -18,6 +20,19 @@
   --color-aro-ink: #211A19;
   --color-aro-ink-subtle: #3A2F2D;
   
+  /* Neo-Brutalism Palette Tokens */
+  --color-nb-paper: #FAF6EE;
+  --color-nb-card: #FFFFFF;
+  --color-nb-black: #121212;
+  --color-nb-yellow: #FFD13B;
+  --color-nb-yellow-light: #FFF4C2;
+  --color-nb-orange: #FF650D;
+  --color-nb-orange-light: #FFE2D4;
+  --color-nb-red: #EF4444;
+  --color-nb-green: #10B981;
+  --color-nb-purple: #8B5CF6;
+  --color-nb-muted: #5E5854;
+
   /* Retain brand aliases */
   --color-aro-primary: #FF650D;
   --color-aro-primary-hover: #E55400;
@@ -93,6 +108,67 @@ body {
   color: #211A19;
   border: 1px solid #EADBCE;
   border-radius: 1.25rem;
+}
+
+/* Neo-Brutalism Design Utilities */
+.nb-shadow-sm {
+  box-shadow: 2px 2px 0px #121212;
+}
+
+.nb-shadow {
+  box-shadow: 4px 4px 0px #121212;
+}
+
+.nb-shadow-lg {
+  box-shadow: 6px 6px 0px #121212;
+}
+
+.nb-shadow-xl {
+  box-shadow: 8px 8px 0px #121212;
+}
+
+.nb-shadow-orange {
+  box-shadow: 4px 4px 0px #FF650D;
+}
+
+.nb-shadow-yellow {
+  box-shadow: 4px 4px 0px #FFD13B;
+}
+
+.nb-button-tactile {
+  border: 2px solid #121212;
+  box-shadow: 4px 4px 0px #121212;
+  transition: transform 0.1s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.1s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+.nb-button-tactile:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px #121212;
+}
+
+.nb-button-tactile:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0px 0px 0px #121212;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nb-button-tactile:hover,
+  .nb-button-tactile:active {
+    transform: none !important;
+  }
+}
+
+.paper-grid {
+  background-color: #FAF6EE;
+  background-image: radial-gradient(rgba(18, 18, 18, 0.08) 1.2px, transparent 1.2px);
+  background-size: 20px 20px;
+}
+
+.paper-lined {
+  background-color: #FAF6EE;
+  background-image: linear-gradient(rgba(18, 18, 18, 0.06) 1px, transparent 1px);
+  background-size: 100% 28px;
 }
 
 /* Custom Scrollbars */

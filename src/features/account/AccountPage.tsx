@@ -10,6 +10,7 @@ import {
   CheckCircle2,
   ArrowRight,
   ChevronRight,
+  Shield,
 } from 'lucide-react'
 import { useAuth } from '@/context/AuthContext'
 import { useCart } from '@/context/CartContext'
@@ -17,6 +18,7 @@ import { INITIAL_RESTAURANTS } from '@/services/catalogService'
 import { formatCurrency } from '@/lib/utils'
 import { StorefrontNavbar } from '@/features/storefront/StorefrontNavbar'
 import { StorefrontFooter } from '@/features/storefront/StorefrontFooter'
+import { ScribbleUnderline, WashiTape } from '@/components/sketch/SketchDoodles'
 import type { Order, CustomerAddress, MenuItem } from '@/types'
 
 export const AccountPage: React.FC = () => {
@@ -41,7 +43,7 @@ export const AccountPage: React.FC = () => {
   const [newAddressLine1, setNewAddressLine1] = useState('')
   const [newAddressLine2, setNewAddressLine2] = useState('')
   const [newLandmark, setNewLandmark] = useState('')
-  const [newPincode, setNewPincode] = useState('560038')
+  const [newPincode, setNewPincode] = useState('500033')
 
   // Past orders fallback if customer just opened
   const displayOrders: Order[] = orders.length > 0 ? orders : [
@@ -94,13 +96,10 @@ export const AccountPage: React.FC = () => {
   const favoriteRestaurants = INITIAL_RESTAURANTS.filter((r) => favorites.includes(r.id))
 
   const handle1ClickReorder = (order: Order) => {
-    // Find restaurant in catalog
     const restaurant = INITIAL_RESTAURANTS.find((r) => r.id === order.restaurantId) || INITIAL_RESTAURANTS[0]
     
-    // Attempt to add matching items to cart
     let addedCount = 0
     order.items.forEach((itemSnapshot) => {
-      // Find item in restaurant categories
       let matchedMenuItem: MenuItem | undefined
       restaurant.categories?.forEach((cat) => {
         const found = cat.items.find((i) => i.id === itemSnapshot.menuItemId || i.name === itemSnapshot.itemNameSnapshot)
@@ -156,52 +155,56 @@ export const AccountPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#211A19] text-[#FFF0D5]">
+    <div className="min-h-screen flex flex-col bg-[#FAF6EE] text-[#121212] paper-grid">
       <StorefrontNavbar cartCount={cartItems.length > 0 ? 1 : 0} />
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
         {/* Breadcrumb Navigation */}
-        <div className="flex items-center gap-2 text-xs text-[#A89A97]">
-          <Link to="/home" className="hover:text-white transition-colors">
+        <div className="flex items-center gap-2 text-xs font-bold font-['Oswald'] uppercase tracking-wider text-[#5E5854]">
+          <Link to="/home" className="hover:text-[#121212] transition-colors">
             Storefront
           </Link>
-          <ChevronRight className="w-3 h-3 text-[#4D3F3C]" />
-          <span className="text-[#FF650D] font-semibold">Customer Account</span>
+          <ChevronRight className="w-3.5 h-3.5 text-[#121212]/40" />
+          <span className="text-[#FF650D] bg-[#FFF4C2] border border-[#121212] px-2 py-0.5 rounded shadow-[1px_1px_0px_#121212]">
+            Customer Account
+          </span>
         </div>
 
         {reorderNotice && (
-          <div className="p-4 rounded-xl bg-emerald-950/80 border border-emerald-500/50 text-emerald-200 text-xs flex items-center gap-3 animate-in fade-in">
-            <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+          <div className="p-4 rounded-xl bg-[#FFF4C2] border-2 border-[#121212] text-[#121212] text-xs font-bold flex items-center gap-3 shadow-[4px_4px_0px_#121212] animate-in fade-in">
+            <CheckCircle2 className="w-5 h-5 text-[#059669] shrink-0" />
             <span>{reorderNotice}</span>
           </div>
         )}
 
         {/* Profile Header Card */}
-        <div className="bg-[#2E2423] border border-[#4D3F3C] rounded-2xl p-6 sm:p-8 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-bl from-[#641820]/30 to-transparent rounded-full blur-2xl pointer-events-none" />
+        <div className="bg-white border-2 sm:border-[2.5px] border-[#121212] rounded-2xl p-6 sm:p-8 relative shadow-[8px_8px_0px_#121212]">
+          <div className="absolute -top-3 right-8 hidden sm:block">
+            <WashiTape text="VERIFIED GOURMET" angle="1deg" className="bg-[#FFD13B] text-[#121212]" />
+          </div>
 
           <div className="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-            <div className="flex items-center gap-5">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
               <img
                 src={user?.avatarUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80'}
                 alt={user?.fullName || 'Profile Avatar'}
-                className="w-20 h-20 rounded-2xl object-cover border-2 border-[#FF650D] shadow-xl"
+                className="w-20 h-20 rounded-2xl object-cover border-2 sm:border-[2.5px] border-[#121212] shadow-[3px_3px_0px_#121212]"
               />
-              <div className="space-y-1">
-                <div className="flex items-center gap-2.5">
-                  <h1 className="text-2xl sm:text-3xl font-extrabold text-white font-['Outfit']">
+              <div className="space-y-1.5">
+                <div className="flex flex-wrap items-center gap-2.5">
+                  <h1 className="text-2xl sm:text-3xl font-black text-[#121212] font-['Outfit'] tracking-tight">
                     {user?.fullName || 'Sreeram K'}
                   </h1>
-                  <span className="px-2.5 py-0.5 rounded-full bg-[#FF650D]/20 border border-[#FF650D]/40 text-[#FF650D] font-bold text-[10px] uppercase font-['Oswald'] tracking-wider">
+                  <span className="px-2.5 py-0.5 rounded-lg bg-[#FFD13B] border-2 border-[#121212] text-[#121212] font-black text-[11px] uppercase font-['Oswald'] tracking-wider shadow-[2px_2px_0px_#121212]">
                     Epicure Privilege Tier
                   </span>
                 </div>
-                <p className="text-xs text-[#A89A97]">
-                  {user?.email || 'sreeram@example.com'} • {user?.phone || '+91 98765 01234'}
+                <p className="text-xs text-[#5E5854] font-bold">
+                  {user?.email || 'sreeram@example.com'} • <span className="font-mono">{user?.phone || '+91 98765 01234'}</span>
                 </p>
-                <div className="flex items-center gap-2 text-[11px] text-[#A89A97] pt-1">
+                <div className="flex items-center gap-2 text-xs font-semibold text-[#5E5854]">
                   <MapPin className="w-3.5 h-3.5 text-[#FF650D]" />
-                  <span>Hyderabad, India</span>
+                  <span>Jubilee Hills, Hyderabad</span>
                   <span>•</span>
                   <span>Member since Oct 2026</span>
                 </div>
@@ -211,7 +214,7 @@ export const AccountPage: React.FC = () => {
             <div className="flex items-center gap-3">
               <Link
                 to="/restaurants"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#FF650D] hover:bg-[#E55400] text-white text-xs font-bold transition-colors cursor-pointer shadow-lg shadow-[#FF650D]/20"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#FF650D] hover:bg-[#E55400] text-white text-xs font-bold font-['Outfit'] border-2 border-[#121212] shadow-[3px_3px_0px_#121212] hover:translate-x-[1px] hover:translate-y-[1px] transition-all cursor-pointer"
               >
                 <span>Discover Food</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -220,7 +223,7 @@ export const AccountPage: React.FC = () => {
           </div>
 
           {/* Navigation Tabs */}
-          <div className="flex items-center gap-2 sm:gap-4 mt-8 pt-6 border-t border-[#4D3F3C]/60 overflow-x-auto">
+          <div className="flex items-center gap-2 sm:gap-3 mt-8 pt-6 border-t-2 border-[#121212] overflow-x-auto pb-1">
             {[
               { id: 'orders', label: 'Order History', count: displayOrders.length },
               { id: 'addresses', label: 'Saved Addresses', count: addresses.length },
@@ -233,17 +236,17 @@ export const AccountPage: React.FC = () => {
                   key={tab.id}
                   type="button"
                   onClick={() => setActiveTab(tab.id as typeof activeTab)}
-                  className={`px-4 py-2.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer flex items-center gap-2 ${
+                  className={`px-4 py-2.5 rounded-xl text-xs font-black font-['Outfit'] uppercase tracking-wider whitespace-nowrap transition-all cursor-pointer flex items-center gap-2 border-2 border-[#121212] ${
                     isActive
-                      ? 'bg-[#641820] text-white border border-[#FF650D]/60 shadow-md'
-                      : 'text-[#A89A97] hover:text-white hover:bg-[#211A19]'
+                      ? 'bg-[#FF650D] text-white shadow-[3px_3px_0px_#121212] -translate-y-0.5'
+                      : 'bg-[#FAF6EE] text-[#5E5854] hover:text-[#121212] hover:bg-white shadow-[2px_2px_0px_#121212]/30'
                   }`}
                 >
                   <span>{tab.label}</span>
                   {tab.count !== null && (
                     <span
-                      className={`px-1.5 py-0.2 rounded-full text-[10px] ${
-                        isActive ? 'bg-[#FF650D] text-white' : 'bg-[#211A19] text-[#A89A97]'
+                      className={`px-2 py-0.5 rounded-md text-[10px] font-mono font-bold border border-[#121212] ${
+                        isActive ? 'bg-[#121212] text-[#FFF4C2]' : 'bg-white text-[#121212]'
                       }`}
                     >
                       {tab.count}
@@ -259,10 +262,17 @@ export const AccountPage: React.FC = () => {
         {activeTab === 'orders' && (
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <h2 className="text-lg font-bold text-white font-['Outfit']">
-                Your Gastronomic Journey
-              </h2>
-              <span className="text-xs text-[#A89A97]">Showing past & active dispatches</span>
+              <div>
+                <h2 className="text-xl font-black text-[#121212] font-['Outfit']">
+                  Your Gastronomic Journey
+                </h2>
+                <div className="w-32 text-[#FF650D]">
+                  <ScribbleUnderline />
+                </div>
+              </div>
+              <span className="text-xs font-bold font-['Oswald'] uppercase tracking-wider text-[#5E5854]">
+                Showing past & active dispatches
+              </span>
             </div>
 
             {displayOrders.map((ord) => {
@@ -270,25 +280,25 @@ export const AccountPage: React.FC = () => {
               return (
                 <div
                   key={ord.id}
-                  className="bg-[#2E2423] border border-[#4D3F3C] rounded-2xl p-6 space-y-4 hover:border-[#6B5A57] transition-all"
+                  className="bg-white border-2 sm:border-[2.5px] border-[#121212] rounded-2xl p-6 space-y-4 shadow-[6px_6px_0px_#121212] transition-all hover:-translate-y-0.5"
                 >
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#4D3F3C]/60 pb-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b-2 border-[#121212] pb-4">
                     <div>
                       <div className="flex items-center gap-2.5">
-                        <span className="text-base font-bold text-white font-['Outfit']">
+                        <span className="text-lg font-black text-[#121212] font-['Outfit']">
                           {ord.restaurantNameSnapshot}
                         </span>
                         <span
-                          className={`text-[10px] uppercase font-bold px-2 py-0.5 rounded-full ${
+                          className={`text-[10px] uppercase font-black font-['Oswald'] px-2.5 py-0.5 rounded-md border-2 border-[#121212] shadow-[1px_1px_0px_#121212] ${
                             isDelivered
-                              ? 'bg-emerald-950/80 border border-emerald-500/40 text-emerald-400'
-                              : 'bg-[#FF650D]/20 border border-[#FF650D]/40 text-[#FF650D] animate-pulse'
+                              ? 'bg-[#D1FAE5] text-[#059669]'
+                              : 'bg-[#FFD13B] text-[#121212] animate-pulse'
                           }`}
                         >
                           {ord.status.replace('_', ' ')}
                         </span>
                       </div>
-                      <p className="text-xs text-[#A89A97] mt-0.5">
+                      <p className="text-xs font-medium text-[#5E5854] mt-1">
                         Order #{ord.orderNumber} • Placed on{' '}
                         {new Date(ord.placedAt).toLocaleDateString('en-IN', {
                           month: 'short',
@@ -300,11 +310,11 @@ export const AccountPage: React.FC = () => {
                       </p>
                     </div>
 
-                    <div className="flex items-center gap-2">
+                    <div className="flex flex-wrap items-center gap-2">
                       {!isDelivered && (
                         <Link
                           to={`/orders/${ord.id}`}
-                          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#FF650D] text-white text-xs font-bold hover:bg-[#E55400] transition-colors"
+                          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#FF650D] text-white text-xs font-black font-['Outfit'] border-2 border-[#121212] shadow-[2px_2px_0px_#121212] hover:translate-x-[1px] hover:translate-y-[1px] transition-all"
                         >
                           <Clock className="w-3.5 h-3.5" />
                           <span>Track Live GPS</span>
@@ -314,7 +324,7 @@ export const AccountPage: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => handle1ClickReorder(ord)}
-                        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#211A19] hover:bg-[#3D302E] border border-[#4D3F3C] text-white text-xs font-bold transition-colors cursor-pointer"
+                        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#FFF4C2] hover:bg-[#FFD13B] text-[#121212] text-xs font-black font-['Outfit'] border-2 border-[#121212] shadow-[2px_2px_0px_#121212] hover:translate-x-[1px] hover:translate-y-[1px] transition-all cursor-pointer"
                       >
                         <RotateCcw className="w-3.5 h-3.5 text-[#FF650D]" />
                         <span>Reorder 1-Click</span>
@@ -324,9 +334,9 @@ export const AccountPage: React.FC = () => {
                         <button
                           type="button"
                           onClick={() => setReviewOrder(ord)}
-                          className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#211A19] hover:bg-[#3D302E] border border-[#4D3F3C] text-[#A89A97] hover:text-white text-xs font-semibold transition-colors cursor-pointer"
+                          className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#FAF6EE] hover:bg-white text-[#121212] text-xs font-bold font-['Outfit'] border-2 border-[#121212] shadow-[2px_2px_0px_#121212] hover:translate-x-[1px] hover:translate-y-[1px] transition-all cursor-pointer"
                         >
-                          <Star className="w-3.5 h-3.5 text-amber-400" />
+                          <Star className="w-3.5 h-3.5 text-[#FF650D] fill-[#FF650D]" />
                           <span>Rate Tasting</span>
                         </button>
                       )}
@@ -338,20 +348,20 @@ export const AccountPage: React.FC = () => {
                     {ord.items.map((item) => (
                       <div
                         key={item.id}
-                        className="flex items-start justify-between text-xs py-1 text-[#FFF0D5]/90"
+                        className="flex items-start justify-between text-xs py-1 text-[#121212]"
                       >
                         <div className="space-y-0.5">
-                          <span className="font-medium">
+                          <span className="font-bold font-['Outfit']">
                             {item.quantity}× {item.itemNameSnapshot}
                           </span>
                           {item.customizationDetailsSnapshot &&
                             item.customizationDetailsSnapshot.length > 0 && (
-                              <div className="text-[11px] text-[#A89A97]">
+                              <div className="text-[11px] text-[#5E5854] font-medium pl-4">
                                 {item.customizationDetailsSnapshot.map((c) => c.optionName).join(', ')}
                               </div>
                             )}
                         </div>
-                        <span className="font-mono text-white">
+                        <span className="font-mono font-bold text-[#121212]">
                           {formatCurrency(item.totalPriceSnapshot, 'INR')}
                         </span>
                       </div>
@@ -359,18 +369,18 @@ export const AccountPage: React.FC = () => {
                   </div>
 
                   {/* Summary Bar */}
-                  <div className="pt-3 border-t border-[#4D3F3C]/40 flex flex-wrap items-center justify-between text-xs text-[#A89A97]">
+                  <div className="pt-3 border-t-2 border-[#121212]/15 flex flex-wrap items-center justify-between text-xs text-[#5E5854] font-medium">
                     <div className="flex items-center gap-2">
-                      <MapPin className="w-3.5 h-3.5 text-[#FF650D]" />
+                      <MapPin className="w-4 h-4 text-[#FF650D]" />
                       <span>Delivered to {ord.deliveryAddress.label} ({ord.deliveryAddress.addressLine1})</span>
                     </div>
 
                     <div className="flex items-center gap-3">
-                      <span>Total Paid:</span>
-                      <span className="text-sm font-bold font-mono text-white">
+                      <span className="font-bold">Total Paid:</span>
+                      <span className="text-base font-black font-mono text-[#FF650D]">
                         {formatCurrency(ord.finalPaidAmount, 'INR')}
                       </span>
-                      <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#211A19] border border-[#4D3F3C]">
+                      <span className="text-[10px] font-black font-['Oswald'] px-2 py-0.5 rounded bg-white border border-[#121212] shadow-[1px_1px_0px_#121212] text-[#121212]">
                         {ord.paymentMethod}
                       </span>
                     </div>
@@ -386,16 +396,16 @@ export const AccountPage: React.FC = () => {
           <div className="space-y-6">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="text-lg font-bold text-white font-['Outfit']">
+                <h2 className="text-xl font-black text-[#121212] font-['Outfit']">
                   Saved Delivery Coordinates
                 </h2>
-                <p className="text-xs text-[#A89A97]">Locations for thermal delivery dispatch</p>
+                <p className="text-xs text-[#5E5854] font-medium">Locations for thermal delivery dispatch</p>
               </div>
 
               <button
                 type="button"
                 onClick={() => setShowAddAddressModal(true)}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#FF650D] hover:bg-[#E55400] text-white text-xs font-bold transition-colors cursor-pointer"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#FF650D] hover:bg-[#E55400] text-white text-xs font-black font-['Outfit'] border-2 border-[#121212] shadow-[3px_3px_0px_#121212] hover:translate-x-[1px] hover:translate-y-[1px] transition-all cursor-pointer"
               >
                 <Plus className="w-4 h-4" />
                 <span>Add Coordinate</span>
@@ -406,34 +416,34 @@ export const AccountPage: React.FC = () => {
               {addresses.map((addr) => (
                 <div
                   key={addr.id}
-                  className="bg-[#2E2423] border border-[#4D3F3C] rounded-2xl p-5 space-y-3 relative group"
+                  className="bg-white border-2 sm:border-[2.5px] border-[#121212] rounded-2xl p-5 space-y-3 relative shadow-[4px_4px_0px_#121212]"
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 rounded-lg bg-[#FF650D]/20 text-[#FF650D] flex items-center justify-center font-bold text-xs">
-                        <MapPin className="w-4 h-4" />
+                      <div className="w-8 h-8 rounded-lg bg-[#FFD13B] text-[#121212] border-2 border-[#121212] shadow-[1px_1px_0px_#121212] flex items-center justify-center font-bold text-xs">
+                        <MapPin className="w-4 h-4 text-[#FF650D]" />
                       </div>
-                      <span className="text-xs font-bold uppercase tracking-wider text-white">
+                      <span className="text-xs font-black uppercase tracking-wider text-[#121212] font-['Oswald']">
                         {addr.label}
                       </span>
                     </div>
                     {addr.isDefault && (
-                      <span className="text-[10px] bg-emerald-950/80 border border-emerald-500/40 text-emerald-400 px-2 py-0.5 rounded-full font-bold">
+                      <span className="text-[10px] bg-[#D1FAE5] border-2 border-[#121212] text-[#059669] px-2 py-0.5 rounded-md font-bold font-['Oswald'] shadow-[1px_1px_0px_#121212]">
                         Default Coordinate
                       </span>
                     )}
                   </div>
 
-                  <div className="space-y-1 text-xs text-[#A89A97]">
-                    <div className="font-semibold text-white">
-                      {addr.recipientName} • {addr.recipientPhone}
+                  <div className="space-y-1 text-xs text-[#5E5854] font-medium">
+                    <div className="font-bold text-[#121212]">
+                      {addr.recipientName} • <span className="font-mono">{addr.recipientPhone}</span>
                     </div>
                     <p className="leading-relaxed">
                       {addr.addressLine1}
                       {addr.addressLine2 ? `, ${addr.addressLine2}` : ''}
                       {addr.landmark ? ` (Landmark: ${addr.landmark})` : ''}
                     </p>
-                    <p>
+                    <p className="font-bold text-[#121212]">
                       {addr.city} - {addr.pincode}
                     </p>
                   </div>
@@ -445,18 +455,18 @@ export const AccountPage: React.FC = () => {
             {showAddAddressModal && (
               <form
                 onSubmit={handleAddNewAddress}
-                className="bg-[#2E2423] border border-[#FF650D] rounded-2xl p-6 space-y-4 max-w-xl mx-auto animate-in fade-in"
+                className="bg-[#FAF6EE] border-2 sm:border-[2.5px] border-[#121212] rounded-2xl p-6 space-y-4 max-w-xl mx-auto shadow-[6px_6px_0px_#121212] animate-in fade-in"
               >
-                <div className="flex items-center justify-between border-b border-[#4D3F3C] pb-3">
-                  <h3 className="text-sm font-bold uppercase text-white font-['Outfit']">
-                    Add New Delivery Address
+                <div className="flex items-center justify-between border-b-2 border-[#121212] pb-3">
+                  <h3 className="text-sm font-black uppercase text-[#121212] font-['Oswald']">
+                    Add New Hyderabad Coordinate
                   </h3>
                   <button
                     type="button"
                     onClick={() => setShowAddAddressModal(false)}
-                    className="text-xs text-[#A89A97] hover:text-white"
+                    className="text-xs font-bold text-[#5E5854] hover:text-[#121212] px-2 py-0.5 border border-[#121212] rounded bg-white shadow-[1px_1px_0px_#121212]"
                   >
-                    ✕ Cancel
+                    ✕ Close
                   </button>
                 </div>
 
@@ -466,10 +476,10 @@ export const AccountPage: React.FC = () => {
                       key={lbl}
                       type="button"
                       onClick={() => setNewLabel(lbl)}
-                      className={`py-2 text-xs rounded-xl font-semibold transition-colors ${
+                      className={`py-2 text-xs rounded-xl font-black font-['Outfit'] border-2 border-[#121212] transition-all cursor-pointer ${
                         newLabel === lbl
-                          ? 'bg-[#FF650D] text-white'
-                          : 'bg-[#211A19] text-[#A89A97] hover:text-white'
+                          ? 'bg-[#FF650D] text-white shadow-[2px_2px_0px_#121212]'
+                          : 'bg-white text-[#5E5854] hover:text-[#121212]'
                       }`}
                     >
                       {lbl}
@@ -478,7 +488,7 @@ export const AccountPage: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-[11px] text-[#A89A97] uppercase tracking-wider mb-1">
+                  <label className="block text-[11px] text-[#5E5854] font-bold uppercase tracking-wider mb-1 font-['Oswald']">
                     Street Address / Flat / Floor *
                   </label>
                   <input
@@ -486,14 +496,14 @@ export const AccountPage: React.FC = () => {
                     required
                     value={newAddressLine1}
                     onChange={(e) => setNewAddressLine1(e.target.value)}
-                    placeholder="e.g. 504 Tower C, Prestige Kingfisher Towers"
-                    className="w-full px-3 py-2 text-xs rounded-xl bg-[#211A19] border border-[#4D3F3C] text-white focus:outline-none focus:border-[#FF650D]"
+                    placeholder="e.g. Villa 14, Whispering Palms, Road No. 36"
+                    className="w-full px-3 py-2 text-xs rounded-xl bg-white border-2 border-[#121212] text-[#121212] font-medium shadow-[2px_2px_0px_#121212] focus:outline-none focus:bg-[#FFF4C2]"
                   />
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-[11px] text-[#A89A97] uppercase tracking-wider mb-1">
+                    <label className="block text-[11px] text-[#5E5854] font-bold uppercase tracking-wider mb-1 font-['Oswald']">
                       Landmark
                     </label>
                     <input
@@ -501,11 +511,11 @@ export const AccountPage: React.FC = () => {
                       value={newLandmark}
                       onChange={(e) => setNewLandmark(e.target.value)}
                       placeholder="e.g. Near Peddamma Temple"
-                      className="w-full px-3 py-2 text-xs rounded-xl bg-[#211A19] border border-[#4D3F3C] text-white focus:outline-none focus:border-[#FF650D]"
+                      className="w-full px-3 py-2 text-xs rounded-xl bg-white border-2 border-[#121212] text-[#121212] font-medium shadow-[2px_2px_0px_#121212] focus:outline-none focus:bg-[#FFF4C2]"
                     />
                   </div>
                   <div>
-                    <label className="block text-[11px] text-[#A89A97] uppercase tracking-wider mb-1">
+                    <label className="block text-[11px] text-[#5E5854] font-bold uppercase tracking-wider mb-1 font-['Oswald']">
                       PIN Code *
                     </label>
                     <input
@@ -514,14 +524,14 @@ export const AccountPage: React.FC = () => {
                       value={newPincode}
                       onChange={(e) => setNewPincode(e.target.value)}
                       placeholder="500033"
-                      className="w-full px-3 py-2 text-xs rounded-xl bg-[#211A19] border border-[#4D3F3C] text-white focus:outline-none focus:border-[#FF650D]"
+                      className="w-full px-3 py-2 text-xs rounded-xl bg-white border-2 border-[#121212] text-[#121212] font-medium shadow-[2px_2px_0px_#121212] focus:outline-none focus:bg-[#FFF4C2]"
                     />
                   </div>
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full py-2.5 rounded-xl bg-[#FF650D] hover:bg-[#E55400] text-white text-xs font-bold transition-colors cursor-pointer"
+                  className="w-full py-2.5 rounded-xl bg-[#FF650D] hover:bg-[#E55400] text-white text-xs font-black font-['Outfit'] uppercase tracking-wider border-2 border-[#121212] shadow-[3px_3px_0px_#121212] hover:translate-x-[1px] hover:translate-y-[1px] transition-all cursor-pointer"
                 >
                   Save Address Coordinate
                 </button>
@@ -534,22 +544,22 @@ export const AccountPage: React.FC = () => {
         {activeTab === 'favorites' && (
           <div className="space-y-6">
             <div>
-              <h2 className="text-lg font-bold text-white font-['Outfit']">
+              <h2 className="text-xl font-black text-[#121212] font-['Outfit']">
                 Curated Favorite Ateliers
               </h2>
-              <p className="text-xs text-[#A89A97]">Quick access to your preferred gastronomic kitchens</p>
+              <p className="text-xs text-[#5E5854] font-medium">Quick access to your preferred gastronomic kitchens</p>
             </div>
 
             {favoriteRestaurants.length === 0 ? (
-              <div className="bg-[#2E2423] border border-[#4D3F3C] rounded-2xl p-12 text-center space-y-4">
+              <div className="bg-white border-2 sm:border-[2.5px] border-[#121212] rounded-2xl p-12 text-center space-y-4 shadow-[6px_6px_0px_#121212]">
                 <Heart className="w-12 h-12 text-[#FF650D] mx-auto" />
-                <h3 className="text-base font-bold text-white font-['Outfit']">No Saved Favorites Yet</h3>
-                <p className="text-xs text-[#A89A97] max-w-sm mx-auto">
+                <h3 className="text-lg font-black text-[#121212] font-['Outfit']">No Saved Favorites Yet</h3>
+                <p className="text-xs text-[#5E5854] max-w-sm mx-auto font-medium">
                   Click the heart icon on any restaurant or dish to pin them to your personal tasting cellar.
                 </p>
                 <Link
                   to="/restaurants"
-                  className="inline-flex px-5 py-2.5 rounded-xl bg-[#FF650D] text-white text-xs font-bold"
+                  className="inline-flex px-5 py-2.5 rounded-xl bg-[#FF650D] text-white text-xs font-bold font-['Outfit'] border-2 border-[#121212] shadow-[3px_3px_0px_#121212]"
                 >
                   Explore Restaurants
                 </Link>
@@ -559,46 +569,46 @@ export const AccountPage: React.FC = () => {
                 {favoriteRestaurants.map((res) => (
                   <div
                     key={res.id}
-                    className="bg-[#2E2423] border border-[#4D3F3C] rounded-2xl overflow-hidden hover:border-[#6B5A57] transition-all flex flex-col sm:flex-row"
+                    className="bg-white border-2 sm:border-[2.5px] border-[#121212] rounded-2xl overflow-hidden shadow-[6px_6px_0px_#121212] flex flex-col sm:flex-row hover:-translate-y-0.5 transition-all"
                   >
                     <img
                       src={res.coverImage}
                       alt={res.name}
-                      className="w-full sm:w-44 h-40 sm:h-auto object-cover"
+                      className="w-full sm:w-44 h-40 sm:h-auto object-cover border-b-2 sm:border-b-0 sm:border-r-2 border-[#121212]"
                     />
                     <div className="p-5 flex-1 flex flex-col justify-between space-y-3">
                       <div>
                         <div className="flex items-center justify-between">
-                          <h4 className="text-sm font-bold text-white font-['Outfit']">
+                          <h4 className="text-base font-black text-[#121212] font-['Outfit']">
                             {res.name}
                           </h4>
-                          <span className="text-xs font-bold text-amber-400 flex items-center gap-1">
-                            <Star className="w-3.5 h-3.5 fill-amber-400" />
+                          <span className="text-xs font-black text-[#121212] bg-[#FFD13B] border border-[#121212] px-2 py-0.5 rounded shadow-[1px_1px_0px_#121212] flex items-center gap-1 font-['Oswald']">
+                            <Star className="w-3.5 h-3.5 fill-[#121212]" />
                             {res.rating}
                           </span>
                         </div>
-                        <p className="text-xs text-[#A89A97] mt-1 line-clamp-1">{res.tagline}</p>
-                        <div className="text-[11px] text-[#A89A97] mt-2 flex items-center gap-2">
-                          <MapPin className="w-3 h-3 text-[#FF650D]" />
+                        <p className="text-xs text-[#5E5854] font-medium mt-1 line-clamp-1">{res.tagline}</p>
+                        <div className="text-[11px] text-[#5E5854] font-medium mt-2 flex items-center gap-2">
+                          <MapPin className="w-3.5 h-3.5 text-[#FF650D]" />
                           <span>{res.addressLine}</span>
                           <span>•</span>
                           <span>{res.deliveryTimeEstimateMin} mins</span>
                         </div>
                       </div>
 
-                      <div className="flex items-center justify-between pt-2 border-t border-[#4D3F3C]/60">
+                      <div className="flex items-center justify-between pt-2 border-t-2 border-[#121212]/15">
                         <button
                           type="button"
                           onClick={() => toggleFavorite(res.id)}
-                          className="text-xs text-rose-400 hover:text-rose-300 flex items-center gap-1 cursor-pointer"
+                          className="text-xs font-bold text-[#EF4444] hover:text-[#DC2626] flex items-center gap-1 cursor-pointer font-['Outfit']"
                         >
-                          <Heart className="w-3.5 h-3.5 fill-rose-400" />
+                          <Heart className="w-3.5 h-3.5 fill-[#EF4444]" />
                           <span>Remove</span>
                         </button>
 
                         <Link
                           to={`/restaurants/${res.slug}`}
-                          className="px-3.5 py-1.5 rounded-lg bg-[#FF650D] hover:bg-[#E55400] text-white text-xs font-bold transition-colors"
+                          className="px-3.5 py-1.5 rounded-lg bg-[#FF650D] hover:bg-[#E55400] text-white text-xs font-black font-['Outfit'] border-2 border-[#121212] shadow-[2px_2px_0px_#121212] transition-colors"
                         >
                           View Menu →
                         </Link>
@@ -613,57 +623,60 @@ export const AccountPage: React.FC = () => {
 
         {/* Tab 4: Profile & Security */}
         {activeTab === 'profile' && (
-          <div className="bg-[#2E2423] border border-[#4D3F3C] rounded-2xl p-6 sm:p-8 space-y-6 max-w-2xl">
-            <div className="border-b border-[#4D3F3C] pb-4">
-              <h2 className="text-lg font-bold text-white font-['Outfit']">
+          <div className="bg-white border-2 sm:border-[2.5px] border-[#121212] rounded-2xl p-6 sm:p-8 space-y-6 max-w-2xl shadow-[6px_6px_0px_#121212]">
+            <div className="border-b-2 border-[#121212] pb-4">
+              <h2 className="text-xl font-black text-[#121212] font-['Outfit']">
                 Account & Security Profile
               </h2>
-              <p className="text-xs text-[#A89A97]">Managed via ARO customer identity directory</p>
+              <p className="text-xs text-[#5E5854] font-medium">Managed via ARO customer identity directory</p>
             </div>
 
             <div className="space-y-4 text-xs">
               <div>
-                <label className="block text-[11px] text-[#A89A97] uppercase tracking-wider mb-1">
+                <label className="block text-[11px] text-[#5E5854] font-bold uppercase tracking-wider mb-1 font-['Oswald']">
                   Full Legal Name
                 </label>
                 <input
                   type="text"
                   readOnly
                   value={user?.fullName || 'Sreeram K'}
-                  className="w-full px-3 py-2 rounded-xl bg-[#211A19] border border-[#4D3F3C] text-white font-medium"
+                  className="w-full px-3 py-2.5 rounded-xl bg-[#FAF6EE] border-2 border-[#121212] text-[#121212] font-bold shadow-[2px_2px_0px_#121212]"
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] text-[#A89A97] uppercase tracking-wider mb-1">
+                <label className="block text-[11px] text-[#5E5854] font-bold uppercase tracking-wider mb-1 font-['Oswald']">
                   Registered Email Address
                 </label>
                 <input
                   type="email"
                   readOnly
                   value={user?.email || 'sreeram@example.com'}
-                  className="w-full px-3 py-2 rounded-xl bg-[#211A19] border border-[#4D3F3C] text-white font-medium"
+                  className="w-full px-3 py-2.5 rounded-xl bg-[#FAF6EE] border-2 border-[#121212] text-[#121212] font-bold shadow-[2px_2px_0px_#121212]"
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] text-[#A89A97] uppercase tracking-wider mb-1">
+                <label className="block text-[11px] text-[#5E5854] font-bold uppercase tracking-wider mb-1 font-['Oswald']">
                   Primary Mobile Phone
                 </label>
                 <input
                   type="text"
                   readOnly
                   value={user?.phone || '+91 98765 01234'}
-                  className="w-full px-3 py-2 rounded-xl bg-[#211A19] border border-[#4D3F3C] text-white font-medium"
+                  className="w-full px-3 py-2.5 rounded-xl bg-[#FAF6EE] border-2 border-[#121212] text-[#121212] font-bold font-mono shadow-[2px_2px_0px_#121212]"
                 />
               </div>
 
-              <div className="p-4 rounded-xl bg-[#211A19] border border-[#4D3F3C] flex items-center justify-between">
-                <div>
-                  <span className="font-bold text-white block">Two-Factor Authentication</span>
-                  <span className="text-[#A89A97] text-[11px]">SMS OTP verification active</span>
+              <div className="p-4 rounded-xl bg-[#D1FAE5] border-2 border-[#121212] flex items-center justify-between shadow-[3px_3px_0px_#121212]">
+                <div className="flex items-center gap-3">
+                  <Shield className="w-5 h-5 text-[#059669] shrink-0" />
+                  <div>
+                    <span className="font-black text-[#121212] block font-['Outfit']">Two-Factor Authentication</span>
+                    <span className="text-[#059669] text-[11px] font-bold">SMS OTP verification active for Hyderabad dispatches</span>
+                  </div>
                 </div>
-                <span className="px-2.5 py-1 rounded bg-emerald-950/80 border border-emerald-500/40 text-emerald-400 font-bold text-[10px]">
+                <span className="px-2.5 py-1 rounded-md bg-white border-2 border-[#121212] text-[#059669] font-black text-[10px] font-['Oswald'] shadow-[1px_1px_0px_#121212]">
                   ACTIVE
                 </span>
               </div>
@@ -673,31 +686,31 @@ export const AccountPage: React.FC = () => {
 
         {/* Review Modal */}
         {reviewOrder && (
-          <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4">
-            <div className="bg-[#2E2423] border border-[#FF650D] rounded-2xl p-6 max-w-md w-full space-y-5 animate-in zoom-in-95">
-              <div className="flex items-center justify-between border-b border-[#4D3F3C] pb-3">
-                <h3 className="text-base font-bold text-white font-['Outfit']">
+          <div className="fixed inset-0 z-50 bg-[#121212]/70 backdrop-blur-sm flex items-center justify-center p-4">
+            <div className="bg-white border-2 sm:border-[2.5px] border-[#121212] rounded-2xl p-6 max-w-md w-full space-y-5 shadow-[8px_8px_0px_#121212] animate-in zoom-in-95">
+              <div className="flex items-center justify-between border-b-2 border-[#121212] pb-3">
+                <h3 className="text-lg font-black text-[#121212] font-['Outfit']">
                   Review Tasting Experience
                 </h3>
                 <button
                   type="button"
                   onClick={() => setReviewOrder(null)}
-                  className="text-xs text-[#A89A97] hover:text-white"
+                  className="text-xs font-bold text-[#5E5854] hover:text-[#121212] px-2 py-0.5 border border-[#121212] rounded bg-[#FAF6EE]"
                 >
-                  ✕
+                  ✕ Close
                 </button>
               </div>
 
               {reviewSubmitted ? (
                 <div className="py-8 text-center space-y-3">
-                  <CheckCircle2 className="w-12 h-12 text-emerald-400 mx-auto" />
-                  <h4 className="text-sm font-bold text-white">Review Submitted!</h4>
-                  <p className="text-xs text-[#A89A97]">Thank you for your feedback for {reviewOrder.restaurantNameSnapshot}.</p>
+                  <CheckCircle2 className="w-12 h-12 text-[#059669] mx-auto" />
+                  <h4 className="text-base font-black text-[#121212] font-['Outfit']">Review Submitted!</h4>
+                  <p className="text-xs text-[#5E5854] font-medium">Thank you for your feedback for {reviewOrder.restaurantNameSnapshot}.</p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmitReview} className="space-y-4">
-                  <p className="text-xs text-[#A89A97]">
-                    How was your meal from <strong className="text-white">{reviewOrder.restaurantNameSnapshot}</strong>?
+                  <p className="text-xs text-[#5E5854] font-medium">
+                    How was your meal from <strong className="text-[#121212] font-bold">{reviewOrder.restaurantNameSnapshot}</strong>?
                   </p>
 
                   <div className="flex items-center justify-center gap-2 py-2">
@@ -711,8 +724,8 @@ export const AccountPage: React.FC = () => {
                         <Star
                           className={`w-7 h-7 ${
                             star <= rating
-                              ? 'text-amber-400 fill-amber-400'
-                              : 'text-[#4D3F3C]'
+                              ? 'text-[#FFD13B] fill-[#FFD13B]'
+                              : 'text-[#121212]/20'
                           }`}
                         />
                       </button>
@@ -720,7 +733,7 @@ export const AccountPage: React.FC = () => {
                   </div>
 
                   <div>
-                    <label className="block text-[11px] text-[#A89A97] uppercase tracking-wider mb-1">
+                    <label className="block text-[11px] text-[#5E5854] font-bold uppercase tracking-wider mb-1 font-['Oswald']">
                       Chef Notes & Tasting Comments
                     </label>
                     <textarea
@@ -728,13 +741,13 @@ export const AccountPage: React.FC = () => {
                       value={reviewText}
                       onChange={(e) => setReviewText(e.target.value)}
                       placeholder="The sauce reduction was sublime, arrived at perfect serving temperature..."
-                      className="w-full px-3 py-2 text-xs rounded-xl bg-[#211A19] border border-[#4D3F3C] text-white focus:outline-none focus:border-[#FF650D]"
+                      className="w-full px-3 py-2 text-xs rounded-xl bg-white border-2 border-[#121212] text-[#121212] font-medium shadow-[2px_2px_0px_#121212] focus:outline-none focus:bg-[#FFF4C2]"
                     />
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full py-2.5 rounded-xl bg-[#FF650D] hover:bg-[#E55400] text-white text-xs font-bold transition-colors cursor-pointer"
+                    className="w-full py-2.5 rounded-xl bg-[#FF650D] hover:bg-[#E55400] text-white text-xs font-black font-['Outfit'] uppercase tracking-wider border-2 border-[#121212] shadow-[3px_3px_0px_#121212] hover:translate-x-[1px] hover:translate-y-[1px] transition-all cursor-pointer"
                   >
                     Submit Review
                   </button>

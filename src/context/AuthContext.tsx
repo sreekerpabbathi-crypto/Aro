@@ -73,7 +73,25 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [user, setUser] = useState<CustomerProfile | null>(() => {
     try {
       const stored = localStorage.getItem(AUTH_STORAGE_KEY)
-      return stored ? JSON.parse(stored) : DEFAULT_DEMO_PROFILE
+      if (!stored) return DEFAULT_DEMO_PROFILE
+      const parsed: CustomerProfile = JSON.parse(stored)
+      // Normalize any stale pre-migration Bengaluru addresses in cached profile
+      const cleanAddresses = (parsed.savedAddresses || DEFAULT_DEMO_ADDRESSES).map((addr) => {
+        if (addr.city === 'Bengaluru' || addr.city === 'Bangalore') {
+          return {
+            ...addr,
+            addressLine1: 'Villa 14, Whispering Palms',
+            addressLine2: 'Road No. 36, Jubilee Hills',
+            landmark: 'Near Peddamma Temple Metro',
+            city: 'Hyderabad',
+            pincode: '500033',
+            latitude: 17.4325,
+            longitude: 78.4072,
+          }
+        }
+        return addr
+      })
+      return { ...parsed, savedAddresses: cleanAddresses }
     } catch {
       return DEFAULT_DEMO_PROFILE
     }
@@ -95,13 +113,40 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [orders, setOrders] = useState<Order[]>(() => {
     try {
       const stored = localStorage.getItem(ORDERS_STORAGE_KEY)
-      return stored ? JSON.parse(stored) : []
+      if (!stored) return []
+      const parsed: Order[] = JSON.parse(stored)
+      // Normalize any stale pre-migration Bengaluru order snapshots for Sreeram
+      return parsed.map((ord) => {
+        if (
+          ord.deliveryAddress &&
+          (ord.deliveryAddress.city === 'Bengaluru' || ord.deliveryAddress.city === 'Bangalore') &&
+          (ord.customerId === '00000001-0000-0000-0000-000000000001' || ord.customerId === 'demo-user-1')
+        ) {
+          return {
+            ...ord,
+            deliveryAddress: {
+              ...ord.deliveryAddress,
+              label: 'Home',
+              recipientName: ord.deliveryAddress.recipientName || 'Sreeram K',
+              recipientPhone: ord.deliveryAddress.recipientPhone || '+91 98765 01234',
+              addressLine1: 'Villa 14, Whispering Palms',
+              addressLine2: 'Road No. 36, Jubilee Hills',
+              landmark: 'Near Peddamma Temple Metro',
+              city: 'Hyderabad',
+              pincode: '500033',
+              latitude: 17.4325,
+              longitude: 78.4072,
+            },
+          }
+        }
+        return ord
+      })
     } catch {
       return []
     }
   })
 
-  // Sync with Supabase Auth & fetch existing orders
+  // Sync with Supabase Auth, Addresses table & Orders table
   useEffect(() => {
     if (isSupabaseConfigured) {
       supabase.auth.getSession().then(({ data: { session } }) => {
@@ -119,8 +164,36 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
       })
 
-      // Fetch cloud orders for user profile
+      // Fetch authoritative saved addresses from Supabase addresses table
       const targetProfileId = user?.id || DEFAULT_DEMO_PROFILE.id
+      supabase
+        .from('addresses')
+        .select('*')
+        .eq('profile_id', targetProfileId)
+        .order('is_default', { ascending: false })
+        .then(({ data, error }) => {
+          if (!error && data && data.length > 0) {
+            const mappedAddresses: CustomerAddress[] = data.map((row) => ({
+              id: row.id,
+              userId: row.profile_id,
+              label: row.label as CustomerAddress['label'],
+              recipientName: row.recipient_name,
+              recipientPhone: row.recipient_phone,
+              addressLine1: row.address_line1,
+              addressLine2: row.address_line2 || undefined,
+              landmark: row.landmark || undefined,
+              city: row.city,
+              pincode: row.pincode,
+              latitude: Number(row.latitude),
+              longitude: Number(row.longitude),
+              isDefault: Boolean(row.is_default),
+            }))
+            setAddresses(mappedAddresses)
+            setUser((prev) => (prev ? { ...prev, savedAddresses: mappedAddresses } : prev))
+          }
+        })
+
+      // Fetch cloud orders for user profile
       fetchCustomerOrders(targetProfileId).then((cloudOrders) => {
         if (cloudOrders.length > 0) {
           setOrders((prev) => {
