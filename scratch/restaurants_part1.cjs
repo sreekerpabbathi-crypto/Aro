@@ -1,295 +1,19 @@
-// scratch/restaurants_part1.js
-// Restaurants 1 to 12
+// scratch/restaurants_part1.cjs
+// Audited Restaurants 1 to 13
 
 const PART1 = [
-  // 1 to 4: Refer to existing definitions or standard entries
+  // 1. AnTeRa Kitchen & Bar (Replaces fictional Deccan Table)
   {
     index: 1,
-    name: 'Deccan Table',
-    slug: 'deccan-table',
-    tagline: 'Contemporary Deccani & Telangana heritage cuisine',
-    description: 'Rooted in royal Deccani traditions and Telangana spice crafts. Slow-smoked marag, artisanal bagara rice, and hand-ground spice blends.',
+    name: 'AnTeRa Kitchen & Bar',
+    slug: 'antera-kitchen-and-bar',
+    tagline: 'Authentic Andhra, Telangana & Rayalaseema culinary craft',
+    description: 'Celebrated regional dining in Jubilee Hills bringing together heritage flavours of Telangana, coastal Andhra, and Rayalaseema. Renowned for Bangla Kodi, Bhimavaram Royyala Vepudu, and Nalli Gosht Biryani.',
     cover_image: 'https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=1200&q=80',
     logo_image: 'https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=200&q=80',
-    rating: 4.9,
-    rating_count: 342,
-    price_tier: '₹₹₹₹',
-    delivery_time_min: 35,
-    delivery_time_max: 50,
-    minimum_order: 600,
-    delivery_fee: 80,
-    packaging_fee: 30,
-    is_featured: true,
-    is_open: true,
-    address_line: 'Road No. 36, Jubilee Hills',
-    city: 'Hyderabad',
-    latitude: 17.4325000,
-    longitude: 78.4072000,
-    cuisines: ['contemporary-deccani', 'telangana-heritage'],
-    public_source: 'ARO Catalog / Verified Jubilee Hills Gastronomy',
-    categories: [
-      {
-        name: 'Signature Deccani Starters',
-        slug: 'deccan-starters',
-        items: [
-          { name: 'Slow-Smoked Deccani Marag & Sheermal', description: 'Royal Deccani spiced mutton broth simmered overnight with pistachios, paired with warm saffron sheermal.', price: 1150, image_url: 'https://images.unsplash.com/photo-1547928576-a4a33237cbc3?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 30 },
-          { name: 'Pothuraju Mutton Sukka & Appam', description: 'Telangana highway-style pan-roasted tender goat with caramelized shallots and crispy fermented appam.', price: 980, image_url: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 25 },
-          { name: 'Smoked Subz Shikampuri Kebab (4 pcs)', description: 'Hung yogurt and yam patties stuffed with spiced mint chutney and pomegranate reduction.', price: 650, image_url: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 20 },
-          { name: 'Tawa Macchi Charminar Style', description: 'Fresh river Murrel fillets seared on heavy cast iron with pounded deccani spices and lime.', price: 890, image_url: 'https://images.unsplash.com/photo-1534939561126-855b8675edd7?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 22 }
-        ]
-      },
-      {
-        name: 'Royal Heritage Mains',
-        slug: 'deccan-mains',
-        items: [
-          { name: 'Dum Pukht Gosht Korma', description: 'Pot-roasted baby mutton slow-braised with brown onions, almonds, saffron, and dried rose petals.', price: 1100, image_url: 'https://images.unsplash.com/photo-1545247181-516773cae754?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 30 },
-          { name: 'Bagara Baingan & Paneer Rollatini', description: 'Charred baby brinjals and cottage cheese rolls in roasted peanut, sesame, and tamarind gravy.', price: 740, image_url: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 24 },
-          { name: 'Nalli Nihari Khaas', description: 'Overnight simmered lamb shanks in rich bone marrow reduction with ginger juliennes and lemon.', price: 1250, image_url: 'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 35 },
-          { name: 'Mirchi Ka Salan Heritage Bowl', description: 'Bhavnagri chillies poached gently in spiced coconut, sesame, and peanut emulsion.', price: 520, image_url: 'https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 18 }
-        ]
-      },
-      {
-        name: 'Artisanal Rice & Breads',
-        slug: 'deccan-rice',
-        items: [
-          { name: 'Aged Basmati Sufiyani Biryani', description: 'White royal biryani cooked in milk, cream, and green cardamom with succulent lamb medallions.', price: 1200, image_url: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 30 },
-          { name: 'Telangana Bagara Rice Pot', description: 'Fragrant short-grain rice tempered with whole spices, caramelized shallots, mint, and pure ghee.', price: 420, image_url: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 15 },
-          { name: 'Handcrafted Sheermal (2 pcs)', description: 'Traditional milk-kneaded flatbread infused with Kashmiri saffron and brushed with butter.', price: 240, image_url: 'https://images.unsplash.com/photo-1509722747041-616f39b57569?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 12 },
-          { name: 'Bakarkhani Puff (2 pcs)', description: 'Flaky, layered spiced bread sprinkled with sesame and nigella seeds.', price: 260, image_url: 'https://images.unsplash.com/photo-1586444248902-2f64eddc13df?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 12 }
-        ]
-      },
-      {
-        name: 'Royal Desserts & Sherbets',
-        slug: 'deccan-desserts',
-        items: [
-          { name: 'Khubani Ka Meetha with Clotted Malai', description: 'Slow-stewed dried apricots scented with cardamom, served with thick clotted buffalo cream.', price: 480, image_url: 'https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 12 },
-          { name: 'Zafrani Double Ka Meetha', description: 'Crisp ghee-fried bread steeped in saffron-cardamom rabdi, finished with silver leaf and almonds.', price: 460, image_url: 'https://images.unsplash.com/photo-1579372786545-d24232daf58c?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 15 },
-          { name: 'Rooh Afza & Gond Katira Sherbet', description: 'Heritage rose nectar with chilled basil seeds, tragacanth gum, and fresh lime.', price: 220, image_url: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 8 },
-          { name: 'Paan Gulkand Kulfi', description: 'Creamy frozen rabdi kulfi infused with sweet betel leaf and Damascus rose preserve.', price: 320, image_url: 'https://images.unsplash.com/photo-1505394033641-40c6ad1178d7?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 6 }
-        ]
-      }
-    ]
-  },
-
-  // 2. Kumo House
-  {
-    index: 2,
-    name: 'Kumo House',
-    slug: 'kumo-house',
-    tagline: 'Japanese-inspired dining & robata charcoal art',
-    description: 'Bespoke Tokyo-inspired dining in Banjara Hills. Binchotan-grilled skewers, bluefin nigiri, and delicate yuzu glazes.',
-    cover_image: 'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=1200&q=80',
-    logo_image: 'https://images.unsplash.com/photo-1617196034796-73dfa7b1fd56?auto=format&fit=crop&w=200&q=80',
     rating: 4.8,
-    rating_count: 489,
-    price_tier: '₹₹₹',
-    delivery_time_min: 30,
-    delivery_time_max: 45,
-    minimum_order: 450,
-    delivery_fee: 60,
-    packaging_fee: 25,
-    is_featured: true,
-    is_open: true,
-    address_line: 'Road No. 12, Banjara Hills',
-    city: 'Hyderabad',
-    latitude: 17.4156000,
-    longitude: 78.4352000,
-    cuisines: ['japanese-robata', 'pan-asian'],
-    public_source: 'ARO Catalog / Banjara Hills Gourmet Dining',
-    categories: [
-      {
-        name: 'Chef Signature Nigiri & Sashimi',
-        slug: 'kumo-nigiri',
-        items: [
-          { name: 'Truffle Hamachi Nigiri (4 pcs)', description: 'Yellowtail kingfish brushed with nikiri soy, finished with fresh black winter truffle and chives.', price: 850, image_url: 'https://images.unsplash.com/photo-1611143669185-af224c5e3252?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 20 },
-          { name: 'Aburi Salmon Belly Nigiri (4 pcs)', description: 'Torched Norwegian salmon belly with spicy cod roe mayo, unagi tare, and scallions.', price: 790, image_url: 'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 18 },
-          { name: 'Avocado & Truffle Nigiri (4 pcs)', description: 'Hass avocado glazed with sweet mushroom reduction and white truffle oil.', price: 520, image_url: 'https://images.unsplash.com/photo-1617196034796-73dfa7b1fd56?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 15 },
-          { name: 'Bluefin Tuna Akami Sashimi (5 slices)', description: 'Prime cut tuna loin served with freshly grated Hon-wasabi and pickled ginger.', price: 980, image_url: 'https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 16 }
-        ]
-      },
-      {
-        name: 'Robata Charcoal Skewers',
-        slug: 'kumo-robata',
-        items: [
-          { name: 'Charred King Oyster Mushroom Skewers', description: 'Robata charcoal grilled oyster mushrooms glazed with garlic-miso tare and sesame crunch.', price: 420, image_url: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 18 },
-          { name: 'Yakitori Negima Chicken Skewers', description: 'Chicken thigh and charred Tokyo scallions basted with aged sweet soy reduction.', price: 540, image_url: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 20 },
-          { name: 'Tiger Prawn Kushiyaki (3 pcs)', description: 'Jumbo prawns grilled over binchotan with sansho pepper and yuzu kosho butter.', price: 720, image_url: 'https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 22 },
-          { name: 'Tenderloin Beef Tsukune', description: 'Hand-minced spiced beef skewers glazed with sweet soy, served with organic onsen yolk.', price: 680, image_url: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 22 }
-        ]
-      },
-      {
-        name: 'Artisanal Ramen & Bowls',
-        slug: 'kumo-ramen',
-        items: [
-          { name: 'Truffle Tonkotsu Style Ramen', description: '24-hour slow braised chicken and dashi broth, ramen noodles, ajitsuke tamago, nori, and black garlic oil.', price: 780, image_url: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 24 },
-          { name: 'Spicy Miso Wild Mushroom Ramen', description: 'Rich fermented red miso and shiitake broth, sweet corn, bamboo shoots, and rayu chili drizzle.', price: 640, image_url: 'https://images.unsplash.com/photo-1591814468924-caf88d1232e1?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 20 },
-          { name: 'Wagyu Beef Yakiniku Donburi', description: 'Thinly sliced teriyaki beef over steamed koshihikari rice, scallions, sesame, and pickled ginger.', price: 890, image_url: 'https://images.unsplash.com/photo-1546069901-d8a4369e5d48?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 22 },
-          { name: 'Unagi Kabayaki Rice Bowl', description: 'Caramelized freshwater eel fillet over fragrant rice with sansho pepper garnish.', price: 950, image_url: 'https://images.unsplash.com/photo-1580822184713-fc5400e7fe10?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 25 }
-        ]
-      },
-      {
-        name: 'Desserts & Refreshments',
-        slug: 'kumo-desserts',
-        items: [
-          { name: 'Matcha Molten Tart', description: 'Warm Uji ceremonial matcha molten tart with black sesame crumble.', price: 450, image_url: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 15 },
-          { name: 'Yuzu & Lychee Sparkling Soda', description: 'Japanese yuzu juice pressed with sweet lychee puree and sparkling water.', price: 280, image_url: 'https://images.unsplash.com/photo-1556881286-fc6915169721?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 6 },
-          { name: 'Mochi Ice Cream Trio', description: 'Handmade glutinous rice mochi filled with black sesame, green tea, and salted caramel gelato.', price: 390, image_url: 'https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 8 },
-          { name: 'Hojicha Smoked Iced Tea', description: 'Roasted green tea cold-brewed with white peach nectar.', price: 260, image_url: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 5 }
-        ]
-      }
-    ]
-  },
-
-  // 3. Forno & Fig
-  {
-    index: 3,
-    name: 'Forno & Fig',
-    slug: 'forno-and-fig',
-    tagline: 'Artisanal wood-fired Italian dining & handmade pasta',
-    description: 'Pugliese burrata, 72-hour sourdough Neapolitan pizzas, and bronze-die extruded pasta crafted daily in Gachibowli.',
-    cover_image: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1200&q=80',
-    logo_image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=200&q=80',
-    rating: 4.7,
-    rating_count: 612,
-    price_tier: '₹₹',
-    delivery_time_min: 25,
-    delivery_time_max: 40,
-    minimum_order: 300,
-    delivery_fee: 40,
-    packaging_fee: 20,
-    is_featured: true,
-    is_open: true,
-    address_line: 'Financial District, Gachibowli',
-    city: 'Hyderabad',
-    latitude: 17.4401000,
-    longitude: 78.3489000,
-    cuisines: ['artisanal-italian'],
-    public_source: 'ARO Catalog / Financial District Artisanal Kitchens',
-    categories: [
-      {
-        name: 'Wood-Fired Neapolitan Pizza',
-        slug: 'forno-pizzas',
-        items: [
-          { name: 'Burrata & Charred Fig Pizza', description: 'San Marzano tomato base, fresh pugliese burrata, caramelized Mission figs, aged balsamic drizzle.', price: 720, image_url: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 22 },
-          { name: 'Diavola Pepperoni & Hot Nduja Pizza', description: 'Spicy artisanal pork salami, smoked provolone, chili flakes, and San Marzano DOP tomatoes.', price: 840, image_url: 'https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 20 },
-          { name: 'Tartufo Funghi & Fontina Pizza', description: 'Wild porcini, button mushrooms, garlic crema, fontina cheese, and black truffle oil drizzle.', price: 790, image_url: 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 22 },
-          { name: 'Margherita Verace D.O.P.', description: 'Buffalo mozzarella, sweet cherry tomatoes, fresh Genovese basil, and cold-pressed EVOO.', price: 580, image_url: 'https://images.unsplash.com/photo-1595854341625-f33ee10dbf94?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 18 }
-        ]
-      },
-      {
-        name: 'Artisanal Fresh Pasta',
-        slug: 'forno-pastas',
-        items: [
-          { name: 'Handmade Truffle Tagliolini', description: 'Egg pasta tossed in French butter, 24-month Parmigiano-Reggiano, and shaved Norcia truffles.', price: 790, image_url: 'https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 20 },
-          { name: 'Slow-Cooked Lamb Ragu Pappardelle', description: 'Braised lamb shoulder with rosemary, red wine, and plum tomatoes over wide ribbon pasta.', price: 820, image_url: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 25 },
-          { name: 'Pesto Genovese Gnocchi', description: 'Pillow-soft potato gnocchi tossed with sweet basil, pine nuts, garlic, and pecorino romano.', price: 660, image_url: 'https://images.unsplash.com/photo-1546549032-9571cd6b27df?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 18 },
-          { name: 'Spaghetti ai Frutti di Mare', description: 'Squid ink spaghetti tossed with calamari, black tiger prawns, cherry tomatoes, and white wine.', price: 890, image_url: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 22 }
-        ]
-      },
-      {
-        name: 'Antipasti & Salads',
-        slug: 'forno-antipasti',
-        items: [
-          { name: 'Heirloom Tomato & Burrata Caprese', description: 'Vibrant heirloom tomatoes, creamy burrata ball, aged Modena balsamic, and micro basil.', price: 590, image_url: 'https://images.unsplash.com/photo-1592417817098-8f3d6eb22509?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 12 },
-          { name: 'Charred Polenta Crust Bruschetta', description: 'Crisp polenta batons topped with wild garlic mushrooms and goat cheese mousse.', price: 480, image_url: 'https://images.unsplash.com/photo-1572695157366-5e585ab2b69f?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 14 },
-          { name: 'Crispy Calamari Fritti', description: 'Tender baby squid dusted with semolina, fried crisp and served with smoked garlic aioli.', price: 620, image_url: 'https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 15 },
-          { name: 'Warm Garlic Rosemary Focaccia', description: 'Baked in the wood-fired oven with Maldon sea salt and Tuscan rosemary.', price: 320, image_url: 'https://images.unsplash.com/photo-1509722747041-616f39b57569?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 10 }
-        ]
-      },
-      {
-        name: 'Dolci & Beverages',
-        slug: 'forno-dolci',
-        items: [
-          { name: 'Classic Savoiardi Tiramisu', description: 'Espresso-soaked ladyfinger sponge layered with light mascarpone sabayon and Valrhona cocoa.', price: 460, image_url: 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 10 },
-          { name: 'Sicilian Pistachio Panna Cotta', description: 'Silky cream infused with Bronte pistachio paste, topped with crushed raspberries.', price: 420, image_url: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 10 },
-          { name: 'San Pellegrino Blood Orange Fizz', description: 'Italian sparkling mineral water with natural Sicilian arancia rossa citrus.', price: 240, image_url: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 5 },
-          { name: 'Espresso Affogato al Caffe', description: 'Double shot of hot arabica espresso poured over Madagascar vanilla bean gelato.', price: 290, image_url: 'https://images.unsplash.com/photo-1517256064527-09c73fc73e38?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 5 }
-        ]
-      }
-    ]
-  },
-
-  // 4. Nizami Hearth
-  {
-    index: 4,
-    name: 'Nizami Hearth',
-    slug: 'nizami-hearth',
-    tagline: 'Royal Hyderabadi & Awadhi-inspired dum heritage',
-    description: 'Centuries-old slow-simmered dum preparations, aged basmati gosht biryanis, saffron-infused korma, and flaky roomali.',
-    cover_image: 'https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&w=1200&q=80',
-    logo_image: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=200&q=80',
-    rating: 4.9,
-    rating_count: 521,
-    price_tier: '₹₹₹₹',
-    delivery_time_min: 35,
-    delivery_time_max: 50,
-    minimum_order: 500,
-    delivery_fee: 70,
-    packaging_fee: 25,
-    is_featured: true,
-    is_open: true,
-    address_line: 'Hitech City Main Road, Madhapur',
-    city: 'Hyderabad',
-    latitude: 17.4504000,
-    longitude: 78.3808000,
-    cuisines: ['hyderabadi-dum', 'mughlai-charminar-grill'],
-    public_source: 'ARO Catalog / HITEC City Royal Kitchens',
-    categories: [
-      {
-        name: 'Royal Awadhi & Dum Curries',
-        slug: 'nizami-curries',
-        items: [
-          { name: '24hr Dal Bukhara & Truffle Kulcha', description: 'Slow-simmered black lentils cooked overnight on charcoal, served with flaky truffle butter kulcha.', price: 680, image_url: 'https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 25 },
-          { name: 'Murgh Awadhi Korma Sultani', description: 'Tender chicken braised in cashewnut, dried yogurt, saffron, and aromatic kewra water.', price: 760, image_url: 'https://images.unsplash.com/photo-1545247181-516773cae754?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 24 },
-          { name: 'Gosht Dum Nihari with Bone Marrow', description: 'Melt-in-mouth lamb shank braised in 32-spice potli broth with caramelized onions.', price: 940, image_url: 'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 30 },
-          { name: 'Paneer Zafrani Korma', description: 'Silken paneer cubes in velvety saffron-infused melon seed and almond gravy.', price: 640, image_url: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 20 }
-        ]
-      },
-      {
-        name: 'Sigri Kebabs & Tandoor',
-        slug: 'nizami-kebabs',
-        items: [
-          { name: 'Galouti Kebab with Paratha', description: 'Velvety smoked mutton patties minced 12 times with raw papaya and secret potli masala.', price: 820, image_url: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 25 },
-          { name: 'Bhattee Murgh Tikka (6 pcs)', description: 'Charcoal-grilled chicken breast pieces marinated in hung curd, yellow chili, and mustard oil.', price: 620, image_url: 'https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 22 },
-          { name: 'Dahi Ke Kebab (4 pcs)', description: 'Crisp golden patties of strained spiced yogurt, coriander, and crushed pink peppercorn.', price: 520, image_url: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 16 },
-          { name: 'Pathar Ka Gosht Nizam Shahi', description: 'Mutton steaks marinated overnight and seared on flat red granite stone over charcoal.', price: 880, image_url: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 25 }
-        ]
-      },
-      {
-        name: 'Royal Dum Biryani & Breads',
-        slug: 'nizami-biryani',
-        items: [
-          { name: 'Kacchi Gosht Dum Biryani Khaas', description: 'Raw marinated tender goat layered with parboiled basmati, saffron, mint, and pure ghee, dum-sealed in handi.', price: 890, image_url: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 30 },
-          { name: 'Subz Moti Pulao Handi', description: 'Seasonal winter vegetables, baby corn, green peas, and paneer dumplings infused with kewra.', price: 580, image_url: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 22 },
-          { name: 'Warqi Paratha (2 pcs)', description: 'Multi-layered flaky bread cooked on copper griddle with generous ghee.', price: 180, image_url: 'https://images.unsplash.com/photo-1509722747041-616f39b57569?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 10 },
-          { name: 'Truffle Butter Garlic Naan', description: 'Tandoor-baked leavened flatbread brushed with black truffle butter and minced garlic.', price: 210, image_url: 'https://images.unsplash.com/photo-1586444248902-2f64eddc13df?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 8 }
-        ]
-      },
-      {
-        name: 'Royal Desserts',
-        slug: 'nizami-desserts',
-        items: [
-          { name: 'Shahi Tukda with Gold Vark', description: 'Crisp bread pudding steeped in condensed saffron milk and garnished with edible gold leaf.', price: 380, image_url: 'https://images.unsplash.com/photo-1579372786545-d24232daf58c?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 12 },
-          { name: 'Anokhi Kheer (Sweet Garlic Pudding)', description: 'A royal Nizami secret: candied garlic flakes slow-simmered in sweet cardamom milk.', price: 360, image_url: 'https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 12 },
-          { name: 'Pista Phirni in Clay Kasora', description: 'Ground basmati rice pudding slow-cooked with green pistachios and kewra, served chilled.', price: 280, image_url: 'https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 8 },
-          { name: 'Badam Halwa Supreme', description: 'Rich almond pudding prepared with pure Desi ghee and saffron strands.', price: 340, image_url: 'https://images.unsplash.com/photo-1505394033641-40c6ad1178d7?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 8 }
-        ]
-      }
-    ]
-  },
-
-  // 5. Paradise Biryani (Secunderabad / Jubilee Hills)
-  {
-    index: 5,
-    name: 'Paradise Biryani',
-    slug: 'paradise-biryani',
-    tagline: 'World-renowned Hyderabadi Dum Biryani since 1953',
-    description: 'The golden landmark of Hyderabadi Dum Biryani, slow-cooked in traditional deghs with fragrant basmati, farm-fresh mutton, and time-honoured spices.',
-    cover_image: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=1200&q=80',
-    logo_image: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=200&q=80',
-    rating: 4.6,
     rating_count: 1420,
-    price_tier: '₹₹',
+    price_tier: '₹₹₹',
     delivery_time_min: 30,
     delivery_time_max: 45,
     minimum_order: 350,
@@ -297,408 +21,67 @@ const PART1 = [
     packaging_fee: 25,
     is_featured: true,
     is_open: true,
-    address_line: 'Prenderghast Road, MG Road, Secunderabad',
+    address_line: 'Plot 468, Road No. 10, Jubilee Hills',
     city: 'Hyderabad',
-    latitude: 17.4412000,
-    longitude: 78.4982000,
-    cuisines: ['hyderabadi-dum', 'mughlai-charminar-grill'],
-    public_source: 'paradisefoodcourt.in / Zomato / Swiggy Verified Flagship',
+    latitude: 17.4342000,
+    longitude: 78.4068000,
+    cuisines: ['telangana-heritage', 'andhra-rayalaseema'],
+    public_source: 'Swiggy / Zomato / Google Maps (AnTeRa Kitchen and Bar, Jubilee Hills)',
     categories: [
       {
-        name: 'World Famous Dum Biryani',
-        slug: 'paradise-biryani-cat',
+        name: 'Signature Regional Starters',
+        slug: 'antera-starters',
         items: [
-          { name: 'Paradise Special Mutton Biryani', description: 'Long-grain basmati layered with succulent cuts of marinated mutton, saffron, fried onions, and pure ghee. Served with Mirchi ka Salan and Dahi ki Chutney.', price: 490, image_url: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 25 },
-          { name: 'Royal Chicken Dum Biryani', description: 'Signature chicken pieces cooked in sealed degh with aromatic spices and saffron-tinted basmati.', price: 420, image_url: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 22 },
-          { name: 'Nizami Egg Dum Biryani', description: 'Hard-boiled spiced farm eggs layered with fragrant dum basmati and caramelized shallots.', price: 340, image_url: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 20 },
-          { name: 'Special Veg Dum Biryani', description: 'Fresh garden vegetables, paneer cubes, and mint slow-dum cooked in sealed earthenware.', price: 320, image_url: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 20 }
+          { name: 'Bangla Kodi (Crispy Curry Leaf Chicken)', description: 'Crisp fried chicken chunks tossed in traditional Godavari village spices, fresh curry leaves, and green chillies.', price: 390, image_url: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 25 },
+          { name: 'Bhimavaram Royyala Vepudu (Prawn Fry)', description: 'Succulent coastal prawns tossed with caramelized onions, cracked coriander, and green chillies.', price: 490, image_url: 'https://images.unsplash.com/photo-1534939561126-855b8675edd7?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 25 },
+          { name: 'Kaju Paneer Vepudu', description: 'Fresh malai paneer cubes dry-roasted with cashews, curry leaves, and Guntur chilli paste.', price: 360, image_url: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 20 },
+          { name: 'Telangana Mutton Sukka', description: 'Tender goat pan-roasted with Warangal black pepper, shallots, and fresh coconut shreds.', price: 480, image_url: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 30 }
         ]
       },
       {
-        name: 'Paradise Starters & Kebabs',
-        slug: 'paradise-kebabs',
+        name: 'Heritage Curries & Ragi Combos',
+        slug: 'antera-curries',
         items: [
-          { name: 'Mutton Seekh Kebab (4 pcs)', description: 'Tender ground lamb seasoned with coriander, cumin, and mint, skewered on coal grill.', price: 460, image_url: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 20 },
-          { name: 'Chicken Reshmi Kebab (6 pcs)', description: 'Silky chicken supreme pieces marinated in cream, cashew paste, and white pepper.', price: 410, image_url: 'https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 18 },
-          { name: 'Tandoori Murgh (Half)', description: 'Traditional bone-in chicken marinated in spiced red yogurt and roasted in tandoor.', price: 380, image_url: 'https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 22 },
-          { name: 'Paneer Tikka Shashlik', description: 'Malai paneer cubes, bell peppers, and onions roasted over hot coals.', price: 340, image_url: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 18 }
+          { name: 'Gongura Mamsam', description: 'Classic Andhra delicacy of tender mutton simmered slowly with tangy sorrel leaves and spices.', price: 490, image_url: 'https://images.unsplash.com/photo-1545247181-516773cae754?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 30 },
+          { name: 'Natu Kodi Pulusu with Ragi Sankati', description: 'Country chicken curry simmered in rustic village spices, served with steamed ragi mudda and ghee.', price: 480, image_url: 'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 30 },
+          { name: 'Gutti Vankaya Kura', description: 'Baby brinjals stuffed and cooked in a velvety roasted peanut, sesame, and tamarind gravy.', price: 320, image_url: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 22 },
+          { name: 'Pappu Charu with Desi Ghee', description: 'Homestyle Andhra comforting toor dal stew tempered with mustard, cumin, and garlic cloves.', price: 210, image_url: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 15 }
         ]
       },
       {
-        name: 'Curries & Breads',
-        slug: 'paradise-curries',
+        name: 'Regional Pulaos & Biryanis',
+        slug: 'antera-rice',
         items: [
-          { name: 'Butter Chicken Masala', description: 'Tandoori chicken morsels simmered in velvety tomato, butter, and fenugreek gravy.', price: 390, image_url: 'https://images.unsplash.com/photo-1545247181-516773cae754?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 20 },
-          { name: 'Mutton Rogan Josh', description: 'Kashmiri-style mutton curry flavored with alkanet root and mace.', price: 480, image_url: 'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 24 },
-          { name: 'Mirchi Ka Salan (Extra Portion)', description: 'Authentic accompaniment made with Bhavnagri chillies, roasted sesame, and tamarind.', price: 120, image_url: 'https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 10 },
-          { name: 'Butter Naan (2 pcs)', description: 'Freshly baked tandoori leavened flatbread brushed with butter.', price: 110, image_url: 'https://images.unsplash.com/photo-1586444248902-2f64eddc13df?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 8 }
+          { name: 'Bangla Kodi Pulao', description: 'Fragrant short-grain chitti mutyalu rice cooked with aromatic spices and topped with Bangla chicken.', price: 440, image_url: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 30 },
+          { name: 'Nalli Gosht Biryani (Handi)', description: 'Succulent lamb shanks slow-cooked with aged basmati rice on low flame with mint and brown onions.', price: 560, image_url: 'https://images.unsplash.com/photo-1633945274405-b6c8069047b0?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 35 },
+          { name: 'Chitti Mutyalu Paneer Pulao', description: 'Aromatic micro-grain rice tempered with pure ghee, whole spices, and spiced paneer cubes.', price: 370, image_url: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 25 },
+          { name: 'Telangana Bagara Rice Pot', description: 'Traditional celebratory tempered rice cooked with whole spices, mint leaves, and desi ghee.', price: 240, image_url: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 15 }
         ]
       },
       {
-        name: 'Heritage Desserts',
-        slug: 'paradise-desserts',
+        name: 'Breads & Artisanal Sweets',
+        slug: 'antera-desserts',
         items: [
-          { name: 'Paradise Double Ka Meetha', description: 'Crisp bread soaked in condensed saffron rabdi and topped with roasted nuts.', price: 180, image_url: 'https://images.unsplash.com/photo-1579372786545-d24232daf58c?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 8 },
-          { name: 'Qubani Ka Meetha', description: 'Sweet stewed dried apricot delicacy served with thick fresh cream.', price: 210, image_url: 'https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 8 },
-          { name: 'Gulab Jamun with Rabdi (2 pcs)', description: 'Mawa dumplings soaked in cardamom rose syrup, drizzled with thick chilled rabdi.', price: 160, image_url: 'https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 6 },
-          { name: 'Matka Phirni', description: 'Traditional ground rice sweet pudding served in unglazed earthen cup.', price: 140, image_url: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 6 }
+          { name: 'Pulka (2 pcs)', description: 'Thin and soft puffed whole wheat flatbreads prepared homestyle on open flame.', price: 40, image_url: 'https://images.unsplash.com/photo-1509722747041-616f39b57569?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 10 },
+          { name: 'Jaggery Ice Cream with Chikki Crumbs', description: 'Creamy artisanal ice cream prepared with pure organic palm jaggery and peanut chikki crunch.', price: 180, image_url: 'https://images.unsplash.com/photo-1501443762994-82bd5dace89a?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 8 },
+          { name: 'Bellam Jeedipappu Halwa', description: 'Warm roasted cashew nut halwa cooked with organic Godavari jaggery and cardamom ghee.', price: 220, image_url: 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 10 },
+          { name: 'Nannari Sharbat Cooler', description: 'Refreshing traditional cooling drink made from wild sarsaparilla root syrup and soaked sabja seeds.', price: 90, image_url: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 5 }
         ]
       }
     ]
   },
 
-  // 6. Bawarchi Restaurant (RTC X Roads)
+  // 2. Hashi (Replaces fictional Kumo House)
   {
-    index: 6,
-    name: 'Bawarchi Restaurant',
-    slug: 'bawarchi-restaurant',
-    tagline: 'The iconic RTC X Roads Hyderabadi Dum Biryani legend',
-    description: 'Renowned throughout Telangana for fiery, deeply flavorful authentic kacchi gosht biryani, charred boti kebabs, and rich deccani curries.',
-    cover_image: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=1200&q=80',
-    logo_image: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=200&q=80',
+    index: 2,
+    name: 'Hashi',
+    slug: 'hashi-japanese-asian',
+    tagline: 'Artisanal Japanese sushi, robata & modern Pan-Asian dining',
+    description: 'Premier Asian and Japanese dining in Jubilee Hills known for precision nigiri, signature sushi rolls, steamed edamame, and vibrant wok-tossed Pan-Asian creations.',
+    cover_image: 'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=1200&q=80',
+    logo_image: 'https://images.unsplash.com/photo-1617196034796-73dfa7b1fd56?auto=format&fit=crop&w=200&q=80',
     rating: 4.7,
-    rating_count: 2150,
-    price_tier: '₹₹',
-    delivery_time_min: 35,
-    delivery_time_max: 50,
-    minimum_order: 300,
-    delivery_fee: 45,
-    packaging_fee: 20,
-    is_featured: true,
-    is_open: true,
-    address_line: 'Beside Sandhya Theatre, RTC X Roads, Chikkadpally',
-    city: 'Hyderabad',
-    latitude: 17.4045000,
-    longitude: 78.4981000,
-    cuisines: ['hyderabadi-dum', 'mughlai-charminar-grill'],
-    public_source: 'bawarchihyderabad.com / Swiggy RTC X Roads',
-    categories: [
-      {
-        name: 'Bawarchi Signature Dum Biryani',
-        slug: 'bawarchi-biryani',
-        items: [
-          { name: 'Bawarchi Special Mutton Biryani', description: 'Spiced tender goat pieces layered with long basmati, fragrant saffron, and pure ghee. Hearty portion with salan.', price: 470, image_url: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 25 },
-          { name: 'Bawarchi Chicken Dum Biryani', description: 'Tender chicken marinated in crushed green chilies, yogurt, and whole spices, slow-steamed to perfection.', price: 390, image_url: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 22 },
-          { name: 'Mutton Fry Biryani', description: 'Fragrant biryani rice served with a generous topping of spicy deep-fried Andhra-style mutton pieces.', price: 510, image_url: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 25 },
-          { name: 'Paneer Dum Biryani', description: 'Marinated cottage cheese cubes layered with basmati, mint, and fried onions.', price: 310, image_url: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 20 }
-        ]
-      },
-      {
-        name: 'Coal-Grilled Kebabs & Starters',
-        slug: 'bawarchi-starters',
-        items: [
-          { name: 'Bawarchi Boti Kebab', description: 'Spiced baby mutton cubes char-grilled on skewers, finished with chaat masala and lime.', price: 450, image_url: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 20 },
-          { name: 'Chicken 65 RTC X Roads Style', description: 'Deep red, crispy spiced boneless chicken tossed with green chilies, garlic, and curry leaves.', price: 340, image_url: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 15 },
-          { name: 'Tangdi Kebab (3 pcs)', description: 'Chicken drumsticks marinated in rich cashew cream and roasted till juicy in charcoal clay oven.', price: 360, image_url: 'https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 20 },
-          { name: 'Apollo Fish Fry', description: 'Murrel fish cubes tossed with yogurt, curry leaves, and green chilies in Hyderabad street style.', price: 420, image_url: 'https://images.unsplash.com/photo-1534939561126-855b8675edd7?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 18 }
-        ]
-      },
-      {
-        name: 'Mughlai Curries & Tandoor',
-        slug: 'bawarchi-curries',
-        items: [
-          { name: 'Mutton Masala Gravy', description: 'Succulent mutton slow-simmered in onion, tomato, and ground garam masala gravy.', price: 440, image_url: 'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 22 },
-          { name: 'Kadai Chicken', description: 'Bone-in chicken tossed with bell peppers and crushed coriander seeds in iron wok.', price: 370, image_url: 'https://images.unsplash.com/photo-1545247181-516773cae754?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 20 },
-          { name: 'Dal Tadka Desi Ghee', description: 'Yellow lentils tempered with cumin, garlic, dry red chillies, and pure ghee.', price: 230, image_url: 'https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 15 },
-          { name: 'Roomali Roti (2 pcs)', description: 'Handkerchief-thin soft flatbread tossed and baked over convex iron kadai.', price: 70, image_url: 'https://images.unsplash.com/photo-1509722747041-616f39b57569?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 8 }
-        ]
-      },
-      {
-        name: 'Desserts & Drinks',
-        slug: 'bawarchi-desserts',
-        items: [
-          { name: 'Double Ka Meetha', description: 'Traditional Hyderabadi ghee-fried bread soaked in rich saffron milk.', price: 160, image_url: 'https://images.unsplash.com/photo-1579372786545-d24232daf58c?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 6 },
-          { name: 'Khubani Ka Meetha with Ice Cream', description: 'Stewed apricots paired with rich vanilla bean ice cream.', price: 190, image_url: 'https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 6 },
-          { name: 'Sweet Lassi Bawarchi Special', description: 'Thick, creamy churned sweet yogurt topped with malai.', price: 120, image_url: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 5 }
-        ]
-      }
-    ]
-  },
-
-  // 7. Cafe Bahar (Basheerbagh / Hyderguda)
-  {
-    index: 7,
-    name: 'Cafe Bahar',
-    slug: 'cafe-bahar',
-    tagline: 'Legacy Hyderabadi Biryani & Chai destination since 1973',
-    description: 'An iconic culinary pilgrimage in Hyderguda serving rich Irani chai, legendary chicken and mutton biryanis, and succulent tawa kebabs.',
-    cover_image: 'https://images.unsplash.com/photo-1547928576-a4a33237cbc3?auto=format&fit=crop&w=1200&q=80',
-    logo_image: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=200&q=80',
-    rating: 4.6,
-    rating_count: 1890,
-    price_tier: '₹₹',
-    delivery_time_min: 30,
-    delivery_time_max: 45,
-    minimum_order: 300,
-    delivery_fee: 45,
-    packaging_fee: 20,
-    is_featured: false,
-    is_open: true,
-    address_line: 'Old MLA Quarters Road, Hyderguda, Basheerbagh',
-    city: 'Hyderabad',
-    latitude: 17.3995000,
-    longitude: 78.4821000,
-    cuisines: ['hyderabadi-dum', 'mughlai-charminar-grill'],
-    public_source: 'cafebaharhyderabad.com / Zomato Basheerbagh',
-    categories: [
-      {
-        name: 'Bahar Signature Biryanis',
-        slug: 'bahar-biryanis',
-        items: [
-          { name: 'Cafe Bahar Special Mutton Biryani', description: 'Double portion mutton with extra eggs and spiced saffron basmati, dum cooked over charcoal.', price: 480, image_url: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 25 },
-          { name: 'Classic Chicken Dum Biryani', description: 'Hyderguda’s favorite aromatic chicken biryani with mirchi salan and dahi raita.', price: 380, image_url: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 22 },
-          { name: 'Fish Dum Biryani', description: 'Succulent boneless fish fillets marinated in deccani spices and steamed with aged rice.', price: 440, image_url: 'https://images.unsplash.com/photo-1534939561126-855b8675edd7?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 24 },
-          { name: 'Bahar Veg Biryani Special', description: 'Assorted seasonal vegetables and green peas simmered with saffron basmati.', price: 290, image_url: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 20 }
-        ]
-      },
-      {
-        name: 'Tandoor & Charcoal Starters',
-        slug: 'bahar-starters',
-        items: [
-          { name: 'Mutton Boti Fry Bahar Style', description: 'Tender lamb chunks pan-tossed with curry leaves, crushed pepper, and green chilies.', price: 440, image_url: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 20 },
-          { name: 'Murgh Malai Kebab (6 pcs)', description: 'Boneless chicken cubes soaked in cheese, heavy cream, and cardamom, flame-roasted.', price: 390, image_url: 'https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 18 },
-          { name: 'Tandoori Chicken (Full)', description: 'Whole chicken cut into four, marinated in red masala and roasted in clay pit.', price: 540, image_url: 'https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 25 },
-          { name: 'Paneer Malai Tikka', description: 'Creamy paneer cubes glazed with cashew-garlic paste and grilled over charcoal.', price: 340, image_url: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 18 }
-        ]
-      },
-      {
-        name: 'Mughlai Curries & Breads',
-        slug: 'bahar-curries',
-        items: [
-          { name: 'Mutton Tala Hua Gosht', description: 'Crisp fried mutton morsels with ginger-garlic, curry leaves, and spicy red masala.', price: 460, image_url: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 22 },
-          { name: 'Butter Chicken Bahar', description: 'Tender chicken pieces simmered in sweet-tangy makhani gravy with butter.', price: 380, image_url: 'https://images.unsplash.com/photo-1545247181-516773cae754?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 20 },
-          { name: 'Tandoori Roti (2 pcs)', description: 'Crisp whole-wheat flatbread baked on the inner walls of tandoor.', price: 60, image_url: 'https://images.unsplash.com/photo-1509722747041-616f39b57569?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 6 },
-          { name: 'Rumali Roti (2 pcs)', description: 'Soft, stretchy handkerchief bread folded and served warm.', price: 70, image_url: 'https://images.unsplash.com/photo-1586444248902-2f64eddc13df?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 6 }
-        ]
-      },
-      {
-        name: 'Bahar Chai & Desserts',
-        slug: 'bahar-chai-desserts',
-        items: [
-          { name: 'Special Irani Chai Flask (Serves 4)', description: 'Condensed, slow-simmered milky decoction tea served with crisp Osmania biscuits.', price: 160, image_url: 'https://images.unsplash.com/photo-1517256064527-09c73fc73e38?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 8 },
-          { name: 'Khubani Ka Meetha', description: 'Stewed Turkish apricots simmered with sugar and cardamom, topped with cream.', price: 180, image_url: 'https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 6 },
-          { name: 'Double Ka Meetha', description: 'Fried bread soaked in sweetened rabdi and cardamom.', price: 150, image_url: 'https://images.unsplash.com/photo-1579372786545-d24232daf58c?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 6 }
-        ]
-      }
-    ]
-  },
-
-  // 8. Hotel Shadab (Madina Circle, Old City)
-  {
-    index: 8,
-    name: 'Hotel Shadab',
-    slug: 'hotel-shadab',
-    tagline: 'Heart of Old City royal gastronomy & breakfast Marag',
-    description: 'Located in the historic shadow of Charminar, Hotel Shadab is famed for legendary morning Marag, Bheja Fry, tender Nihari, and authentic Zafrani Dum Biryani.',
-    cover_image: 'https://images.unsplash.com/photo-1547928576-a4a33237cbc3?auto=format&fit=crop&w=1200&q=80',
-    logo_image: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=200&q=80',
-    rating: 4.8,
-    rating_count: 2450,
-    price_tier: '₹₹',
-    delivery_time_min: 35,
-    delivery_time_max: 55,
-    minimum_order: 350,
-    delivery_fee: 55,
-    packaging_fee: 25,
-    is_featured: true,
-    is_open: true,
-    address_line: '21-1-140/144, High Court Road, Madina Circle, Ghansi Bazaar',
-    city: 'Hyderabad',
-    latitude: 17.3685000,
-    longitude: 78.4732000,
-    cuisines: ['hyderabadi-dum', 'mughlai-charminar-grill'],
-    public_source: 'Times Food Guide / Google Maps Ghansi Bazaar / Swiggy Verified',
-    categories: [
-      {
-        name: 'Old City Heritage Dum Biryani',
-        slug: 'shadab-biryani',
-        items: [
-          { name: 'Shadab Special Zafrani Mutton Biryani', description: 'Royal old-city recipe with generous tender mutton pieces, long basmati, pure saffron, and ghee.', price: 490, image_url: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 25 },
-          { name: 'Shadab Chicken Dum Biryani', description: 'Charcoal steamed degh biryani served with spicy Mirchi Salan and fresh onion raita.', price: 390, image_url: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 22 },
-          { name: 'Mutton Kheema Biryani', description: 'Aromatic basmati rice layered with spicy minced mutton and whole spices.', price: 440, image_url: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 22 },
-          { name: 'Vegetable Dum Biryani', description: 'Fresh vegetables and mint cooked in sealed degh with aromatic spices.', price: 310, image_url: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 20 }
-        ]
-      },
-      {
-        name: 'Heritage Broths & Breakfast Specials',
-        slug: 'shadab-heritage-specials',
-        items: [
-          { name: 'Authentic Mutton Marag & Sheermal', description: 'Rich, peppery mutton soup slow-simmered with cashews, pistachios, and bone-in mutton pieces.', price: 480, image_url: 'https://images.unsplash.com/photo-1547928576-a4a33237cbc3?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 20 },
-          { name: 'Bheja Fry Old City Style', description: 'Fresh goat brain sauteed with chopped onions, green chilies, and black pepper on flat tawa.', price: 390, image_url: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 15 },
-          { name: 'Paya Nahari with Kulcha', description: 'Overnight simmered trotters in velvety spiced bone broth with ginger and fresh lime.', price: 440, image_url: 'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 25 },
-          { name: 'Gurda Kaleji Fry', description: 'Kidney and liver pieces tossed with curry leaves, cracked coriander seeds, and chili.', price: 380, image_url: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 18 }
-        ]
-      },
-      {
-        name: 'Charcoal Kebabs & Curries',
-        slug: 'shadab-kebabs-curries',
-        items: [
-          { name: 'Shikampur Kebab (4 pcs)', description: 'Mutton mince patties stuffed with spiced hung curd, mint, and green chilies.', price: 420, image_url: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 18 },
-          { name: 'Mutton Rogan Josh Shadab', description: 'Aromatic mutton curry cooked with brown onion paste, yogurt, and whole spices.', price: 450, image_url: 'https://images.unsplash.com/photo-1545247181-516773cae754?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 22 },
-          { name: 'Tandoori Murgh (Full)', description: 'Charcoal-grilled whole chicken marinated in spiced red masala.', price: 520, image_url: 'https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 24 },
-          { name: 'Tandoori Naan (2 pcs)', description: 'Crisp and fluffy tandoor bread brushed with butter.', price: 90, image_url: 'https://images.unsplash.com/photo-1586444248902-2f64eddc13df?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 8 }
-        ]
-      },
-      {
-        name: 'Deccani Sweets & Chai',
-        slug: 'shadab-sweets',
-        items: [
-          { name: 'Shadab Special Shahi Tukda', description: 'Fried bread triangles steeped in thickened saffron rabdi with almonds and pistachios.', price: 180, image_url: 'https://images.unsplash.com/photo-1579372786545-d24232daf58c?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 6 },
-          { name: 'Qubani Ka Meetha with Malai', description: 'Stewed apricots served with generous dollop of fresh clotted cream.', price: 190, image_url: 'https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 6 },
-          { name: 'Irani Zafrani Chai Flask', description: 'Rich, creamy dum-brewed tea infused with saffron strands.', price: 170, image_url: 'https://images.unsplash.com/photo-1517256064527-09c73fc73e38?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 6 }
-        ]
-      }
-    ]
-  },
-
-  // 9. Pista House (HITEC City / Charminar)
-  {
-    index: 9,
-    name: 'Pista House',
-    slug: 'pista-house',
-    tagline: 'World-famous GI-tagged Haleem & Hyderabadi specialties',
-    description: 'Pioneers of GI-certified Hyderabadi Haleem and royal Zafrani Biryanis, blending pure mutton, pounded wheat, and aromatic spices with authentic bakery sweets.',
-    cover_image: 'https://images.unsplash.com/photo-1547928576-a4a33237cbc3?auto=format&fit=crop&w=1200&q=80',
-    logo_image: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=200&q=80',
-    rating: 4.7,
-    rating_count: 1780,
-    price_tier: '₹₹',
-    delivery_time_min: 25,
-    delivery_time_max: 40,
-    minimum_order: 300,
-    delivery_fee: 45,
-    packaging_fee: 20,
-    is_featured: true,
-    is_open: true,
-    address_line: 'Opposite Cyber Gateway, HITEC City Main Road, Madhapur',
-    city: 'Hyderabad',
-    latitude: 17.4478000,
-    longitude: 78.3792000,
-    cuisines: ['hyderabadi-dum', 'european-bistro'],
-    public_source: 'pistahouse.in / Zomato HITEC City Flagship',
-    categories: [
-      {
-        name: 'GI-Tagged World Famous Haleem',
-        slug: 'pista-haleem',
-        items: [
-          { name: 'Pista House Royal Mutton Haleem', description: 'Slow-cooked for 12 hours with tender mutton, broken wheat, lentils, ghee, cashews, and golden fried onions. Served with lemon wedges.', price: 340, image_url: 'https://images.unsplash.com/photo-1547928576-a4a33237cbc3?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 15 },
-          { name: 'Special Chicken Haleem', description: 'Rich and velvety chicken stew beaten to a paste with spices and pure Desi ghee.', price: 290, image_url: 'https://images.unsplash.com/photo-1545247181-516773cae754?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 15 },
-          { name: 'Family Pack Mutton Haleem (1 kg)', description: 'Large sharing container of signature mutton haleem topped with roasted almonds, cashews, and fried onions.', price: 950, image_url: 'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 20 },
-          { name: 'Vegetarian Dry Fruit Haleem', description: 'Wheat, lentils, seasonal vegetables, soya, and assorted roasted dry fruits beaten with ghee.', price: 260, image_url: 'https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 15 }
-        ]
-      },
-      {
-        name: 'Zafrani Biryanis',
-        slug: 'pista-biryanis',
-        items: [
-          { name: 'Zafrani Mutton Dum Biryani', description: 'Basmati rice infused with saffron strands and tender baby goat pieces in traditional dum.', price: 460, image_url: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 24 },
-          { name: 'Zafrani Chicken Dum Biryani', description: 'Classic chicken biryani cooked with green chilies, mint, and saffron.', price: 380, image_url: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 20 },
-          { name: 'Special Mutton Kheema Biryani', description: 'Minced mutton cooked with biryani spices and basmati rice.', price: 420, image_url: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 22 },
-          { name: 'Paneer Dum Biryani Handi', description: 'Marinated cottage cheese and fragrant rice dum-cooked with fried onions.', price: 320, image_url: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 18 }
-        ]
-      },
-      {
-        name: 'Kebabs & Curries',
-        slug: 'pista-kebabs',
-        items: [
-          { name: 'Mutton Seekh Kebab', description: 'Spiced minced lamb rolled onto skewers and char-grilled.', price: 430, image_url: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 18 },
-          { name: 'Murgh Tikka (6 pcs)', description: 'Tender chicken cubes marinated in tandoori red masala.', price: 360, image_url: 'https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 18 },
-          { name: 'Mutton Rogan Josh', description: 'Slow-simmered rich mutton gravy with Kashmiri spices.', price: 440, image_url: 'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 22 },
-          { name: 'Butter Naan', description: 'Clay oven baked flatbread brushed with butter.', price: 60, image_url: 'https://images.unsplash.com/photo-1586444248902-2f64eddc13df?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 6 }
-        ]
-      },
-      {
-        name: 'Bakery Confections & Sweets',
-        slug: 'pista-sweets',
-        items: [
-          { name: 'Apricot Delight Cake Slice', description: 'Pista House’s famed sponge cake layered with rich apricot compote and whipped cream.', price: 190, image_url: 'https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 6 },
-          { name: 'Assorted Baklava Box (250g)', description: 'Flaky filo pastry layered with chopped pistachios, walnuts, and honey syrup.', price: 450, image_url: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 6 },
-          { name: 'Osmania Biscuits Tin (400g)', description: 'Traditional sweet and mildly salty buttery biscuits, best paired with Irani chai.', price: 220, image_url: 'https://images.unsplash.com/photo-1509722747041-616f39b57569?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 5 },
-          { name: 'Khubani Ka Meetha', description: 'Heritage stewed apricot dessert topped with clotted cream.', price: 180, image_url: 'https://images.unsplash.com/photo-1579372786545-d24232daf58c?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 6 }
-        ]
-      }
-    ]
-  },
-
-  // 10. Shah Ghouse Hotel & Restaurant (Gachibowli)
-  {
-    index: 10,
-    name: 'Shah Ghouse Hotel & Restaurant',
-    slug: 'shah-ghouse',
-    tagline: 'Authentic late-night Hyderabadi Haleem & Dum Biryani',
-    description: 'A powerhouse of Hyderabadi culinary tradition, revered for slow-cooked mutton biryanis, night-simmered paya, and authentic tandoor skewers.',
-    cover_image: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=1200&q=80',
-    logo_image: 'https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=200&q=80',
-    rating: 4.6,
-    rating_count: 1980,
-    price_tier: '₹₹',
-    delivery_time_min: 25,
-    delivery_time_max: 40,
-    minimum_order: 300,
-    delivery_fee: 40,
-    packaging_fee: 20,
-    is_featured: false,
-    is_open: true,
-    address_line: 'Opposite Bio-Diversity Park, Raidurgam, Gachibowli',
-    city: 'Hyderabad',
-    latitude: 17.4371000,
-    longitude: 78.3685000,
-    cuisines: ['hyderabadi-dum', 'mughlai-charminar-grill'],
-    public_source: 'shahghouse.in / Zomato Gachibowli',
-    categories: [
-      {
-        name: 'Shah Ghouse Dum Biryanis',
-        slug: 'ghouse-biryani',
-        items: [
-          { name: 'Shah Ghouse Special Mutton Biryani', description: 'Famous spicy dum mutton biryani with extra pieces, golden fried shallots, and rich salan.', price: 480, image_url: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 25 },
-          { name: 'Special Chicken Dum Biryani', description: 'Fragrant saffron rice and juicy chicken cooked on low flame with traditional spices.', price: 390, image_url: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 22 },
-          { name: 'Mutton Fry Piece Biryani', description: 'Spicy pan-roasted boneless mutton pieces served over steaming biryani rice.', price: 510, image_url: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 24 },
-          { name: 'Veg Dum Biryani', description: 'Aromatic basmati cooked with mixed vegetables, mint, and whole spices.', price: 290, image_url: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 20 }
-        ]
-      },
-      {
-        name: 'Haleem & Mughlai Starters',
-        slug: 'ghouse-starters',
-        items: [
-          { name: 'Shah Ghouse Mutton Haleem', description: 'Signature pounded wheat and mutton stew garnished with fried onions, coriander, and ghee.', price: 330, image_url: 'https://images.unsplash.com/photo-1547928576-a4a33237cbc3?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 15 },
-          { name: 'Tangdi Kebab (3 pcs)', description: 'Juicy chicken drumsticks marinated in spiced curd and cooked in charcoal clay oven.', price: 350, image_url: 'https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 20 },
-          { name: 'Tala Hua Gosht', description: 'Deep fried tender mutton morsels tossed with green chillies and curry leaves.', price: 440, image_url: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 18 },
-          { name: 'Chicken Reshmi Kebab (6 pcs)', description: 'Cream and cashew marinated boneless chicken skewers roasted over coals.', price: 380, image_url: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 18 }
-        ]
-      },
-      {
-        name: 'Curries & Flatbreads',
-        slug: 'ghouse-curries',
-        items: [
-          { name: 'Mutton Korma', description: 'Traditional brown onion and cashew gravy with tender cuts of mutton.', price: 430, image_url: 'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 22 },
-          { name: 'Murgh Makhani Butter Chicken', description: 'Boneless tandoori chicken simmered in rich creamy tomato butter sauce.', price: 370, image_url: 'https://images.unsplash.com/photo-1545247181-516773cae754?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 20 },
-          { name: 'Roomali Roti (2 pcs)', description: 'Thin and soft griddle flatbread.', price: 70, image_url: 'https://images.unsplash.com/photo-1509722747041-616f39b57569?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 6 },
-          { name: 'Butter Naan (2 pcs)', description: 'Tandoor leavened flatbread brushed with butter.', price: 100, image_url: 'https://images.unsplash.com/photo-1586444248902-2f64eddc13df?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 6 }
-        ]
-      },
-      {
-        name: 'Desserts & Chai',
-        slug: 'ghouse-desserts',
-        items: [
-          { name: 'Special Double Ka Meetha', description: 'Golden fried bread in saffron milk rabdi with dry fruits.', price: 160, image_url: 'https://images.unsplash.com/photo-1579372786545-d24232daf58c?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 6 },
-          { name: 'Qubani Ka Meetha with Cream', description: 'Stewed apricots topped with fresh cream.', price: 180, image_url: 'https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 6 },
-          { name: 'Irani Dum Chai Flask', description: 'Freshly brewed strong Irani chai.', price: 150, image_url: 'https://images.unsplash.com/photo-1517256064527-09c73fc73e38?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 6 }
-        ]
-      }
-    ]
-  },
-
-  // 11. Rayalaseema Ruchulu (Jubilee Hills)
-  {
-    index: 11,
-    name: 'Rayalaseema Ruchulu',
-    slug: 'rayalaseema-ruchulu',
-    tagline: 'Fiery Telugu & Rayalaseema regional heritage cuisine',
-    description: 'Celebrated for legendary rustic Telugu dining: Ragi Sangati with spicy Natu Kodi Pulusu, Gongura Mamsam, spicy Rayalaseema biryani, and Pottelu Mutton.',
-    cover_image: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=1200&q=80',
-    logo_image: 'https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=200&q=80',
-    rating: 4.7,
-    rating_count: 1120,
+    rating_count: 980,
     price_tier: '₹₹₹',
     delivery_time_min: 30,
     delivery_time_max: 45,
@@ -707,118 +90,798 @@ const PART1 = [
     packaging_fee: 25,
     is_featured: true,
     is_open: true,
-    address_line: 'Plot 481, Road No. 36, Jubilee Hills',
+    address_line: 'Plot 1121, Road No. 45, Jubilee Hills',
     city: 'Hyderabad',
-    latitude: 17.4312000,
-    longitude: 78.4068000,
-    cuisines: ['andhra-rayalaseema', 'telangana-heritage'],
-    public_source: 'rayalaseemaruchulu.com / Zomato Jubilee Hills',
+    latitude: 17.4338000,
+    longitude: 78.4025000,
+    cuisines: ['japanese-robata', 'pan-asian'],
+    public_source: 'Swiggy / Zomato / Google Maps (Hashi, Jubilee Hills)',
     categories: [
       {
-        name: 'Rayalaseema Signature Classics',
-        slug: 'raya-classics',
+        name: 'Small Plates & Dim Sum',
+        slug: 'hashi-starters',
         items: [
-          { name: 'Ragi Sangati with Natu Kodi Pulusu', description: 'Wholesome finger-millet mudde balls served with country chicken curry slow-cooked with Byadgi chillies and poppy seeds.', price: 540, image_url: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 25 },
-          { name: 'Gongura Mamsam', description: 'Tender goat pieces braised in tangy sorrel leaves (gongura) paste with green chillies and roasted spices.', price: 560, image_url: 'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 25 },
-          { name: 'Ulavacharu Kodi Pulao', description: 'Aromatic horse-gram soup reduction blended with spiced chicken and fragrant basmati rice.', price: 480, image_url: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 22 },
-          { name: 'Gutti Vankaya Koora', description: 'Small eggplants stuffed with roasted peanuts, sesame, dried coconut, and tamarind gravy.', price: 380, image_url: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 20 }
+          { name: 'Steamed Edamame with Sea Salt', description: 'Tender young soybeans steamed in the pod, finished with crushed Maldon sea salt.', price: 320, image_url: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 15 },
+          { name: 'Chilli Garlic Edamame', description: 'Wok-tossed whole edamame pods glazed in spicy togarashi chilli, burnt garlic, and sesame oil.', price: 340, image_url: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 15 },
+          { name: 'Truffle Edamame Dim Sum (4 pcs)', description: 'Translucent crystal dumplings filled with mashed edamame, water chestnuts, and fragrant white truffle essence.', price: 420, image_url: 'https://images.unsplash.com/photo-1496116218417-1a781b1c416c?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 20 },
+          { name: 'Chicken & Prawn Sui Mai (4 pcs)', description: 'Open-faced steamed wonton cups packed with seasoned minced chicken, tiger prawns, and tobiko.', price: 460, image_url: 'https://images.unsplash.com/photo-1541696432-82c6da8ce7bf?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 20 }
         ]
       },
       {
-        name: 'Telugu Starters & Vepudulu',
-        slug: 'raya-starters',
+        name: 'Signature Sushi & Maki',
+        slug: 'hashi-sushi',
         items: [
-          { name: 'Royyala Vepudu (Prawn Fry)', description: 'Succulent river prawns stir-fried with caramelized onions, curry leaves, and spicy red pepper powder.', price: 580, image_url: 'https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 20 },
-          { name: 'Mamsam Vepudu (Mutton Roast)', description: 'Tender baby goat cubes pan-roasted in iron kadai with freshly pounded spices.', price: 520, image_url: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 22 },
-          { name: 'Miriyala Kodi Vepudu (Pepper Chicken)', description: 'Boneless chicken tossed with pungent black peppercorn paste and curry leaves.', price: 420, image_url: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 18 },
-          { name: 'Kaju Paneer Pakoda', description: 'Cottage cheese and whole cashews coated in spiced gram flour batter and fried golden.', price: 340, image_url: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 15 }
+          { name: 'Geisha Sushi Roll (8 pcs)', description: 'Crisp tempura prawn, crabstick, avocado, and cucumber wrapped in nori, topped with spicy mayo and tobiko.', price: 680, image_url: 'https://images.unsplash.com/photo-1611143669185-af224c5e3252?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 25 },
+          { name: 'Dynamite Sushi Roll (8 pcs)', description: 'Fresh salmon, cream cheese, and avocado roll topped with torched spicy salmon tartare and scallions.', price: 690, image_url: 'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 25 },
+          { name: 'California Veg Roll (8 pcs)', description: 'Ripe avocado, crisp cucumber, and blanched asparagus rolled with seasoned sushi rice and toasted sesame.', price: 540, image_url: 'https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 20 },
+          { name: 'Chicken Teriyaki Roll (8 pcs)', description: 'Char-grilled chicken breast glazed with house-made teriyaki sauce, cucumber, and roasted sesame.', price: 580, image_url: 'https://images.unsplash.com/photo-1617196034796-73dfa7b1fd56?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 22 }
         ]
       },
       {
-        name: 'Rice, Pulaos & Roti',
-        slug: 'raya-rice',
+        name: 'Robata Skewers & Asian Mains',
+        slug: 'hashi-mains',
         items: [
-          { name: 'Rayalaseema Mutton Dum Biryani', description: 'Spicier Telugu version of dum mutton biryani with pungent green chili paste and mint.', price: 510, image_url: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 24 },
-          { name: 'Bagara Annam with Dalcha', description: 'Flavored tempered rice served with lentil-mutton broth and mint.', price: 360, image_url: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 18 },
-          { name: 'Jonnalu Roti (2 pcs)', description: 'Traditional gluten-free sorghum (jowar) flatbread hand-patted and baked on clay tawa.', price: 90, image_url: 'https://images.unsplash.com/photo-1509722747041-616f39b57569?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 10 },
-          { name: 'Perugu Annam (Curd Rice)', description: 'Creamy cooled rice tempered with mustard seeds, ginger, curry leaves, and pomegranate.', price: 180, image_url: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 10 }
+          { name: 'Robata King Oyster Mushroom Skewers', description: 'Charcoal-grilled king oyster mushrooms brushed with garlic miso glaze and green scallions.', price: 380, image_url: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 18 },
+          { name: 'Chicken Yakitori Skewers (2 skewers)', description: 'Tender chicken thighs and leeks grilled over binchotan coals with sweet mirin soy glaze.', price: 440, image_url: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 20 },
+          { name: 'Thai Massaman Curry with Jasmine Rice', description: 'Mild coconut milk curry stewed with roasted baby potatoes, shallots, and fragrant Thai herbs.', price: 540, image_url: 'https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 25 },
+          { name: 'Pad Thai Noodles with Prawns', description: 'Wok-tossed flat rice noodles with tiger prawns, tamarind pulp, crushed peanuts, and fresh lime.', price: 520, image_url: 'https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 20 }
         ]
       },
       {
-        name: 'Desserts & Beverages',
-        slug: 'raya-desserts',
+        name: 'Desserts & Refreshers',
+        slug: 'hashi-beverages',
         items: [
-          { name: 'Pootharekulu with Dry Fruits (2 pcs)', description: 'Delicate Andhra paper sweet made with rice starch layers, pure ghee, and jaggery powder.', price: 210, image_url: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 6 },
-          { name: 'Bellam Bobbatlu with Ghee (2 pcs)', description: 'Sweet flatbread stuffed with chana dal, jaggery, and cardamom, served with molten ghee.', price: 180, image_url: 'https://images.unsplash.com/photo-1586444248902-2f64eddc13df?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 8 },
-          { name: 'Nannari Sharbat', description: 'Traditional cooling herbal root sherbet with basil seeds and fresh lime juice.', price: 140, image_url: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 5 }
+          { name: 'Matcha Green Tea Cheesecake', description: 'Velvety Japanese Uji matcha-infused baked cheesecake on a crisp biscuit crust.', price: 340, image_url: 'https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 10 },
+          { name: 'Yuzu Lemonade Iced Fizz', description: 'Sparkling cooler prepared with aromatic Japanese yuzu citrus fruit, fresh mint, and soda.', price: 220, image_url: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 8 }
         ]
       }
     ]
   },
 
-  // 12. Chutneys (Banjara Hills)
+  // 3. Toscano (Replaces fictional Forno & Fig)
+  {
+    index: 3,
+    name: 'Toscano',
+    slug: 'toscano-gachibowli',
+    tagline: 'Authentic Italian dining, hand-tossed sourdough pizza & pasta',
+    description: 'Renowned Italian restaurant in Gachibowli\'s tech corridor. Featuring wood-fired artisanal sourdough pizzas, fresh handcrafted pastas, antipasti platters, and classic Italian desserts.',
+    cover_image: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1200&q=80',
+    logo_image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=200&q=80',
+    rating: 4.7,
+    rating_count: 1320,
+    price_tier: '₹₹₹',
+    delivery_time_min: 30,
+    delivery_time_max: 45,
+    minimum_order: 350,
+    delivery_fee: 45,
+    packaging_fee: 25,
+    is_featured: true,
+    is_open: true,
+    address_line: 'Ground Floor, Trendset Jayabheri Silicon Tower, Gachibowli',
+    city: 'Hyderabad',
+    latitude: 17.4428000,
+    longitude: 78.3615000,
+    cuisines: ['artisanal-italian'],
+    public_source: 'Swiggy / Swiggy Dineout / Zomato (Toscano, Gachibowli)',
+    categories: [
+      {
+        name: 'Antipasti & Small Plates',
+        slug: 'toscano-starters',
+        items: [
+          { name: 'Bruschetta al Pomodoro (4 pcs)', description: 'Toasted artisan baguette slices topped with marinated vine tomatoes, fresh basil, garlic, and extra virgin olive oil.', price: 320, image_url: 'https://images.unsplash.com/photo-1572695157366-5e585ab2b69f?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 15 },
+          { name: 'Crispy Calamari Fritti', description: 'Tender squid rings dusted in seasoned semolina, flash-fried golden, and served with spicy tomato marinara dip.', price: 490, image_url: 'https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 20 },
+          { name: 'Garlic Sourdough Bread with Mozzarella', description: 'Freshly baked sourdough slices smothered with roasted garlic herb butter and melted mozzarella cheese.', price: 240, image_url: 'https://images.unsplash.com/photo-1573140247632-f8fd74997d5c?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 15 },
+          { name: 'Caprese Salad with Buffalo Mozzarella', description: 'Thick slices of fresh buffalo mozzarella, beefsteak tomatoes, wild arugula, and aged balsamic reduction.', price: 460, image_url: 'https://images.unsplash.com/photo-1592417817098-8f3d6910985c?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 12 }
+        ]
+      },
+      {
+        name: 'Wood-Fired Sourdough Pizzas',
+        slug: 'toscano-pizza',
+        items: [
+          { name: 'Pizza Margherita Classica', description: 'San Marzano DOP tomato sauce, fresh bocconcini mozzarella, fragrant basil leaves, and cold-pressed olive oil.', price: 520, image_url: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 22 },
+          { name: 'Pizza Quattro Formaggi', description: 'Four cheese pizza topped with creamy mozzarella, sharp gorgonzola, aged fontina, and parmigiano reggiano.', price: 640, image_url: 'https://images.unsplash.com/photo-1573821663912-569905455b1c?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 22 },
+          { name: 'Pizza Pepperoni Piccante', description: 'Wood-fired crust layered with tomato sauce, mozzarella, spicy Italian pork pepperoni, and pickled jalapeños.', price: 690, image_url: 'https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 24 },
+          { name: 'Pizza Rustica Verdure', description: 'Chargrilled zucchini, sweet bell peppers, caramelized onions, kalamata olives, and Greek feta cheese.', price: 580, image_url: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 20 }
+        ]
+      },
+      {
+        name: 'Handcrafted Pastas & Mains',
+        slug: 'toscano-pasta',
+        items: [
+          { name: 'Fettuccine ai Funghi Porcini', description: 'Handcrafted egg fettuccine tossed with wild porcini mushrooms, garlic butter, and shaved parmesan.', price: 560, image_url: 'https://images.unsplash.com/photo-1621996346565-e3d5d6281699?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 22 },
+          { name: 'Spaghetti Bolognese Tradizionale', description: 'Classic slow-simmered minced lamb and tomato ragu served over al dente spaghetti with grana padano.', price: 590, image_url: 'https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 22 },
+          { name: 'Penne all\'Arrabbiata', description: 'Penne pasta tossed in spicy slow-cooked San Marzano tomato sauce, garlic, red chilli flakes, and fresh parsley.', price: 440, image_url: 'https://images.unsplash.com/photo-1563379926898-05f4575a45d8?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 20 },
+          { name: 'Pollo alla Griglia with Herb Potatoes', description: 'Pan-seared herb-marinated chicken breast served with rosemary roasted potatoes and chicken jus.', price: 620, image_url: 'https://images.unsplash.com/photo-1532550907401-a500c9a57435?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 25 }
+        ]
+      },
+      {
+        name: 'Dolci & Refreshers',
+        slug: 'toscano-desserts',
+        items: [
+          { name: 'Classic Tiramisu Italiano', description: 'Traditional recipe with espresso-dipped savoiardi biscuits, creamy mascarpone sabayon, and Dutch cocoa powder.', price: 360, image_url: 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 10 },
+          { name: 'Warm Chocolate Fondant with Gelato', description: 'Molten dark Belgian chocolate lava cake served warm with Madagascar vanilla bean gelato.', price: 380, image_url: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 15 },
+          { name: 'Sicilian Blood Orange Soda', description: 'Craft Italian sparkling citrus soda infused with fresh rosemary and cracked ice.', price: 190, image_url: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 5 }
+        ]
+      }
+    ]
+  },
+
+  // 4. Dum Pukht Begum's (Replaces fictional Nizami Hearth)
+  {
+    index: 4,
+    name: 'Dum Pukht Begum\'s',
+    slug: 'dum-pukht-begums',
+    tagline: 'Royal Nizami & Awadhi slow-cooked dum pukht dining',
+    description: 'Luxury royal dining at ITC Kohenur, celebrating the refined slow-cooking traditions of the Begums of Hyderabad and royal Awadh. Famous for Dum Pukht Kakori, Nalli Nihari, and Shahi Biryanis.',
+    cover_image: 'https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&w=1200&q=80',
+    logo_image: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=200&q=80',
+    rating: 4.9,
+    rating_count: 890,
+    price_tier: '₹₹₹₹',
+    delivery_time_min: 35,
+    delivery_time_max: 55,
+    minimum_order: 600,
+    delivery_fee: 75,
+    packaging_fee: 40,
+    is_featured: true,
+    is_open: true,
+    address_line: 'ITC Kohenur, Plot 5, Knowledge City, Madhapur',
+    city: 'Hyderabad',
+    latitude: 17.4385000,
+    longitude: 78.3812000,
+    cuisines: ['hyderabadi-dum', 'contemporary-deccani'],
+    public_source: 'ITC Hotels Official Site / Swiggy Dineout (Dum Pukht Begum\'s, ITC Kohenur)',
+    categories: [
+      {
+        name: 'Royal Shorbas & Starters',
+        slug: 'dumpukht-starters',
+        items: [
+          { name: 'Murgh Badami Shorba', description: 'Delicate chicken broth enriched with toasted almond paste, saffron threads, and cracked white pepper.', price: 440, image_url: 'https://images.unsplash.com/photo-1547928576-a4a33237cbc3?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 25 },
+          { name: 'Dum Pukht Kakori Kebab (4 pcs)', description: 'The legendary melt-in-mouth mutton kebab flavored with cloves, rose petals, and royal spices, grilled on skewers.', price: 890, image_url: 'https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 30 },
+          { name: 'Shahi Galawati Kebab with Paratha', description: 'Finely minced baby lamb patty smoked over charcoal and served on delicate ulte tawa ka paratha.', price: 860, image_url: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 30 },
+          { name: 'Subz Galouti Kebab (4 pcs)', description: 'Pan-seared spiced yam and green pea patties infused with cardamom, saffron, and kewra water.', price: 590, image_url: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 25 }
+        ]
+      },
+      {
+        name: 'Slow-Simmered Royal Mains',
+        slug: 'dumpukht-mains',
+        items: [
+          { name: 'Nalli Nihari Begum-I-Khas', description: 'Tender lamb shanks simmered overnight in an aromatic pot roast reduction with ginger juliennes and lime.', price: 1080, image_url: 'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 40 },
+          { name: 'Nizami Dum Ka Murgh', description: 'Chicken pieces slow-cooked on dum in a rich gravy of cashews, brown onions, yoghurt, and Kashmiri saffron.', price: 780, image_url: 'https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 30 },
+          { name: 'Dum Dal Begum-I-Khas', description: 'The famous black lentils slow-cooked overnight over charcoal with tomato puree, white butter, and cream.', price: 560, image_url: 'https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 25 },
+          { name: 'Paneer Pasanda Khas', description: 'Stuffed cottage cheese triangles simmered in a creamy almond and tomato gravy scented with green cardamom.', price: 640, image_url: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 25 }
+        ]
+      },
+      {
+        name: 'Dastarkhwan Biryanis & Breads',
+        slug: 'dumpukht-rice',
+        items: [
+          { name: 'Dum Pukht Biryani Khaas (Handi)', description: 'Aged basmati rice and baby lamb cooked in a sealed earthenware handi with saffron, mint, and pure ghee.', price: 920, image_url: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 35 },
+          { name: 'Subz Moti Tehri', description: 'Fragrant basmati rice layered with garden vegetables, paneer pearls, and mild Awadhi spices.', price: 590, image_url: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 25 },
+          { name: 'Warqi Paratha (2 pcs)', description: 'Flaky multi-layered royal flatbread kneaded with milk and baked on an inverted griddle.', price: 160, image_url: 'https://images.unsplash.com/photo-1509722747041-616f39b57569?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 15 },
+          { name: 'Zafrani Sheermal', description: 'Traditional royal sweet bread enriched with saffron milk and baked in a clay tandoor.', price: 190, image_url: 'https://images.unsplash.com/photo-1586444248902-2f64eddc13df?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 15 }
+        ]
+      },
+      {
+        name: 'Royal Meetha',
+        slug: 'dumpukht-desserts',
+        items: [
+          { name: 'Shahi Tukda Begumi', description: 'Golden fried brioche soaked in saffron cardamom syrup and covered with thick malai rabdi.', price: 360, image_url: 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 12 },
+          { name: 'Khubani Ka Meetha with Clotted Malai', description: 'Stewed Afghani dried apricots simmered in sugar syrup and topped with chilled buffalo milk malai.', price: 380, image_url: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 10 }
+        ]
+      }
+    ]
+  },
+
+  // 5. Paradise Biryani (Retained, Audited Prices)
+  {
+    index: 5,
+    name: 'Paradise Biryani',
+    slug: 'paradise-biryani',
+    tagline: 'The world\'s favorite Hyderabadi biryani institution since 1953',
+    description: 'Hyderabad\'s historic biryani brand founded in Secunderabad in 1953. Famous for authentic Dum Biryanis, tender mutton seekh kebabs, and rich Mughlai gravies.',
+    cover_image: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=1200&q=80',
+    logo_image: 'https://images.unsplash.com/photo-1633945274405-b6c8069047b0?auto=format&fit=crop&w=200&q=80',
+    rating: 4.6,
+    rating_count: 5120,
+    price_tier: '₹₹',
+    delivery_time_min: 25,
+    delivery_time_max: 40,
+    minimum_order: 250,
+    delivery_fee: 40,
+    packaging_fee: 20,
+    is_featured: true,
+    is_open: true,
+    address_line: 'Prenderghast Road, MG Road, Secunderabad',
+    city: 'Hyderabad',
+    latitude: 17.4412000,
+    longitude: 78.4985000,
+    cuisines: ['hyderabadi-dum', 'mughlai-charminar-grill'],
+    public_source: 'Paradise Food Court Official / Swiggy Secunderabad',
+    categories: [
+      {
+        name: 'World Famous Dum Biryani',
+        slug: 'paradise-biryani',
+        items: [
+          { name: 'Paradise Special Mutton Biryani', description: 'Legendary long-grain basmati rice cooked on dum with two succulent spiced mutton pieces and rich spices.', price: 430, image_url: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 25 },
+          { name: 'Royal Chicken Dum Biryani', description: 'Authentic Hyderabadi chicken biryani cooked with layers of fragrant basmati rice, tender chicken, and saffron.', price: 340, image_url: 'https://images.unsplash.com/photo-1633945274405-b6c8069047b0?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 25 },
+          { name: 'Nizami Egg Dum Biryani', description: 'Fragrant dum-cooked basmati rice served with seasoned boiled eggs and golden caramelized onions.', price: 260, image_url: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 20 },
+          { name: 'Special Veg Dum Biryani', description: 'Basmati rice layered with fresh seasonal vegetables, mint, fried onions, and whole spices in a sealed pot.', price: 240, image_url: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 20 }
+        ]
+      },
+      {
+        name: 'Paradise Starters & Kebabs',
+        slug: 'paradise-starters',
+        items: [
+          { name: 'Mutton Seekh Kebab (4 pcs)', description: 'Minced mutton blended with garlic, ginger, green chillies, and aromatic spices, roasted on charcoal skewers.', price: 390, image_url: 'https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 20 },
+          { name: 'Chicken Reshmi Kebab (6 pcs)', description: 'Boneless chicken breast pieces marinated in silky cashew paste, yoghurt, and cream, grilled in clay oven.', price: 340, image_url: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 20 },
+          { name: 'Tandoori Murgh (Half)', description: 'Traditional bone-in chicken marinated in spiced hung curd, roasted in clay tandoor until charred and juicy.', price: 290, image_url: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 25 },
+          { name: 'Paneer Tikka Shashlik', description: 'Fresh malai cottage cheese chunks, bell peppers, and red onions marinated in mustard oil tikka masala.', price: 280, image_url: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 18 }
+        ]
+      },
+      {
+        name: 'Curries & Breads',
+        slug: 'paradise-curries',
+        items: [
+          { name: 'Butter Chicken Masala', description: 'Tandoori chicken pieces simmered in creamy makhani gravy enriched with butter and fenugreek leaves.', price: 330, image_url: 'https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 20 },
+          { name: 'Mutton Rogan Josh', description: 'Kashmiri-style tender mutton curry cooked with red chillies, fennel seeds, and aromatic whole spices.', price: 420, image_url: 'https://images.unsplash.com/photo-1545247181-516773cae754?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 25 },
+          { name: 'Mirchi Ka Salan (Extra Portion)', description: 'Traditional Hyderabadi peanut, sesame, and green chilli curry accompaniment for biryani.', price: 70, image_url: 'https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 10 },
+          { name: 'Butter Naan (2 pcs)', description: 'Soft and fluffy leavened white flour bread baked in tandoor and brushed generously with butter.', price: 80, image_url: 'https://images.unsplash.com/photo-1509722747041-616f39b57569?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 10 }
+        ]
+      },
+      {
+        name: 'Heritage Desserts',
+        slug: 'paradise-desserts',
+        items: [
+          { name: 'Paradise Double Ka Meetha', description: 'Traditional Hyderabadi bread pudding soaked in saffron-cardamom flavored milk and garnished with nuts.', price: 120, image_url: 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 8 },
+          { name: 'Qubani Ka Meetha', description: 'Classic stewed dried apricot compote served with fresh cream, an indispensable Hyderabadi sweet.', price: 150, image_url: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 8 },
+          { name: 'Gulab Jamun with Rabdi (2 pcs)', description: 'Soft deep-fried milk dumplings soaked in rose sugar syrup and served with creamy condensed rabdi.', price: 110, image_url: 'https://images.unsplash.com/photo-1514517521153-1be72277b32f?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 8 },
+          { name: 'Matka Phirni', description: 'Creamy slow-cooked ground rice pudding set in chilled clay cups and infused with saffron and pistachios.', price: 95, image_url: 'https://images.unsplash.com/photo-1501443762994-82bd5dace89a?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 8 }
+        ]
+      }
+    ]
+  },
+
+  // 6. Bawarchi Restaurant (Retained, Audited Prices)
+  {
+    index: 6,
+    name: 'Bawarchi Restaurant',
+    slug: 'bawarchi-restaurant',
+    tagline: 'The iconic single-outlet RTC X Roads biryani benchmark',
+    description: 'The legendary original Bawarchi at RTC X Roads, celebrated by generations for its deeply spiced Chicken Biryani, Mutton Fry Biryani, and sizzling Boti Kebabs.',
+    cover_image: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=1200&q=80',
+    logo_image: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=200&q=80',
+    rating: 4.7,
+    rating_count: 6890,
+    price_tier: '₹₹',
+    delivery_time_min: 25,
+    delivery_time_max: 45,
+    minimum_order: 250,
+    delivery_fee: 40,
+    packaging_fee: 20,
+    is_featured: true,
+    is_open: true,
+    address_line: 'Beside Sandhya Theatre, RTC X Roads, Chikkadpally',
+    city: 'Hyderabad',
+    latitude: 17.4042000,
+    longitude: 78.4978000,
+    cuisines: ['hyderabadi-dum', 'mughlai-charminar-grill'],
+    public_source: 'Swiggy / Zomato (Bawarchi Restaurant, RTC X Roads)',
+    categories: [
+      {
+        name: 'Bawarchi Signature Dum Biryani',
+        slug: 'bawarchi-biryani',
+        items: [
+          { name: 'Bawarchi Special Mutton Biryani', description: 'RTC X Roads flagship mutton dum biryani with two tender mutton pieces, boiled egg, and mirchi ka salan.', price: 410, image_url: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 25 },
+          { name: 'Bawarchi Chicken Dum Biryani', description: 'The undisputed RTC X Roads bestseller chicken biryani, generously spiced with brown onions and mint.', price: 290, image_url: 'https://images.unsplash.com/photo-1633945274405-b6c8069047b0?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 25 },
+          { name: 'Mutton Fry Biryani', description: 'Hyderabadi biryani rice crowned with spicy, deeply pan-roasted bone-in mutton fry chunks.', price: 430, image_url: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 25 },
+          { name: 'Paneer Dum Biryani', description: 'Basmati rice cooked in dum style with marinated cottage cheese cubes, saffron, and fresh coriander.', price: 240, image_url: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 20 }
+        ]
+      },
+      {
+        name: 'Coal-Grilled Kebabs & Starters',
+        slug: 'bawarchi-starters',
+        items: [
+          { name: 'Bawarchi Boti Kebab', description: 'Tender baby lamb cubes marinated in ginger, garlic, and fiery chilli paste, roasted over charcoal.', price: 360, image_url: 'https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 20 },
+          { name: 'Chicken 65 RTC X Roads Style', description: 'Deep-fried spicy boneless chicken pieces tossed with curry leaves, yoghurt, and green chillies.', price: 270, image_url: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 18 },
+          { name: 'Tangdi Kebab (3 pcs)', description: 'Chicken drumsticks marinated in spiced yoghurt and roasted over live charcoal until golden and tender.', price: 290, image_url: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 20 },
+          { name: 'Apollo Fish Fry', description: 'Crisp batter-fried fresh fish fillets tossed with yoghurt, red chilli paste, and curry leaves.', price: 340, image_url: 'https://images.unsplash.com/photo-1534939561126-855b8675edd7?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 20 }
+        ]
+      },
+      {
+        name: 'Mughlai Curries & Tandoor',
+        slug: 'bawarchi-curries',
+        items: [
+          { name: 'Mutton Masala Gravy', description: 'Tender mutton cooked in a rich onion and tomato-based gravy with crushed garam masala.', price: 360, image_url: 'https://images.unsplash.com/photo-1545247181-516773cae754?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 22 },
+          { name: 'Kadai Chicken', description: 'Chicken pieces cooked in an iron wok with bell peppers, tomatoes, and freshly ground coriander seeds.', price: 290, image_url: 'https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 20 },
+          { name: 'Dal Tadka Desi Ghee', description: 'Yellow lentils tempered with cumin seeds, garlic, red chillies, and pure desi cow ghee.', price: 180, image_url: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 15 },
+          { name: 'Roomali Roti (2 pcs)', description: 'Thin and soft flatbread baked on a hot domed griddle, best paired with kebabs and curries.', price: 40, image_url: 'https://images.unsplash.com/photo-1509722747041-616f39b57569?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 8 }
+        ]
+      },
+      {
+        name: 'Desserts & Drinks',
+        slug: 'bawarchi-desserts',
+        items: [
+          { name: 'Double Ka Meetha', description: 'Crisp fried bread soaked in warm saffron milk, condensed milk, and garnished with roasted almonds.', price: 95, image_url: 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 8 },
+          { name: 'Khubani Ka Meetha with Ice Cream', description: 'Stewed apricots cooked to rich amber jam consistency, served with a scoop of vanilla ice cream.', price: 130, image_url: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 8 },
+          { name: 'Sweet Lassi Bawarchi Special', description: 'Chilled thick sweet yoghurt drink whipped with cardamom and topped with fresh malai.', price: 70, image_url: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 5 }
+        ]
+      }
+    ]
+  },
+
+  // 7. Cafe Bahar (Retained, Audited Prices)
+  {
+    index: 7,
+    name: 'Cafe Bahar',
+    slug: 'cafe-bahar',
+    tagline: 'Legendary biryani, haleem & Irani chai since 1973',
+    description: 'Hyderguda\'s historic culinary landmark operating since 1973. Famous for rich Mutton Dum Biryani, Tala Hua Gosht, and hot Irani chai brewed to perfection.',
+    cover_image: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=1200&q=80',
+    logo_image: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=200&q=80',
+    rating: 4.7,
+    rating_count: 5740,
+    price_tier: '₹₹',
+    delivery_time_min: 25,
+    delivery_time_max: 40,
+    minimum_order: 250,
+    delivery_fee: 40,
+    packaging_fee: 20,
+    is_featured: true,
+    is_open: true,
+    address_line: 'Old MLA Quarters Road, Hyderguda, Basheerbagh',
+    city: 'Hyderabad',
+    latitude: 17.3995000,
+    longitude: 78.4798000,
+    cuisines: ['hyderabadi-dum', 'mughlai-charminar-grill'],
+    public_source: 'Swiggy / Zomato (Cafe Bahar, Hyderguda)',
+    categories: [
+      {
+        name: 'Bahar Signature Biryanis',
+        slug: 'bahar-biryani',
+        items: [
+          { name: 'Cafe Bahar Special Mutton Biryani', description: 'Hyderguda legendary mutton biryani packed with aromatic saffron rice, tender goat, and boiled egg.', price: 420, image_url: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 25 },
+          { name: 'Classic Chicken Dum Biryani', description: 'Flavourful basmati rice cooked on slow charcoal dum with marinated tender chicken pieces.', price: 280, image_url: 'https://images.unsplash.com/photo-1633945274405-b6c8069047b0?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 25 },
+          { name: 'Fish Dum Biryani', description: 'Fragrant biryani rice layered with marinated boneless fish fillets and caramelized onions.', price: 350, image_url: 'https://images.unsplash.com/photo-1534939561126-855b8675edd7?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 25 },
+          { name: 'Bahar Veg Biryani Special', description: 'Aromatic basmati rice layered with seasoned mixed vegetables, fried cashews, and mint.', price: 220, image_url: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 20 }
+        ]
+      },
+      {
+        name: 'Tandoor & Charcoal Starters',
+        slug: 'bahar-starters',
+        items: [
+          { name: 'Mutton Boti Fry Bahar Style', description: 'Tender mutton boti morsels pan-fried with onions, crushed peppercorns, and green chillies.', price: 350, image_url: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 20 },
+          { name: 'Murgh Malai Kebab (6 pcs)', description: 'Boneless chicken cubes marinated in creamy yoghurt, mild green chillies, and melted butter.', price: 320, image_url: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 20 },
+          { name: 'Tandoori Chicken (Full)', description: 'Whole chicken marinated in mustard oil, Kashmiri red chilli paste, and roasted in clay oven.', price: 460, image_url: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 25 },
+          { name: 'Paneer Malai Tikka', description: 'Chunks of cottage cheese marinated in cream, cashew paste, and aromatic green cardamom.', price: 270, image_url: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 18 }
+        ]
+      },
+      {
+        name: 'Mughlai Curries & Breads',
+        slug: 'bahar-curries',
+        items: [
+          { name: 'Mutton Tala Hua Gosht', description: 'Classic Hyderabadi dry meat fry prepared with boneless tender goat, curry leaves, and green chillies.', price: 370, image_url: 'https://images.unsplash.com/photo-1545247181-516773cae754?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 22 },
+          { name: 'Butter Chicken Bahar', description: 'Tandoori chicken simmered in a silky, lightly sweet tomato butter gravy with dried fenugreek.', price: 310, image_url: 'https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 20 },
+          { name: 'Tandoori Roti (2 pcs)', description: 'Whole wheat flatbread baked against the charcoal tandoor wall.', price: 36, image_url: 'https://images.unsplash.com/photo-1509722747041-616f39b57569?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 8 },
+          { name: 'Rumali Roti (2 pcs)', description: 'Thin and soft griddle-baked bread, perfect for wrapping spicy kebabs and dry meat.', price: 40, image_url: 'https://images.unsplash.com/photo-1509722747041-616f39b57569?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 8 }
+        ]
+      },
+      {
+        name: 'Bahar Chai & Desserts',
+        slug: 'bahar-desserts',
+        items: [
+          { name: 'Special Irani Chai Flask (Serves 4)', description: 'Freshly brewed thick and creamy Hyderabadi Irani chai delivered hot in a flask.', price: 110, image_url: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 10 },
+          { name: 'Khubani Ka Meetha', description: 'Stewed dried apricots cooked to thick compote, topped with custard and blanched almond slivers.', price: 120, image_url: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 8 },
+          { name: 'Double Ka Meetha', description: 'Traditional golden fried bread pudding soaked in saffron milk and condensed milk.', price: 90, image_url: 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 8 }
+        ]
+      }
+    ]
+  },
+
+  // 8. Hotel Shadab (Retained, Audited Prices)
+  {
+    index: 8,
+    name: 'Hotel Shadab',
+    slug: 'hotel-shadab',
+    tagline: 'Historic Old City culinary crown near Charminar',
+    description: 'The heartbeat of Old City Hyderabad near Madina Circle. Renowned for rich Zafrani Mutton Biryani, morning Paya Nahari, Bheja Fry, and flaky sheermal.',
+    cover_image: 'https://images.unsplash.com/photo-1633945274405-b6c8069047b0?auto=format&fit=crop&w=1200&q=80',
+    logo_image: 'https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=200&q=80',
+    rating: 4.7,
+    rating_count: 7420,
+    price_tier: '₹₹',
+    delivery_time_min: 30,
+    delivery_time_max: 50,
+    minimum_order: 250,
+    delivery_fee: 45,
+    packaging_fee: 25,
+    is_featured: true,
+    is_open: true,
+    address_line: '21-1-140/144, High Court Road, Madina Circle, Ghansi Bazaar',
+    city: 'Hyderabad',
+    latitude: 17.3685000,
+    longitude: 78.4732000,
+    cuisines: ['hyderabadi-dum', 'mughlai-charminar-grill'],
+    public_source: 'Swiggy / Zomato (Hotel Shadab, Ghansi Bazaar)',
+    categories: [
+      {
+        name: 'Old City Heritage Dum Biryani',
+        slug: 'shadab-biryani',
+        items: [
+          { name: 'Shadab Special Zafrani Mutton Biryani', description: 'Old City signature mutton biryani made with fragrant aged basmati rice, tender mutton cuts, and saffron.', price: 420, image_url: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 25 },
+          { name: 'Shadab Chicken Dum Biryani', description: 'Flavor-packed Hyderabadi chicken dum biryani served with spicy mirchi ka salan and dahi ki chutney.', price: 290, image_url: 'https://images.unsplash.com/photo-1633945274405-b6c8069047b0?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 25 },
+          { name: 'Mutton Kheema Biryani', description: 'Spiced minced lamb cooked in dum style with long-grain rice, fresh mint, and browned onions.', price: 360, image_url: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 25 },
+          { name: 'Vegetable Dum Biryani', description: 'Garden vegetables slow-simmered with aromatic rice, cardamom, and fried onions.', price: 220, image_url: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 20 }
+        ]
+      },
+      {
+        name: 'Heritage Broths & Breakfast Specials',
+        slug: 'shadab-heritage',
+        items: [
+          { name: 'Authentic Mutton Marag & Sheermal', description: 'Traditional thin mutton broth simmered with cracked black pepper, pistachios, and paired with sheermal.', price: 340, image_url: 'https://images.unsplash.com/photo-1547928576-a4a33237cbc3?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 25 },
+          { name: 'Bheja Fry Old City Style', description: 'Tender goat brain tossed on hot tawa with green chillies, ginger juliennes, and ground spices.', price: 290, image_url: 'https://images.unsplash.com/photo-1545247181-516773cae754?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 20 },
+          { name: 'Paya Nahari with Kulcha', description: 'Slow-cooked trotter soup simmered overnight with bone marrow and herbs, served with warm kulcha.', price: 310, image_url: 'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 25 },
+          { name: 'Gurda Kaleji Fry', description: 'Mutton kidneys and liver pan-fried with onions, curry leaves, and crushed black pepper.', price: 280, image_url: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 20 }
+        ]
+      },
+      {
+        name: 'Charcoal Kebabs & Curries',
+        slug: 'shadab-kebabs',
+        items: [
+          { name: 'Shikampur Kebab (4 pcs)', description: 'Tender minced meat patties stuffed with hung yoghurt, mint, and green chillies, pan-seared in ghee.', price: 320, image_url: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 20 },
+          { name: 'Mutton Rogan Josh Shadab', description: 'Rich gravy of tender mutton pieces simmered in Kashmiri red chillies and yoghurt.', price: 350, image_url: 'https://images.unsplash.com/photo-1545247181-516773cae754?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 22 },
+          { name: 'Tandoori Murgh (Full)', description: 'Whole marinated chicken roasted in clay oven, seasoned with chaat masala and lime juice.', price: 440, image_url: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 25 },
+          { name: 'Tandoori Naan (2 pcs)', description: 'Fluffy tandoor-baked flatbreads, ideal for scooping up thick gravies.', price: 50, image_url: 'https://images.unsplash.com/photo-1509722747041-616f39b57569?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 10 }
+        ]
+      },
+      {
+        name: 'Deccani Sweets & Chai',
+        slug: 'shadab-sweets',
+        items: [
+          { name: 'Shadab Special Shahi Tukda', description: 'Crispy fried bread soaked in saffron milk and topped with thick rabdi and dry fruits.', price: 120, image_url: 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 8 },
+          { name: 'Qubani Ka Meetha with Malai', description: 'Stewed dried apricots garnished with fresh clotted malai and blanched apricot kernels.', price: 130, image_url: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 8 },
+          { name: 'Irani Zafrani Chai Flask', description: 'Authentic Old City Irani dum tea brewed with saffron and caramelized milk.', price: 110, image_url: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 8 }
+        ]
+      }
+    ]
+  },
+
+  // 9. Pista House (Retained, Audited Prices)
+  {
+    index: 9,
+    name: 'Pista House',
+    slug: 'pista-house',
+    tagline: 'World-famous GI-tagged Haleem & Hyderabadi bakery classics',
+    description: 'Renowned world over for its Geographical Indication (GI) tagged Hyderabadi Mutton Haleem, aromatic Zafrani Dum Biryani, and traditional bakery delicacies.',
+    cover_image: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=1200&q=80',
+    logo_image: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=200&q=80',
+    rating: 4.8,
+    rating_count: 8120,
+    price_tier: '₹₹',
+    delivery_time_min: 25,
+    delivery_time_max: 40,
+    minimum_order: 250,
+    delivery_fee: 40,
+    packaging_fee: 20,
+    is_featured: true,
+    is_open: true,
+    address_line: 'Opposite Cyber Gateway, HITEC City Main Road, Madhapur',
+    city: 'Hyderabad',
+    latitude: 17.4475000,
+    longitude: 78.3789000,
+    cuisines: ['hyderabadi-dum', 'european-bistro'],
+    public_source: 'Swiggy / Pista House Official Delivery Portal',
+    categories: [
+      {
+        name: 'GI-Tagged World Famous Haleem',
+        slug: 'pista-haleem',
+        items: [
+          { name: 'Pista House Royal Mutton Haleem', description: 'Pure mutton pounded with broken wheat, pure ghee, lentils, and royal spices, slow-cooked for 12 hours.', price: 290, image_url: 'https://images.unsplash.com/photo-1547928576-a4a33237cbc3?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 15 },
+          { name: 'Special Chicken Haleem', description: 'Flavorful chicken haleem slow-cooked with wheat, lentils, and spices, topped with fried onions and mint.', price: 240, image_url: 'https://images.unsplash.com/photo-1547928576-a4a33237cbc3?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 15 },
+          { name: 'Family Pack Mutton Haleem (1 kg)', description: 'Grand 1 kg pack of GI-tagged mutton haleem served with fried onions, cashew nuts, and fresh lime.', price: 850, image_url: 'https://images.unsplash.com/photo-1547928576-a4a33237cbc3?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 20 },
+          { name: 'Vegetarian Dry Fruit Haleem', description: 'A delicate vegetarian rendition prepared with oats, cracked wheat, lentils, and rich roasted dry fruits.', price: 210, image_url: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 15 }
+        ]
+      },
+      {
+        name: 'Zafrani Biryanis',
+        slug: 'pista-biryani',
+        items: [
+          { name: 'Zafrani Mutton Dum Biryani', description: 'Fragrant basmati rice cooked on charcoal dum with tender mutton chunks and saffron infusion.', price: 390, image_url: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 25 },
+          { name: 'Zafrani Chicken Dum Biryani', description: 'Signature Hyderabadi chicken biryani cooked with aged basmati rice, mint, and fried onions.', price: 290, image_url: 'https://images.unsplash.com/photo-1633945274405-b6c8069047b0?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 25 },
+          { name: 'Special Mutton Kheema Biryani', description: 'Slow-cooked spiced mutton mince layered with aromatic basmati rice and fresh herbs.', price: 340, image_url: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 25 },
+          { name: 'Paneer Dum Biryani Handi', description: 'Earthen pot biryani cooked with marinated paneer cubes and whole garam masala.', price: 240, image_url: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 20 }
+        ]
+      },
+      {
+        name: 'Kebabs & Curries',
+        slug: 'pista-kebabs',
+        items: [
+          { name: 'Mutton Seekh Kebab', description: 'Charcoal-grilled minced mutton skewers flavored with cumin, ginger, and green chillies.', price: 340, image_url: 'https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 20 },
+          { name: 'Murgh Tikka (6 pcs)', description: 'Tender chicken morsels marinated in spiced yoghurt and roasted in clay oven.', price: 290, image_url: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 20 },
+          { name: 'Mutton Rogan Josh', description: 'Aromatic mutton curry simmered in rich gravy with Kashmiri red chillies and whole spices.', price: 360, image_url: 'https://images.unsplash.com/photo-1545247181-516773cae754?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 22 },
+          { name: 'Butter Naan', description: 'Clay-oven baked white flour flatbread brushed with butter.', price: 45, image_url: 'https://images.unsplash.com/photo-1509722747041-616f39b57569?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 8 }
+        ]
+      },
+      {
+        name: 'Bakery Confections & Sweets',
+        slug: 'pista-bakery',
+        items: [
+          { name: 'Apricot Delight Cake Slice', description: 'Sponge cake layered with rich stewed apricot compote and whipped custard.', price: 140, image_url: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 5 },
+          { name: 'Assorted Baklava Box (250g)', description: 'Crisp multi-layered Middle Eastern phyllo pastry loaded with chopped pistachios and honey.', price: 380, image_url: 'https://images.unsplash.com/photo-1519869325930-281384150729?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 5 },
+          { name: 'Osmania Biscuits Tin (400g)', description: 'The quintessential sweet and salty Hyderabadi melt-in-mouth chai tea biscuits.', price: 180, image_url: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 5 },
+          { name: 'Khubani Ka Meetha', description: 'Stewed dried apricots garnished with cream and blanched almond slivers.', price: 120, image_url: 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 5 }
+        ]
+      }
+    ]
+  },
+
+  // 10. Shah Ghouse Hotel & Restaurant (Retained, Audited Prices)
+  {
+    index: 10,
+    name: 'Shah Ghouse Hotel & Restaurant',
+    slug: 'shah-ghouse',
+    tagline: 'Legendary night dining, mutton biryani & boti kebabs',
+    description: 'A heavyweight culinary institution in Hyderabad famed for its late-night bustling service, authentic Mutton Dum Biryani, Tala Hua Gosht, and rich Haleem.',
+    cover_image: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=1200&q=80',
+    logo_image: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=200&q=80',
+    rating: 4.6,
+    rating_count: 6790,
+    price_tier: '₹₹',
+    delivery_time_min: 25,
+    delivery_time_max: 45,
+    minimum_order: 250,
+    delivery_fee: 40,
+    packaging_fee: 20,
+    is_featured: true,
+    is_open: true,
+    address_line: 'Opposite Bio-Diversity Park, Raidurgam, Gachibowli',
+    city: 'Hyderabad',
+    latitude: 17.4328000,
+    longitude: 78.3752000,
+    cuisines: ['hyderabadi-dum', 'mughlai-charminar-grill'],
+    public_source: 'Swiggy / Zomato (Shah Ghouse, Gachibowli / Tolichowki)',
+    categories: [
+      {
+        name: 'Shah Ghouse Dum Biryanis',
+        slug: 'shahghouse-biryani',
+        items: [
+          { name: 'Shah Ghouse Special Mutton Biryani', description: 'The famous house special dum biryani packed with tender goat meat pieces, egg, and spiced rice.', price: 410, image_url: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 25 },
+          { name: 'Special Chicken Dum Biryani', description: 'Flavourful basmati rice layered with spiced chicken, mint, and fried onions, served with salan and raita.', price: 290, image_url: 'https://images.unsplash.com/photo-1633945274405-b6c8069047b0?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 25 },
+          { name: 'Mutton Fry Piece Biryani', description: 'Aromatic biryani rice topped with spicy, pan-fried succulent mutton fry chunks.', price: 430, image_url: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 25 },
+          { name: 'Veg Dum Biryani', description: 'Dum-cooked basmati rice with mixed fresh vegetables and whole aromatic spices.', price: 210, image_url: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 20 }
+        ]
+      },
+      {
+        name: 'Haleem & Mughlai Starters',
+        slug: 'shahghouse-starters',
+        items: [
+          { name: 'Shah Ghouse Mutton Haleem', description: 'Slow-simmered pounded meat and wheat porridge prepared in pure ghee with aromatic spices.', price: 280, image_url: 'https://images.unsplash.com/photo-1547928576-a4a33237cbc3?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 15 },
+          { name: 'Tangdi Kebab (3 pcs)', description: 'Juicy chicken drumsticks marinated in spicy yoghurt tikka marinade, char-grilled in tandoor.', price: 280, image_url: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 20 },
+          { name: 'Tala Hua Gosht', description: 'Crisp boneless mutton pieces pan-fried with onions, curry leaves, and green chillies.', price: 340, image_url: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 20 },
+          { name: 'Chicken Reshmi Kebab (6 pcs)', description: 'Melt-in-mouth chicken breast cubes marinated in cream, cashews, and mild spices.', price: 310, image_url: 'https://images.unsplash.com/photo-1599488615731-7e5c2823ff28?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 20 }
+        ]
+      },
+      {
+        name: 'Curries & Flatbreads',
+        slug: 'shahghouse-curries',
+        items: [
+          { name: 'Mutton Korma', description: 'Classic mutton curry slow-cooked with browned onion paste, yoghurt, and whole spices.', price: 340, image_url: 'https://images.unsplash.com/photo-1545247181-516773cae754?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 22 },
+          { name: 'Murgh Makhani Butter Chicken', description: 'Tandoori chicken pieces simmered in sweet and tangy butter tomato gravy.', price: 290, image_url: 'https://images.unsplash.com/photo-1588166524941-3bf61a9c41db?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 20 },
+          { name: 'Roomali Roti (2 pcs)', description: 'Handkerchief thin griddle flatbreads made fresh.', price: 40, image_url: 'https://images.unsplash.com/photo-1509722747041-616f39b57569?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 8 },
+          { name: 'Butter Naan (2 pcs)', description: 'Tandoori leavened flatbreads topped with melted butter.', price: 70, image_url: 'https://images.unsplash.com/photo-1509722747041-616f39b57569?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 8 }
+        ]
+      },
+      {
+        name: 'Desserts & Chai',
+        slug: 'shahghouse-desserts',
+        items: [
+          { name: 'Special Double Ka Meetha', description: 'Traditional fried bread pudding in saffron-scented condensed milk.', price: 95, image_url: 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 5 },
+          { name: 'Qubani Ka Meetha with Cream', description: 'Rich stewed apricot compote with fresh cream.', price: 120, image_url: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 5 },
+          { name: 'Irani Dum Chai Flask', description: 'Freshly prepared thick Hyderabadi Irani chai in insulated flask.', price: 100, image_url: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 5 }
+        ]
+      }
+    ]
+  },
+
+  // 11. Rayalaseema Ruchulu (Retained, Audited Prices)
+  {
+    index: 11,
+    name: 'Rayalaseema Ruchulu',
+    slug: 'rayalaseema-ruchulu',
+    tagline: 'Authentic fiery Rayalaseema & Andhra culinary heritage',
+    description: 'Renowned for introducing authentic Rayalaseema cuisine to Hyderabad. Celebrated for Ragi Sankati with Natu Kodi Pulusu, spicy Gongura Mamsam, and Rayalaseema thalis.',
+    cover_image: 'https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=1200&q=80',
+    logo_image: 'https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=200&q=80',
+    rating: 4.6,
+    rating_count: 3820,
+    price_tier: '₹₹₹',
+    delivery_time_min: 30,
+    delivery_time_max: 45,
+    minimum_order: 300,
+    delivery_fee: 45,
+    packaging_fee: 25,
+    is_featured: true,
+    is_open: true,
+    address_line: 'Level 5, 36th Square, Road No. 36, Jubilee Hills',
+    city: 'Hyderabad',
+    latitude: 17.4325000,
+    longitude: 78.4072000,
+    cuisines: ['andhra-rayalaseema', 'telangana-heritage'],
+    public_source: 'Swiggy / Rayalaseema Ruchulu Official Menu',
+    categories: [
+      {
+        name: 'Rayalaseema Starters & Vepudus',
+        slug: 'ruchulu-starters',
+        items: [
+          { name: 'Kodi Vepudu', description: 'Tender chicken tossed with village spices, curry leaves, and green chillies.', price: 340, image_url: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 20 },
+          { name: 'Rayalaseema Mamsam Vepudu', description: 'Pan-roasted tender mutton cooked dry with shallots and black pepper.', price: 440, image_url: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 25 },
+          { name: 'Royyala Vepudu (Prawn Fry)', description: 'Fresh prawns pan-fried with caramelized onions and roasted spices.', price: 460, image_url: 'https://images.unsplash.com/photo-1534939561126-855b8675edd7?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 22 },
+          { name: 'Kaju Paneer Vepudu', description: 'Crisp cottage cheese cubes dry-fried with roasted cashews and curry leaves.', price: 290, image_url: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 18 }
+        ]
+      },
+      {
+        name: 'Rustic Curries & Ragi Combos',
+        slug: 'ruchulu-curries',
+        items: [
+          { name: 'Ragi Sankati with Natu Kodi Pulusu', description: 'Country chicken curry simmered with spicy Rayalaseema masala, served with steamed ragi mudda and ghee.', price: 440, image_url: 'https://images.unsplash.com/photo-1603894584373-5ac82b2ae398?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 28 },
+          { name: 'Gongura Mamsam', description: 'Tender baby mutton pieces simmered in a tangy sorrel leaves gravy.', price: 420, image_url: 'https://images.unsplash.com/photo-1545247181-516773cae754?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 25 },
+          { name: 'Rayalaseema Talakaya Kura', description: 'Traditional head meat stew slow-cooked with village spices and black pepper.', price: 390, image_url: 'https://images.unsplash.com/photo-1545247181-516773cae754?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: false, prep_time: 25 },
+          { name: 'Gutti Vankaya Kura', description: 'Baby brinjals cooked in roasted peanut, sesame, and coriander gravy.', price: 260, image_url: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 20 }
+        ]
+      },
+      {
+        name: 'Pulaos, Thalis & Breads',
+        slug: 'ruchulu-rice',
+        items: [
+          { name: 'Ulavacharu Kodi Pulao', description: 'Fragrant rice cooked in rich horse gram broth, topped with spicy chicken.', price: 380, image_url: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 25 },
+          { name: 'Rayalaseema Special Non-Veg Thali', description: 'Grand feast featuring chicken curry, mutton fry, sambar, rasam, curd, and sweets.', price: 490, image_url: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80', is_veg: false, is_chef_special: true, prep_time: 25 },
+          { name: 'Jonnah Roti (2 pcs)', description: 'Healthy and wholesome unleavened flatbreads made from roasted jowar millet flour.', price: 60, image_url: 'https://images.unsplash.com/photo-1509722747041-616f39b57569?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 12 },
+          { name: 'Ulava Charu with Cream', description: 'Traditional thick horse gram soup served with fresh malai and hot steamed rice accompaniment.', price: 160, image_url: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 12 }
+        ]
+      },
+      {
+        name: 'Desserts & Beverages',
+        slug: 'ruchulu-desserts',
+        items: [
+          { name: 'Junnu (Colostrum Milk Pudding)', description: 'Steamed sweet delicacy made with first-day cow milk, jaggery, and black pepper.', price: 140, image_url: 'https://images.unsplash.com/photo-1501443762994-82bd5dace89a?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 8 },
+          { name: 'Poornam Boorelu (2 pcs)', description: 'Crisp golden batter-fried balls filled with sweet chana dal and jaggery mixture.', price: 120, image_url: 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 8 },
+          { name: 'Majjiga Charu Cooler', description: 'Traditional spiced buttermilk flavored with crushed ginger, mustard, and green chillies.', price: 60, image_url: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 5 }
+        ]
+      }
+    ]
+  },
+
+  // 12. Chutneys (Retained, Audited Prices)
   {
     index: 12,
     name: 'Chutneys',
     slug: 'chutneys',
-    tagline: 'Iconic all-day South Indian gourmet tiffins & signature chutneys',
-    description: 'Hyderabad’s premier South Indian culinary institution, famous for Babai Idli with white butter, MLA Pesarattu, and a legendary rainbow of freshly ground chutneys.',
-    cover_image: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=1200&q=80',
-    logo_image: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=200&q=80',
-    rating: 4.8,
-    rating_count: 2300,
+    tagline: 'Iconic South Indian tiffins & the legendary 6 signature chutneys',
+    description: 'Hyderabad\'s premier vegetarian breakfast and tiffin destination. Famous for Babai Idli with pure white butter, Guntur Karampodi Dosa, MLA Pesarattu, and its signature rainbow chutneys.',
+    cover_image: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=1200&q=80',
+    logo_image: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=200&q=80',
+    rating: 4.7,
+    rating_count: 5340,
     price_tier: '₹₹',
     delivery_time_min: 20,
     delivery_time_max: 35,
-    minimum_order: 250,
+    minimum_order: 200,
     delivery_fee: 35,
-    packaging_fee: 15,
+    packaging_fee: 20,
     is_featured: true,
     is_open: true,
     address_line: 'Plot 3-6-271, Road No. 3, Banjara Hills',
     city: 'Hyderabad',
-    latitude: 17.4221000,
-    longitude: 78.4412000,
+    latitude: 17.4235000,
+    longitude: 78.4485000,
     cuisines: ['south-indian-tiffins', 'pure-vegetarian'],
-    public_source: 'chutneys.co.in / Zomato Banjara Hills',
+    public_source: 'Swiggy / Zomato (Chutneys, Banjara Hills)',
     categories: [
       {
         name: 'Iconic Breakfast Tiffins',
         slug: 'chutneys-tiffins',
         items: [
-          { name: 'Babai Idli with White Butter (3 pcs)', description: 'Ultra-soft steamed rice cakes topped with melting homemade white butter, karampodi, and 6 assorted chutneys.', price: 230, image_url: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 15 },
-          { name: 'Guntur Idli Karampodi Spiced', description: 'Mini button idlis tossed in fiery Guntur chili powder, sesame oil, and fresh curry leaves.', price: 210, image_url: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 12 },
-          { name: 'Meda Vada Sambar (2 pcs)', description: 'Crisp golden lentil fritters served with hot piping vegetable sambar and coconut chutney.', price: 180, image_url: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 12 },
-          { name: 'Poori with Potato Sagu (3 pcs)', description: 'Fluffy golden fried bread served with spiced potato sagu and ginger chutney.', price: 190, image_url: 'https://images.unsplash.com/photo-1509722747041-616f39b57569?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 12 }
+          { name: 'Babai Idli with White Butter (3 pcs)', description: 'Ultra-soft steamed rice idlis topped with a dollop of fresh churned white butter and podi.', price: 155, image_url: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 12 },
+          { name: 'Guntur Idli Karampodi Spiced', description: 'Steamed idlis tossed in roasted Guntur red chilli podi and pure desi ghee.', price: 145, image_url: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 12 },
+          { name: 'Meda Vada Sambar (2 pcs)', description: 'Crisp on the outside, fluffy inside lentil doughnuts served with hot spiced vegetable sambar.', price: 135, image_url: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 12 },
+          { name: 'Poori with Potato Sagu (3 pcs)', description: 'Fluffy golden fried whole wheat pooris served with spiced potato sagu and coconut chutney.', price: 145, image_url: 'https://images.unsplash.com/photo-1509722747041-616f39b57569?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 15 }
         ]
       },
       {
         name: 'Gourmet Dosa Collection',
         slug: 'chutneys-dosas',
         items: [
-          { name: 'MLA Pesarattu with Upma Filling', description: 'Whole green gram crepe cooked crisp, stuffed with spicy semolina upma, chopped onions, and ginger.', price: 260, image_url: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 15 },
-          { name: 'Corn and Cheese Dosa', description: 'Crispy crepe filled with sweet corn kernels, grated cheddar, and fresh green chilies.', price: 270, image_url: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 14 },
-          { name: 'Ghee Karam Dosa', description: 'Golden roasted thin crepe smeared with spicy red chili garlic paste and dollops of pure ghee.', price: 240, image_url: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 12 },
-          { name: 'Butter Masala Dosa', description: 'Classic crisp dosa stuffed with seasoned potato mash and dollop of dairy butter.', price: 220, image_url: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 12 }
+          { name: 'MLA Pesarattu with Upma Filling', description: 'Whole green gram batter crepe roasted on griddle, stuffed with ginger-spiced semolina upma.', price: 175, image_url: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 15 },
+          { name: 'Ghee Karam Dosa', description: 'Crisp golden crepe roasted in pure ghee and spiced with traditional Andhra karampodi.', price: 165, image_url: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 15 },
+          { name: 'Corn and Cheese Dosa', description: 'Modern fusion crepe layered with sweet corn kernels, melted mozzarella, and green chillies.', price: 195, image_url: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 15 },
+          { name: 'Butter Masala Dosa', description: 'Crispy fermented crepe smeared with red garlic chutney, filled with potato bhaji and butter.', price: 150, image_url: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 15 }
         ]
       },
       {
         name: 'South Indian Rice Specialties',
         slug: 'chutneys-rice',
         items: [
-          { name: 'South Indian Special Thali Feast', description: 'Includes poori, rice, sambar, rasam, kootu, poriyal, curd, appalam, and sweet payasam.', price: 340, image_url: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 18 },
-          { name: 'Bisi Bele Bath with Boondi', description: 'Karnataka-style spiced rice and lentil porridge cooked with vegetables and served with crunchy boondi.', price: 220, image_url: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 14 },
-          { name: 'Lemon Rice with Fried Peanuts', description: 'Tangy lemon-tempered rice with mustard seeds, curry leaves, and crunchy peanuts.', price: 190, image_url: 'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 10 },
-          { name: 'Tempered Curd Rice', description: 'Soft rice whipped with fresh curd, pomegranate pearls, and roasted mustard tempering.', price: 170, image_url: 'https://images.unsplash.com/photo-1546069901-d8a4369e5d48?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 8 }
+          { name: 'South Indian Special Thali Feast', description: 'Complete traditional vegetarian meal with poori, rice, sambar, rasam, kootu, curd, and sweet.', price: 265, image_url: 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 18 },
+          { name: 'Bisi Bele Bath with Boondi', description: 'Karnataka-style spiced rice and lentil porridge cooked with seasonal vegetables and pure ghee.', price: 155, image_url: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 15 },
+          { name: 'Lemon Rice with Fried Peanuts', description: 'Fragrant rice tempered with turmeric, fresh lemon juice, curry leaves, and crunchy peanuts.', price: 140, image_url: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 12 },
+          { name: 'Tempered Curd Rice', description: 'Cooling seasoned yoghurt rice tempered with mustard seeds, green chillies, and ginger.', price: 130, image_url: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 10 }
         ]
       },
       {
         name: 'Beverages & Sweets',
         slug: 'chutneys-drinks',
         items: [
-          { name: 'Degree Filter Coffee', description: 'Traditional South Indian chicory and coffee blend frothed with hot milk in dabarah set.', price: 90, image_url: 'https://images.unsplash.com/photo-1517256064527-09c73fc73e38?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 5 },
-          { name: 'Rava Kesari Bath with Cashews', description: 'Sweet semolina pudding enriched with pure ghee, saffron, and roasted cashews.', price: 140, image_url: 'https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 8 },
-          { name: 'Spiced Neer Moru (Buttermilk)', description: 'Chilled salted churned buttermilk infused with curry leaves, ginger, and asafoetida.', price: 80, image_url: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 4 }
+          { name: 'Degree Filter Coffee', description: 'Authentic South Indian chicory filter coffee frothed to perfection in brass tumbler.', price: 65, image_url: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 8 },
+          { name: 'Rava Kesari Bath with Cashews', description: 'Warm golden semolina pudding enriched with pure ghee, saffron, and roasted cashew nuts.', price: 105, image_url: 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 8 },
+          { name: 'Spiced Neer Moru (Buttermilk)', description: 'Chilled buttermilk tempered with ginger, green chillies, hing, and fresh coriander.', price: 55, image_url: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 5 }
+        ]
+      }
+    ]
+  },
+
+  // 13. Tatva (Retained, Audited Prices)
+  {
+    index: 13,
+    name: 'Tatva',
+    slug: 'tatva',
+    tagline: 'Refined pure vegetarian gourmet dining in Jubilee Hills',
+    description: 'Award-winning vegetarian fine dining on Road No. 36. An exquisite fusion of contemporary Indian, Mediterranean, and European cuisines in an elegant setting.',
+    cover_image: 'https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=1200&q=80',
+    logo_image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=200&q=80',
+    rating: 4.8,
+    rating_count: 2450,
+    price_tier: '₹₹₹₹',
+    delivery_time_min: 30,
+    delivery_time_max: 45,
+    minimum_order: 400,
+    delivery_fee: 55,
+    packaging_fee: 30,
+    is_featured: true,
+    is_open: true,
+    address_line: 'Plot 1215/A, Road No. 36, Jubilee Hills',
+    city: 'Hyderabad',
+    latitude: 17.4332000,
+    longitude: 78.4045000,
+    cuisines: ['pure-vegetarian', 'modern-indian'],
+    public_source: 'Swiggy / Zomato / Tatva Official Site (Tatva, Jubilee Hills)',
+    categories: [
+      {
+        name: 'Gourmet Vegetarian Starters',
+        slug: 'tatva-starters',
+        items: [
+          { name: 'Galouti Kebab Veg', description: 'Melt-in-mouth smoked yam and lentil kebabs infused with royal spices, served on coin parathas.', price: 420, image_url: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 20 },
+          { name: 'Paneer Tikka Angaar', description: 'Cottage cheese cubes marinated in fiery red spices and hung curd, roasted in clay oven.', price: 440, image_url: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 20 },
+          { name: 'Dahi Ke Kebab', description: 'Crispy outer shell filled with spiced hung yoghurt, coriander, and pomegranate reduction.', price: 380, image_url: 'https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 18 },
+          { name: 'Crispy Lotus Stem Honey Chilli', description: 'Thinly sliced lotus stem crisped and tossed with honey, sesame, and scallions.', price: 390, image_url: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 18 }
+        ]
+      },
+      {
+        name: 'Signature Curries & Handis',
+        slug: 'tatva-curries',
+        items: [
+          { name: 'Dal Tatva Special', description: 'Slow-simmered black lentils cooked overnight on charcoal with rich cream and churned butter.', price: 390, image_url: 'https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 22 },
+          { name: 'Paneer Lababdar Handi', description: 'Fresh malai paneer simmered in a spiced tomato, cashew, and onion gravy with ginger.', price: 440, image_url: 'https://images.unsplash.com/photo-1589302168068-964664d93dc0?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 20 },
+          { name: 'Subz Handi Biryani', description: 'Fragrant aged basmati rice cooked on dum with seasonal vegetables and whole spices in clay handi.', price: 390, image_url: 'https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 25 },
+          { name: 'Truffle Mushroom Risotto', description: 'Creamy arborio rice simmered with wild button and porcini mushrooms, finished with white truffle oil.', price: 540, image_url: 'https://images.unsplash.com/photo-1621996346565-e3d5d6281699?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 24 }
+        ]
+      },
+      {
+        name: 'Artisan Breads & Soup',
+        slug: 'tatva-breads',
+        items: [
+          { name: 'Garlic Butter Naan (2 pcs)', description: 'Tandoori flatbread brushed with garlic and butter.', price: 120, image_url: 'https://images.unsplash.com/photo-1509722747041-616f39b57569?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 10 },
+          { name: 'Chur Chur Naan', description: 'Crisp crushed flaky layered tandoori bread with spiced potato stuffing.', price: 130, image_url: 'https://images.unsplash.com/photo-1509722747041-616f39b57569?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 12 },
+          { name: 'Wild Mushroom Soup', description: 'Velvety cream of roasted wild mushrooms with a touch of thyme and croutons.', price: 240, image_url: 'https://images.unsplash.com/photo-1547928576-a4a33237cbc3?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 15 }
+        ]
+      },
+      {
+        name: 'Desserts & Artisanal Drinks',
+        slug: 'tatva-desserts',
+        items: [
+          { name: 'Gulab Jamun Cheesecake', description: 'Fusion dessert combining classic New York baked cheesecake with soft gulab jamun center.', price: 280, image_url: 'https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 10 },
+          { name: 'Rasmalai Tres Leches', description: 'Mexican three-milk soaked sponge cake infused with cardamom rasmalai rabdi.', price: 290, image_url: 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: true, prep_time: 10 },
+          { name: 'Kesar Badam Milk', description: 'Warm sweetened milk infused with saffron strands and slivered almonds.', price: 140, image_url: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 8 },
+          { name: 'Virgin Mojito Cooler', description: 'Refreshing sparkling cooler with fresh mint, lime juice, and crushed ice.', price: 170, image_url: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=800&q=80', is_veg: true, is_chef_special: false, prep_time: 5 }
         ]
       }
     ]
