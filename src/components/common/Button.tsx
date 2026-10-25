@@ -27,31 +27,31 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const baseStyles =
-      'inline-flex items-center justify-center font-bold rounded-xl transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF650D] disabled:opacity-50 disabled:pointer-events-none select-none cursor-pointer'
+      'inline-flex items-center justify-center font-medium rounded-[var(--dp-radius-control)] transition-all duration-100 focus-visible:outline-dashed focus-visible:outline-2 focus-visible:outline-[var(--dp-color-annotation)] focus-visible:outline-offset-2 disabled:opacity-50 disabled:pointer-events-none select-none cursor-pointer'
 
     const variantStyles = {
       primary:
-        'bg-[#FF650D] text-white border-2 border-[#121212] shadow-[3px_3px_0px_#121212] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0px_#121212] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#121212]',
+        'bg-[var(--dp-color-accent)] text-white border-[1.5px] border-[var(--dp-color-accent)] shadow-[2px_2px_0px_var(--dp-color-ink)] hover:bg-[#852f25] hover:rotate-[-0.5deg] hover:shadow-[1.5px_1.5px_0px_var(--dp-color-ink)] active:translate-x-[1.5px] active:translate-y-[1.5px] active:shadow-[0px_0px_0px_transparent] active:rotate-0',
       secondary:
-        'bg-white text-[#121212] border-2 border-[#121212] shadow-[3px_3px_0px_#121212] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0px_#121212] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#121212]',
+        'bg-[var(--dp-color-scrap)] text-[var(--dp-color-ink)] border-[1.5px] border-[var(--dp-color-ink)] shadow-[2px_2px_0px_var(--dp-color-line)] hover:bg-[var(--dp-color-ground)] hover:rotate-[-0.5deg] hover:shadow-[1.5px_1.5px_0px_var(--dp-color-ink)] active:translate-x-[1.5px] active:translate-y-[1.5px] active:shadow-[0px_0px_0px_transparent] active:rotate-0',
       outline:
-        'border-2 border-[#121212] bg-white text-[#121212] shadow-[2px_2px_0px_#121212] hover:bg-[#FFF4C2] hover:shadow-[4px_4px_0px_#121212] hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0.5 active:translate-y-0.5 active:shadow-[0px_0px_0px_#121212]',
+        'border-[1.5px] border-[var(--dp-color-line)] bg-transparent text-[var(--dp-color-ink)] shadow-[1.5px_1.5px_0px_var(--dp-color-line)] hover:border-[var(--dp-color-ink)] hover:bg-[var(--dp-color-scrap)] hover:shadow-[1.5px_1.5px_0px_var(--dp-color-ink)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-[0px_0px_0px_transparent]',
       ghost:
-        'text-[#5E5854] hover:text-[#121212] hover:bg-black/5 active:scale-[0.98]',
+        'text-[var(--dp-color-ink-muted)] hover:text-[var(--dp-color-ink)] hover:bg-[var(--dp-color-line)]/20 active:scale-[0.98]',
       glass:
-        'bg-white/90 backdrop-blur-md text-[#121212] border-2 border-[#121212] shadow-[3px_3px_0px_#121212] hover:shadow-[5px_5px_0px_#121212]',
+        'bg-[var(--dp-color-scrap)]/95 backdrop-blur-sm text-[var(--dp-color-ink)] border-[1.5px] border-[var(--dp-color-line)] shadow-[1.5px_1.5px_0px_rgba(56,53,47,0.12)] hover:border-[var(--dp-color-ink)]',
       brutal:
-        'bg-[#FF650D] text-white border-2 border-[#121212] rounded-lg shadow-[4px_4px_0px_#121212] font-bold hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_#121212] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#121212]',
+        'bg-[var(--dp-color-accent)] text-white border-[1.5px] border-[var(--dp-color-accent)] shadow-[2px_2px_0px_var(--dp-color-ink)] hover:bg-[#852f25] hover:rotate-[-0.5deg] hover:shadow-[1.5px_1.5px_0px_var(--dp-color-ink)] active:translate-x-[1.5px] active:translate-y-[1.5px] active:shadow-[0px_0px_0px_transparent] active:rotate-0',
       'brutal-secondary':
-        'bg-[#FFFFFF] text-[#121212] border-2 border-[#121212] rounded-lg shadow-[4px_4px_0px_#121212] font-bold hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_#121212] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#121212]',
+        'bg-[var(--dp-color-scrap)] text-[var(--dp-color-ink)] border-[1.5px] border-[var(--dp-color-ink)] shadow-[2px_2px_0px_var(--dp-color-line)] hover:bg-[var(--dp-color-ground)] hover:rotate-[-0.5deg] hover:shadow-[1.5px_1.5px_0px_var(--dp-color-ink)] active:translate-x-[1.5px] active:translate-y-[1.5px] active:shadow-[0px_0px_0px_transparent] active:rotate-0',
       'brutal-yellow':
-        'bg-[#FFD13B] text-[#121212] border-2 border-[#121212] rounded-lg shadow-[4px_4px_0px_#121212] font-bold hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_#121212] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#121212]',
+        'bg-[var(--dp-color-highlight)] text-[var(--dp-color-ink)] border-[1.5px] border-[var(--dp-color-ink)] shadow-[2px_2px_0px_var(--dp-color-ink)] hover:bg-[#ebd995] hover:rotate-[-0.5deg] hover:shadow-[1.5px_1.5px_0px_var(--dp-color-ink)] active:translate-x-[1.5px] active:translate-y-[1.5px] active:shadow-[0px_0px_0px_transparent] active:rotate-0',
     }
 
     const sizeStyles = {
       sm: 'text-xs px-3 py-1.5 gap-1.5',
       md: 'text-sm px-4 py-2.5 gap-2',
-      lg: 'text-base px-6 py-3.5 gap-2.5 font-semibold',
+      lg: 'text-base px-6 py-3.5 gap-2.5 font-medium',
     }
 
     return (
@@ -93,3 +93,4 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 )
 
 Button.displayName = 'Button'
+export default Button

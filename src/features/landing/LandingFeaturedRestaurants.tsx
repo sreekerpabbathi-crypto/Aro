@@ -44,26 +44,26 @@ export const LandingFeaturedRestaurants: React.FC = () => {
   })
 
   return (
-    <section id="featured-restaurants" className="py-16 sm:py-24 bg-[#FAF6EE] border-t-[2.5px] border-[#121212] relative">
+    <section id="featured-restaurants" className="py-16 sm:py-24 bg-[var(--dp-color-ground)] border-t-[1.5px] border-[var(--dp-color-line)] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
           <div className="space-y-2">
             <div className="flex items-center gap-2">
-              <ChilliDoodle className="w-5 h-5 text-[#EF4444]" />
-              <span className="font-['Oswald'] text-xs font-black uppercase tracking-wider text-[#FF650D]">
+              <ChilliDoodle className="w-5 h-5 text-[var(--dp-color-accent)]" />
+              <span className="font-['Outfit',sans-serif] text-xs font-bold uppercase tracking-wider text-[var(--dp-color-annotation)]">
                 Vetted Hyderabad Ateliers
               </span>
             </div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black font-['Outfit'] text-[#121212] tracking-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-['Outfit',sans-serif] text-[var(--dp-color-ink)] tracking-tight">
               CULINARY HEAVYWEIGHTS
             </h2>
-            <p className="text-sm sm:text-base text-[#5E5854] max-w-xl pt-1 font-normal">
+            <p className="text-sm sm:text-base text-[var(--dp-color-ink-muted)] max-w-xl pt-1 font-normal font-['Outfit',sans-serif]">
               Direct chef partnerships, authentic regional ingredients, and zero ghost-kitchen shortcuts.
             </p>
           </div>
 
-          <div className="flex items-center gap-2 font-['Caveat'] text-lg font-bold text-[#FF650D] rotate-1">
+          <div className="flex items-center gap-2 font-['Caveat',cursive] text-lg font-bold text-[var(--dp-color-annotation)] -rotate-1">
             <span>&ldquo;Only 4.5+ star verified kitchens pass our doors.&rdquo;</span>
           </div>
         </div>
@@ -77,10 +77,10 @@ export const LandingFeaturedRestaurants: React.FC = () => {
                 key={tab.slug}
                 type="button"
                 onClick={() => setActiveFilter(tab.slug)}
-                className={`px-4 py-2 rounded-lg text-xs font-black uppercase font-['Oswald'] tracking-wider border-2 border-[#121212] whitespace-nowrap transition-all cursor-pointer ${
+                className={`px-4 py-2 rounded-[var(--dp-radius-control)] text-xs font-bold uppercase font-['Outfit',sans-serif] tracking-wider border-[1.5px] whitespace-nowrap transition-all cursor-pointer ${
                   isActive
-                    ? 'bg-[#121212] text-[#FFD13B] shadow-[3px_3px_0px_#FF650D] -translate-y-0.5'
-                    : 'bg-white text-[#121212] shadow-[2px_2px_0px_#121212] hover:-translate-y-0.5 hover:shadow-[3px_3px_0px_#121212]'
+                    ? 'bg-[var(--dp-color-accent)] text-white border-[var(--dp-color-accent)] shadow-[1.5px_1.5px_0px_var(--dp-color-ink)] -translate-y-0.5'
+                    : 'bg-[var(--dp-color-scrap)] text-[var(--dp-color-ink)] border-[var(--dp-color-line)] shadow-[1px_1px_0px_var(--dp-color-line)] hover:border-[var(--dp-color-ink)]'
                 }`}
               >
                 {tab.label}
@@ -95,19 +95,19 @@ export const LandingFeaturedRestaurants: React.FC = () => {
             {[1, 2, 3].map((n) => (
               <div
                 key={n}
-                className="h-96 rounded-xl bg-white border-2 border-[#121212] animate-pulse"
+                className="h-96 rounded-2xl bg-[var(--dp-color-scrap)] border-[1.5px] border-[var(--dp-color-line)] animate-pulse"
               />
             ))}
           </div>
         ) : filteredRestaurants.length === 0 ? (
-          <div className="p-12 text-center bg-white border-2 border-[#121212] rounded-xl shadow-[4px_4px_0px_#121212]">
-            <p className="text-base font-bold text-[#121212]">
+          <div className="p-12 text-center bg-[var(--dp-color-scrap)] border-[1.5px] border-[var(--dp-color-line)] rounded-2xl shadow-[2px_2px_0px_rgba(56,53,47,0.1)]">
+            <p className="text-base font-bold text-[var(--dp-color-ink)] font-['Outfit',sans-serif]">
               No restaurants matching this filter currently.
             </p>
             <button
               type="button"
               onClick={() => setActiveFilter('all')}
-              className="mt-4 px-4 py-2 bg-[#FF650D] text-white font-bold text-xs uppercase font-['Oswald'] rounded border border-[#121212]"
+              className="mt-4 px-4 py-2 bg-[var(--dp-color-accent)] text-white font-bold text-xs uppercase font-['Outfit',sans-serif] rounded-[var(--dp-radius-control)] border border-[var(--dp-color-accent)] shadow-[1.5px_1.5px_0px_var(--dp-color-ink)]"
             >
               Reset Filters
             </button>
@@ -118,11 +118,11 @@ export const LandingFeaturedRestaurants: React.FC = () => {
               <article
                 key={restaurant.id}
                 onClick={() => navigate(`/restaurants/${restaurant.slug}`)}
-                className="group bg-white border-[2.5px] border-[#121212] rounded-2xl overflow-hidden shadow-[5px_5px_0px_#121212] hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[8px_8px_0px_#121212] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[2px_2px_0px_#121212] transition-all cursor-pointer flex flex-col justify-between"
+                className="group bg-[var(--dp-color-scrap)] border-[1.5px] border-[var(--dp-color-line)] rounded-2xl overflow-hidden shadow-[2px_2px_0px_rgba(56,53,47,0.12)] hover:border-[var(--dp-color-ink)] hover:shadow-[3px_3px_0px_rgba(56,53,47,0.18)] hover:-translate-x-0.5 hover:-translate-y-0.5 active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer flex flex-col justify-between"
               >
                 <div>
                   {/* Photo Frame */}
-                  <div className="relative h-56 w-full overflow-hidden bg-[#FAF6EE] border-b-2 border-[#121212]">
+                  <div className="relative h-56 w-full overflow-hidden bg-[var(--dp-color-ground)] border-b-[1.5px] border-[var(--dp-color-line)]">
                     <img
                       src={restaurant.coverImage}
                       alt={restaurant.name}
@@ -134,10 +134,10 @@ export const LandingFeaturedRestaurants: React.FC = () => {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
                     {/* Top Sticker: Rating Pill */}
-                    <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5 px-2.5 py-1 bg-white border-2 border-[#121212] rounded-md shadow-[2px_2px_0px_#121212] text-xs font-black text-[#121212]">
-                      <Star className="w-3.5 h-3.5 fill-[#FFD13B] text-[#121212]" />
-                      <span>{restaurant.rating}</span>
-                      <span className="text-[#5E5854] text-[10px] font-normal">
+                    <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5 px-2.5 py-1 bg-[var(--dp-color-scrap)] border-[1.5px] border-[var(--dp-color-line)] rounded-md shadow-[1px_1px_0px_var(--dp-color-line)] text-xs font-bold text-[var(--dp-color-ink)]">
+                      <Star className="w-3.5 h-3.5 fill-[var(--dp-color-accent)] text-[var(--dp-color-accent)]" />
+                      <span className="font-['Outfit',sans-serif] font-bold">{restaurant.rating}</span>
+                      <span className="text-[var(--dp-color-ink-muted)] text-[10px] font-normal font-['Outfit',sans-serif]">
                         ({restaurant.ratingCount})
                       </span>
                     </div>
@@ -145,17 +145,17 @@ export const LandingFeaturedRestaurants: React.FC = () => {
                     {/* Top Left: Featured Tag */}
                     {restaurant.isFeatured && (
                       <div className="absolute top-3 left-3 z-10">
-                        <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-[#FFD13B] text-[#121212] text-[10px] font-black uppercase font-['Oswald'] tracking-wider rounded border-2 border-[#121212] shadow-[2px_2px_0px_#121212]">
-                          <StarSparkleDoodle className="w-3 h-3 text-[#121212]" />
+                        <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-[var(--dp-color-highlight)] text-[var(--dp-color-ink)] text-[10px] font-bold uppercase font-['Outfit',sans-serif] tracking-wider rounded border-[1.5px] border-[var(--dp-color-ink)] shadow-[1px_1px_0px_var(--dp-color-ink)]">
+                          <StarSparkleDoodle className="w-3 h-3 text-[var(--dp-color-ink)]" />
                           CHEF FEATURED
                         </span>
                       </div>
                     )}
 
                     {/* Bottom overlay: Location */}
-                    <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs text-white font-medium">
+                    <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between text-xs text-white font-medium font-['Outfit',sans-serif]">
                       <span className="flex items-center gap-1">
-                        <MapPin className="w-3.5 h-3.5 text-[#FFD13B]" />
+                        <MapPin className="w-3.5 h-3.5 text-[var(--dp-color-highlight)]" />
                         <span className="truncate max-w-[190px]">{restaurant.addressLine}</span>
                       </span>
                       <span className="px-2 py-0.5 rounded bg-black/60 border border-white/20 font-mono text-[11px]">
@@ -171,7 +171,7 @@ export const LandingFeaturedRestaurants: React.FC = () => {
                       {restaurant.cuisines?.slice(0, 2).map((c) => (
                         <span
                           key={c.id}
-                          className="px-2 py-0.5 bg-[#FAF6EE] text-[#121212] text-[10px] font-bold uppercase font-['Oswald'] rounded border border-[#121212]/30"
+                          className="px-2 py-0.5 bg-[var(--dp-color-ground)] text-[var(--dp-color-ink-muted)] text-[10px] font-bold uppercase font-['Outfit',sans-serif] rounded border-[1.5px] border-[var(--dp-color-line)]"
                         >
                           {c.name}
                         </span>
@@ -180,10 +180,10 @@ export const LandingFeaturedRestaurants: React.FC = () => {
 
                     {/* Restaurant Name & Tagline */}
                     <div>
-                      <h3 className="text-xl font-black font-['Outfit'] text-[#121212] group-hover:text-[#FF650D] transition-colors">
+                      <h3 className="text-xl font-bold font-['Outfit',sans-serif] text-[var(--dp-color-ink)] group-hover:text-[var(--dp-color-accent)] transition-colors">
                         {restaurant.name}
                       </h3>
-                      <p className="text-xs text-[#5E5854] line-clamp-2 mt-1 leading-relaxed font-normal">
+                      <p className="text-xs text-[var(--dp-color-ink-muted)] line-clamp-2 mt-1 leading-relaxed font-normal font-['Outfit',sans-serif]">
                         {restaurant.tagline || restaurant.description}
                       </p>
                     </div>
@@ -191,15 +191,15 @@ export const LandingFeaturedRestaurants: React.FC = () => {
                 </div>
 
                 {/* Footer bar */}
-                <div className="px-5 py-3.5 bg-[#FAF6EE] border-t-2 border-[#121212] flex items-center justify-between gap-3 text-xs">
-                  <div className="flex items-center gap-1.5 text-[#5E5854] font-semibold">
-                    <Clock className="w-3.5 h-3.5 text-[#FF650D]" />
+                <div className="px-5 py-3.5 bg-[var(--dp-color-scrap)] border-t-[1.5px] border-[var(--dp-color-line)] flex items-center justify-between gap-3 text-xs">
+                  <div className="flex items-center gap-1.5 text-[var(--dp-color-ink-muted)] font-medium font-['Outfit',sans-serif]">
+                    <Clock className="w-3.5 h-3.5 text-[var(--dp-color-accent)]" />
                     <span>
                       {restaurant.deliveryTimeEstimateMin}-{restaurant.deliveryTimeEstimateMax} min
                     </span>
                   </div>
 
-                  <span className="inline-flex items-center gap-1 font-['Oswald'] font-black uppercase text-xs text-[#FF650D] group-hover:translate-x-1 transition-transform">
+                  <span className="inline-flex items-center gap-1 font-['Outfit',sans-serif] font-bold uppercase text-xs text-[var(--dp-color-accent)] group-hover:translate-x-1 transition-transform">
                     <span>View Menu</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </span>
@@ -214,10 +214,10 @@ export const LandingFeaturedRestaurants: React.FC = () => {
           <button
             type="button"
             onClick={() => navigate('/restaurants')}
-            className="px-8 py-4 bg-[#121212] text-white font-black text-sm uppercase tracking-wider font-['Oswald'] rounded-xl border-2 border-[#121212] shadow-[5px_5px_0px_#FFD13B] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[7px_7px_0px_#FFD13B] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer inline-flex items-center gap-3"
+            className="px-8 py-4 bg-[var(--dp-color-accent)] text-white font-bold text-sm uppercase tracking-wider font-['Outfit',sans-serif] rounded-[var(--dp-radius-control)] border-[1.5px] border-[var(--dp-color-accent)] shadow-[2px_2px_0px_var(--dp-color-ink)] hover:bg-[#852f25] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[2.5px_2.5px_0px_var(--dp-color-ink)] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer inline-flex items-center gap-3"
           >
             <span>Browse All 40+ Hyderabad Ateliers</span>
-            <ArrowRight className="w-4 h-4 text-[#FFD13B]" />
+            <ArrowRight className="w-4 h-4 text-[var(--dp-color-highlight)]" />
           </button>
         </div>
       </div>

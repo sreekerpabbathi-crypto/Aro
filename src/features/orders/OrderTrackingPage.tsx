@@ -741,9 +741,9 @@ export const OrderTrackingPage: React.FC = () => {
               'line-cap': 'round',
             },
             paint: {
-              'line-color': '#FF650D',
-              'line-width': 10,
-              'line-opacity': 0.35,
+              'line-color': '#9e3a2e',
+              'line-width': 8,
+              'line-opacity': 0.22,
             },
           })
         }
@@ -758,8 +758,8 @@ export const OrderTrackingPage: React.FC = () => {
               'line-cap': 'round',
             },
             paint: {
-              'line-color': '#FF650D',
-              'line-width': 4,
+              'line-color': '#9e3a2e',
+              'line-width': 3.5,
             },
           })
         }
@@ -771,10 +771,10 @@ export const OrderTrackingPage: React.FC = () => {
         resEl.style.flexDirection = 'column'
         resEl.style.alignItems = 'center'
         resEl.innerHTML = `
-          <div style="background: #121212; border: 2.5px solid #FF650D; color: #FFF4C2; width: 42px; height: 42px; border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 3px 3px 0px #121212; font-size: 20px;">
+          <div style="background: #fcf8ef; border: 1.5px solid #38352f; color: #9e3a2e; width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: 2px 2px 0px rgba(56,53,47,0.18); font-size: 18px;">
             👨‍🍳
           </div>
-          <div style="background: #FFF4C2; border: 2px solid #121212; color: #121212; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 6px; white-space: nowrap; margin-top: 4px; box-shadow: 2px 2px 0px #121212;">
+          <div style="background: #f0dfa0; border: 1.5px solid #38352f; color: #38352f; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 6px; white-space: nowrap; margin-top: 4px; box-shadow: 1.5px 1.5px 0px rgba(56,53,47,0.15); font-family: 'Outfit', sans-serif;">
             ${order.restaurantNameSnapshot}
           </div>
         `
@@ -788,10 +788,10 @@ export const OrderTrackingPage: React.FC = () => {
         destEl.style.flexDirection = 'column'
         destEl.style.alignItems = 'center'
         destEl.innerHTML = `
-          <div style="background: #FFD13B; border: 2.5px solid #121212; color: #121212; width: 42px; height: 42px; border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 3px 3px 0px #121212; font-size: 20px;">
+          <div style="background: #fcf8ef; border: 1.5px solid #38352f; color: #38352f; width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: 2px 2px 0px rgba(56,53,47,0.18); font-size: 18px;">
             🏠
           </div>
-          <div style="background: white; border: 2px solid #121212; color: #121212; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 6px; white-space: nowrap; margin-top: 4px; box-shadow: 2px 2px 0px #121212;">
+          <div style="background: #f7f2e7; border: 1.5px solid #38352f; color: #38352f; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 6px; white-space: nowrap; margin-top: 4px; box-shadow: 1.5px 1.5px 0px rgba(56,53,47,0.15); font-family: 'Outfit', sans-serif;">
             ${order.deliveryAddress.label} • ${order.deliveryAddress.city}
           </div>
         `
@@ -802,11 +802,11 @@ export const OrderTrackingPage: React.FC = () => {
         const riderEl = document.createElement('div')
         riderEl.className = 'custom-rider-marker'
         riderEl.innerHTML = `
-          <div style="position: relative; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
-            <div style="position: absolute; width: 100%; height: 100%; border-radius: 50%; background: rgba(255,101,13,0.35); animation: ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;"></div>
-            <div id="rider-heading-disc" style="width: 40px; height: 40px; border-radius: 50%; background: #FF650D; border: 2.5px solid #121212; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; box-shadow: 3px 3px 0px #121212; position: relative; z-2; transition: transform 0.15s ease-out;">
-              <div style="position: absolute; top: -5px; width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-bottom: 7px solid #121212;"></div>
-              <span style="font-size: 18px; user-select: none;">🛵</span>
+          <div style="position: relative; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center;">
+            <div style="position: absolute; width: 100%; height: 100%; border-radius: 50%; background: rgba(158,58,46,0.22); animation: ping 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;"></div>
+            <div id="rider-heading-disc" style="width: 38px; height: 38px; border-radius: 50%; background: #9e3a2e; border: 1.5px solid #38352f; display: flex; align-items: center; justify-content: center; color: white; font-size: 17px; box-shadow: 2px 2px 0px rgba(56,53,47,0.22); position: relative; z-index: 2; transition: transform 0.15s ease-out;">
+              <div style="position: absolute; top: -5px; width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-bottom: 7px solid #38352f;"></div>
+              <span style="font-size: 17px; user-select: none;">🛵</span>
             </div>
           </div>
         `
@@ -886,15 +886,15 @@ export const OrderTrackingPage: React.FC = () => {
       if (map.getLayer('route-main')) {
         if (routeData.isFallback) {
           map.setPaintProperty('route-main', 'line-dasharray', [3, 2])
-          map.setPaintProperty('route-main', 'line-color', '#F59E0B')
+          map.setPaintProperty('route-main', 'line-color', '#344c69')
           if (map.getLayer('route-glow')) {
-            map.setPaintProperty('route-glow', 'line-color', '#F59E0B')
+            map.setPaintProperty('route-glow', 'line-color', '#344c69')
           }
         } else {
           map.setPaintProperty('route-main', 'line-dasharray', undefined)
-          map.setPaintProperty('route-main', 'line-color', '#FF650D')
+          map.setPaintProperty('route-main', 'line-color', '#9e3a2e')
           if (map.getLayer('route-glow')) {
-            map.setPaintProperty('route-glow', 'line-color', '#FF650D')
+            map.setPaintProperty('route-glow', 'line-color', '#9e3a2e')
           }
         }
       }
@@ -927,34 +927,34 @@ export const OrderTrackingPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FAF6EE] text-[#121212] paper-grid">
+    <div className="min-h-screen flex flex-col bg-[var(--dp-color-ground)] text-[var(--dp-color-ink)] paper-grid selection:bg-[var(--dp-color-highlight)] selection:text-[var(--dp-color-ink)]">
       <StorefrontNavbar cartCount={cartItems.length > 0 ? 1 : 0} />
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
         {/* Breadcrumb Navigation & Order Switcher */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div className="flex flex-wrap items-center gap-2 text-xs font-bold font-['Oswald'] uppercase tracking-wider text-[#5E5854]">
-            <Link to="/home" className="hover:text-[#121212] transition-colors">
+          <div className="flex flex-wrap items-center gap-2 text-xs font-bold font-['Outfit',sans-serif] uppercase tracking-wider text-[var(--dp-color-ink-muted)]">
+            <Link to="/home" className="hover:text-[var(--dp-color-ink)] transition-colors focus:outline-none focus-visible:outline-2 focus-visible:outline-dashed focus-visible:outline-[var(--dp-color-annotation)]">
               Storefront
             </Link>
-            <ChevronRight className="w-3.5 h-3.5 text-[#121212]/40" />
-            <Link to="/account" className="hover:text-[#121212] transition-colors">
+            <ChevronRight className="w-3.5 h-3.5 text-[var(--dp-color-line)]" />
+            <Link to="/account" className="hover:text-[var(--dp-color-ink)] transition-colors focus:outline-none focus-visible:outline-2 focus-visible:outline-dashed focus-visible:outline-[var(--dp-color-annotation)]">
               Orders
             </Link>
-            <ChevronRight className="w-3.5 h-3.5 text-[#121212]/40" />
-            <span className="text-[#FF650D] bg-[#FFF4C2] border border-[#121212] px-2 py-0.5 rounded shadow-[1px_1px_0px_#121212]">
+            <ChevronRight className="w-3.5 h-3.5 text-[var(--dp-color-line)]" />
+            <span className="text-[var(--dp-color-accent)] bg-[var(--dp-color-highlight)] border-[1.5px] border-[var(--dp-color-line)] px-2 py-0.5 rounded shadow-[1px_1px_0px_var(--dp-color-line)]">
               Real Road-Network Telemetry (Hyderabad)
             </span>
           </div>
 
           <div className="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
             {/* Quick Demo Order Switcher */}
-            <div className="flex items-center gap-1.5 bg-white border-2 border-[#121212] px-3 py-1.5 rounded-xl shadow-[2px_2px_0px_#121212] text-xs">
-              <span className="text-[11px] font-bold font-['Oswald'] text-[#5E5854] uppercase tracking-wider">Test Route:</span>
+            <div className="flex items-center gap-1.5 bg-[var(--dp-color-scrap)] border-[1.5px] border-[var(--dp-color-line)] px-3 py-1.5 rounded-xl shadow-[1.5px_1.5px_0px_var(--dp-color-line)] text-xs">
+              <span className="text-xs font-bold font-['Outfit',sans-serif] text-[var(--dp-color-ink-muted)] uppercase tracking-wider">Test Route:</span>
               <Link
                 to="/orders/ord-demo-hyderabad"
-                className={`px-2 py-0.5 rounded-md text-[11px] font-bold font-['Outfit'] transition-all ${
-                  order.id === 'ord-demo-hyderabad' ? 'bg-[#FF650D] text-white border border-[#121212]' : 'text-[#5E5854] hover:text-[#121212]'
+                className={`px-2 py-0.5 rounded-md text-xs font-bold font-['Outfit',sans-serif] transition-all focus:outline-none focus-visible:outline-2 focus-visible:outline-dashed focus-visible:outline-[var(--dp-color-annotation)] ${
+                  order.id === 'ord-demo-hyderabad' ? 'bg-[var(--dp-color-accent)] text-white border-[1.5px] border-[var(--dp-color-ink)] shadow-[1px_1px_0px_rgba(56,53,47,0.18)]' : 'text-[var(--dp-color-ink-muted)] hover:text-[var(--dp-color-ink)]'
                 }`}
                 title="Kumo House (Banjara Hills) -> Jubilee Hills"
               >
@@ -962,8 +962,8 @@ export const OrderTrackingPage: React.FC = () => {
               </Link>
               <Link
                 to="/orders/ord-demo-hitec"
-                className={`px-2 py-0.5 rounded-md text-[11px] font-bold font-['Outfit'] transition-all ${
-                  order.id === 'ord-demo-hitec' ? 'bg-[#FF650D] text-white border border-[#121212]' : 'text-[#5E5854] hover:text-[#121212]'
+                className={`px-2 py-0.5 rounded-md text-xs font-bold font-['Outfit',sans-serif] transition-all focus:outline-none focus-visible:outline-2 focus-visible:outline-dashed focus-visible:outline-[var(--dp-color-annotation)] ${
+                  order.id === 'ord-demo-hitec' ? 'bg-[var(--dp-color-accent)] text-white border-[1.5px] border-[var(--dp-color-ink)] shadow-[1px_1px_0px_rgba(56,53,47,0.18)]' : 'text-[var(--dp-color-ink-muted)] hover:text-[var(--dp-color-ink)]'
                 }`}
                 title="Nizami Hearth (HITEC City) -> Jubilee Hills"
               >
@@ -971,8 +971,8 @@ export const OrderTrackingPage: React.FC = () => {
               </Link>
               <Link
                 to="/orders/ord-demo-deccan"
-                className={`px-2 py-0.5 rounded-md text-[11px] font-bold font-['Outfit'] transition-all ${
-                  order.id === 'ord-demo-deccan' ? 'bg-[#FF650D] text-white border border-[#121212]' : 'text-[#5E5854] hover:text-[#121212]'
+                className={`px-2 py-0.5 rounded-md text-xs font-bold font-['Outfit',sans-serif] transition-all focus:outline-none focus-visible:outline-2 focus-visible:outline-dashed focus-visible:outline-[var(--dp-color-annotation)] ${
+                  order.id === 'ord-demo-deccan' ? 'bg-[var(--dp-color-accent)] text-white border-[1.5px] border-[var(--dp-color-ink)] shadow-[1px_1px_0px_rgba(56,53,47,0.18)]' : 'text-[var(--dp-color-ink-muted)] hover:text-[var(--dp-color-ink)]'
                 }`}
                 title="Deccan Table (Jubilee Hills) -> Cyber Towers"
               >
@@ -983,39 +983,39 @@ export const OrderTrackingPage: React.FC = () => {
             <button
               type="button"
               onClick={handleShareLink}
-              className="flex items-center gap-1.5 text-xs font-bold font-['Outfit'] text-[#121212] bg-white border-2 border-[#121212] px-3.5 py-1.5 rounded-xl shadow-[2px_2px_0px_#121212] hover:translate-x-[1px] hover:translate-y-[1px] transition-all cursor-pointer shrink-0"
+              className="flex items-center gap-1.5 text-xs font-bold font-['Outfit',sans-serif] text-[var(--dp-color-ink)] bg-[var(--dp-color-scrap)] border-[1.5px] border-[var(--dp-color-line)] px-3.5 py-1.5 rounded-xl shadow-[1.5px_1.5px_0px_var(--dp-color-line)] hover:translate-x-[1px] hover:translate-y-[1px] transition-all cursor-pointer shrink-0 focus:outline-none focus-visible:outline-2 focus-visible:outline-dashed focus-visible:outline-[var(--dp-color-annotation)]"
             >
-              <Share2 className="w-3.5 h-3.5" />
+              <Share2 className="w-3.5 h-3.5 text-[var(--dp-color-accent)]" />
               <span>{copiedNotice ? 'Copied!' : 'Share'}</span>
             </button>
           </div>
         </div>
 
         {/* Live Delivery Status Hero Card */}
-        <div className="bg-white border-2 sm:border-[2.5px] border-[#121212] rounded-2xl p-6 sm:p-7 relative shadow-[8px_8px_0px_#121212]">
+        <div className="bg-[var(--dp-color-scrap)] border-[1.5px] border-[var(--dp-color-line)] rounded-2xl p-6 sm:p-7 relative shadow-[3px_3px_0px_rgba(56,53,47,0.12)]">
           <div className="absolute -top-3 right-8 hidden sm:block">
-            <WashiTape text="LIVE ROAD RADAR" angle="-1deg" className="bg-[#FF650D] text-white" />
+            <WashiTape text="LIVE ROAD RADAR" angle="-1deg" className="bg-[var(--dp-color-highlight)] text-[var(--dp-color-ink)] border-[1.5px] border-[var(--dp-color-line)] font-['Caveat',cursive]" />
           </div>
 
           <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
             <div className="space-y-2">
               <div className="flex flex-wrap items-center gap-2.5">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#FFD13B] border-2 border-[#121212] text-xs font-black text-[#121212] uppercase font-['Oswald'] shadow-[2px_2px_0px_#121212]">
-                  <span className="w-2 h-2 rounded-full bg-[#FF650D] animate-ping" />
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[var(--dp-color-highlight)] border-[1.5px] border-[var(--dp-color-line)] text-xs font-bold text-[var(--dp-color-ink)] uppercase font-['Outfit',sans-serif] shadow-[1.5px_1.5px_0px_var(--dp-color-line)]">
+                  <span className="w-2 h-2 rounded-full bg-[var(--dp-color-accent)] animate-ping" />
                   Road-Following Telemetry
                 </span>
-                <span className="text-xs font-mono font-bold text-[#5E5854] bg-[#FAF6EE] border border-[#121212] px-2 py-0.5 rounded">
+                <span className="text-xs font-mono font-bold text-[var(--dp-color-ink-muted)] bg-[var(--dp-color-ground)] border-[1.5px] border-[var(--dp-color-line)] px-2 py-0.5 rounded">
                   #{order.orderNumber}
                 </span>
                 {routeData && (
-                  <span className="text-[11px] bg-[#FAF6EE] border-2 border-[#121212] px-2.5 py-0.5 rounded-lg text-[#121212] font-mono font-bold hidden sm:inline-block shadow-[1px_1px_0px_#121212]">
+                  <span className="text-xs bg-[var(--dp-color-ground)] border-[1.5px] border-[var(--dp-color-line)] px-2.5 py-0.5 rounded-lg text-[var(--dp-color-ink)] font-mono font-bold hidden sm:inline-block shadow-[1px_1px_0px_var(--dp-color-line)]">
                     {(routeData.totalDistance / 1000).toFixed(2)} km road distance
                   </span>
                 )}
               </div>
 
               <div>
-                <h1 className="text-2xl sm:text-3xl font-black text-[#121212] font-['Outfit'] tracking-tight">
+                <h1 className="text-2xl sm:text-3xl font-extrabold text-[var(--dp-color-ink)] font-['Outfit',sans-serif] tracking-tight">
                   {simulatedStatus === 'delivered' ? (
                     <span className="text-[#059669]">Order Successfully Delivered!</span>
                   ) : simulatedStatus === 'out_for_delivery' ? (
@@ -1028,29 +1028,29 @@ export const OrderTrackingPage: React.FC = () => {
                     <span>Order Confirmed & Queued</span>
                   )}
                 </h1>
-                <div className="w-36 text-[#FF650D] mt-0.5">
+                <div className="w-36 text-[var(--dp-color-accent)] mt-0.5">
                   <ScribbleUnderline />
                 </div>
               </div>
 
-              <p className="text-xs text-[#5E5854] font-medium flex flex-wrap items-center gap-2 pt-1">
-                <Store className="w-4 h-4 text-[#FF650D]" />
-                <span className="text-[#121212] font-bold">{order.restaurantNameSnapshot}</span>
+              <p className="text-xs sm:text-sm text-[var(--dp-color-ink-muted)] font-['Outfit',sans-serif] flex flex-wrap items-center gap-2 pt-1">
+                <Store className="w-4 h-4 text-[var(--dp-color-accent)]" />
+                <span className="text-[var(--dp-color-ink)] font-bold">{order.restaurantNameSnapshot}</span>
                 <span>•</span>
                 <span>{order.restaurantAddressSnapshot || 'Hyderabad Gourmet Corridor'}</span>
               </p>
             </div>
 
             {/* Estimated Time Badge */}
-            <div className="bg-[#FFF4C2] border-2 sm:border-[2.5px] border-[#121212] px-6 py-4 rounded-2xl flex items-center gap-4 shrink-0 shadow-[4px_4px_0px_#121212]">
-              <div className="w-12 h-12 rounded-xl bg-[#FF650D] border-2 border-[#121212] text-white flex items-center justify-center shadow-[2px_2px_0px_#121212]">
+            <div className="bg-[var(--dp-color-highlight)]/40 border-[1.5px] border-[var(--dp-color-line)] px-6 py-4 rounded-2xl flex items-center gap-4 shrink-0 shadow-[2px_2px_0px_rgba(56,53,47,0.10)]">
+              <div className="w-12 h-12 rounded-xl bg-[var(--dp-color-accent)] border-[1.5px] border-[var(--dp-color-ink)] text-white flex items-center justify-center shadow-[1.5px_1.5px_0px_rgba(56,53,47,0.18)]">
                 <Clock className="w-6 h-6" />
               </div>
               <div>
-                <span className="text-[11px] uppercase tracking-wider text-[#5E5854] font-bold block font-['Oswald']">
+                <span className="text-xs uppercase tracking-wider text-[var(--dp-color-ink-muted)] font-bold block font-['Outfit',sans-serif]">
                   Estimated Arrival
                 </span>
-                <span className="text-2xl sm:text-3xl font-black font-['Oswald'] text-[#121212]">
+                <span className="text-2xl sm:text-3xl font-bold font-['Outfit',sans-serif] text-[var(--dp-color-ink)]">
                   {simulatedStatus === 'delivered' ? 'ARRIVED' : `${remainingMinutes} MINS`}
                 </span>
               </div>
@@ -1058,7 +1058,7 @@ export const OrderTrackingPage: React.FC = () => {
           </div>
 
           {/* Progress Timeline Stepper */}
-          <div className="mt-8 pt-6 border-t-2 border-[#121212]">
+          <div className="mt-8 pt-6 border-t-[1.5px] border-[var(--dp-color-line)]">
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 text-center">
               {[
                 { status: 'confirmed', label: 'Confirmed', icon: CheckCircle2, step: 0.15 },
@@ -1074,19 +1074,19 @@ export const OrderTrackingPage: React.FC = () => {
                 return (
                   <div key={step.status} className="flex flex-col items-center gap-2">
                     <div
-                      className={`w-10 h-10 rounded-xl flex items-center justify-center border-2 border-[#121212] transition-all ${
+                      className={`w-10 h-10 rounded-xl flex items-center justify-center border-[1.5px] border-[var(--dp-color-line)] transition-all ${
                         isCompleted
-                          ? 'bg-[#FF650D] text-white shadow-[2px_2px_0px_#121212]'
+                          ? 'bg-[var(--dp-color-accent)] text-white border-[var(--dp-color-ink)] shadow-[1.5px_1.5px_0px_rgba(56,53,47,0.18)]'
                           : isCurrent
-                          ? 'bg-[#FFD13B] text-[#121212] shadow-[2px_2px_0px_#121212] animate-pulse'
-                          : 'bg-[#FAF6EE] text-[#5E5854]/50 border-[#121212]/30'
+                          ? 'bg-[var(--dp-color-highlight)] text-[var(--dp-color-ink)] border-[var(--dp-color-ink)] shadow-[1.5px_1.5px_0px_rgba(56,53,47,0.18)] animate-pulse'
+                          : 'bg-[var(--dp-color-ground)] text-[var(--dp-color-ink-muted)]/50 border-[var(--dp-color-line)]'
                       }`}
                     >
                       <Icon className="w-4 h-4" />
                     </div>
                     <span
-                      className={`text-xs font-bold font-['Outfit'] ${
-                        isCompleted || isCurrent ? 'text-[#121212]' : 'text-[#5E5854]'
+                      className={`text-xs font-bold font-['Outfit',sans-serif] ${
+                        isCompleted || isCurrent ? 'text-[var(--dp-color-ink)]' : 'text-[var(--dp-color-ink-muted)]'
                       }`}
                     >
                       {step.label}
@@ -1097,9 +1097,9 @@ export const OrderTrackingPage: React.FC = () => {
             </div>
 
             {/* Continuous Progress Bar */}
-            <div className="w-full bg-[#FAF6EE] h-3 rounded-full mt-5 overflow-hidden border-2 border-[#121212] shadow-[2px_2px_0px_#121212]">
+            <div className="w-full bg-[var(--dp-color-ground)] h-2.5 rounded-full mt-5 overflow-hidden border-[1.5px] border-[var(--dp-color-line)] shadow-[1px_1px_0px_var(--dp-color-line)]">
               <div
-                className="bg-gradient-to-r from-[#FFD13B] via-[#FF650D] to-[#E55400] h-full transition-all duration-150"
+                className="bg-[var(--dp-color-accent)] h-full transition-all duration-150"
                 style={{ width: `${Math.min(100, progress * 100)}%` }}
               />
             </div>
@@ -1110,29 +1110,29 @@ export const OrderTrackingPage: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Left Column: Interactive MapLibre Viewport */}
           <div className="lg:col-span-8 space-y-4">
-            <div className="bg-white border-2 sm:border-[2.5px] border-[#121212] rounded-2xl overflow-hidden shadow-[8px_8px_0px_#121212] relative">
+            <div className="bg-[var(--dp-color-scrap)] border-[1.5px] border-[var(--dp-color-line)] rounded-2xl overflow-hidden shadow-[3px_3px_0px_rgba(56,53,47,0.12)] relative">
               {/* Map Title Bar */}
-              <div className="px-5 py-3.5 bg-[#FFF4C2] border-b-2 border-[#121212] flex flex-wrap items-center justify-between gap-3 text-xs">
+              <div className="px-5 py-3.5 bg-[var(--dp-color-highlight)]/30 border-b-[1.5px] border-[var(--dp-color-line)] flex flex-wrap items-center justify-between gap-3 text-xs">
                 <div className="flex items-center gap-2">
                   <span className="w-2.5 h-2.5 rounded-full bg-[#059669] animate-ping" />
-                  <span className="font-black text-[#121212] font-['Outfit'] text-sm">
+                  <span className="font-bold text-[var(--dp-color-ink)] font-['Outfit',sans-serif] text-sm">
                     MapLibre Road Navigation
                   </span>
-                  <span className="text-[#5E5854] font-medium hidden sm:inline">
+                  <span className="text-[var(--dp-color-ink-muted)] font-['Outfit',sans-serif] text-xs hidden sm:inline">
                     {order.restaurantNameSnapshot} → {order.deliveryAddress.city}
                   </span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <span className="text-[11px] text-[#121212] font-mono font-bold bg-white px-2 py-0.5 rounded border border-[#121212]">
+                  <span className="text-[11px] text-[var(--dp-color-ink)] font-mono font-bold bg-[var(--dp-color-ground)] px-2 py-0.5 rounded border-[1.5px] border-[var(--dp-color-line)]">
                     LAT: {currentCoordDisplay[1].toFixed(4)} | LNG: {currentCoordDisplay[0].toFixed(4)}
                   </span>
                   <button
                     type="button"
                     onClick={handleRecenter}
-                    className="flex items-center gap-1 px-3 py-1 rounded-lg bg-white hover:bg-[#FAF6EE] border-2 border-[#121212] text-xs font-bold font-['Outfit'] text-[#121212] shadow-[2px_2px_0px_#121212] hover:translate-x-[1px] hover:translate-y-[1px] transition-all cursor-pointer"
+                    className="flex items-center gap-1 px-3 py-1 rounded-[var(--dp-radius-control)] bg-[var(--dp-color-ground)] hover:bg-[var(--dp-color-scrap)] border-[1.5px] border-[var(--dp-color-line)] text-xs font-bold font-['Outfit',sans-serif] text-[var(--dp-color-ink)] shadow-[1.5px_1.5px_0px_var(--dp-color-line)] hover:translate-x-[1px] hover:translate-y-[1px] transition-all cursor-pointer focus:outline-none focus-visible:outline-2 focus-visible:outline-dashed focus-visible:outline-[var(--dp-color-annotation)]"
                     title="Fit route and camera bounds"
                   >
-                    <Navigation className="w-3.5 h-3.5 text-[#FF650D]" />
+                    <Navigation className="w-3.5 h-3.5 text-[var(--dp-color-accent)]" />
                     <span>Recenter</span>
                   </button>
                 </div>
@@ -1144,9 +1144,9 @@ export const OrderTrackingPage: React.FC = () => {
 
                 {/* Loading state indicator */}
                 {isMapLoading && (
-                  <div className="absolute inset-0 bg-white/85 backdrop-blur-sm flex flex-col items-center justify-center gap-3 text-[#121212] z-10">
-                    <Loader2 className="w-8 h-8 text-[#FF650D] animate-spin" />
-                    <span className="text-xs font-black tracking-wide font-['Outfit']">
+                  <div className="absolute inset-0 bg-[var(--dp-color-ground)]/90 backdrop-blur-sm flex flex-col items-center justify-center gap-3 text-[var(--dp-color-ink)] z-10">
+                    <Loader2 className="w-8 h-8 text-[var(--dp-color-accent)] animate-spin" />
+                    <span className="text-xs font-bold tracking-wide font-['Outfit',sans-serif]">
                       Loading Hyderabad Street Vectors...
                     </span>
                   </div>
@@ -1154,18 +1154,18 @@ export const OrderTrackingPage: React.FC = () => {
 
                 {/* Route Calculating Indicator */}
                 {isRouteCalculating && (
-                  <div className="absolute top-4 left-4 bg-white/95 border-2 border-[#121212] backdrop-blur-md px-3.5 py-2 rounded-xl flex items-center gap-2 text-[#121212] text-xs z-10 shadow-[3px_3px_0px_#121212] font-bold">
-                    <Loader2 className="w-3.5 h-3.5 text-[#FF650D] animate-spin" />
+                  <div className="absolute top-4 left-4 bg-[var(--dp-color-scrap)] border-[1.5px] border-[var(--dp-color-line)] backdrop-blur-md px-3.5 py-2 rounded-xl flex items-center gap-2 text-[var(--dp-color-ink)] text-xs z-10 shadow-[2px_2px_0px_var(--dp-color-line)] font-bold font-['Outfit',sans-serif]">
+                    <Loader2 className="w-3.5 h-3.5 text-[var(--dp-color-accent)] animate-spin" />
                     <span>Calculating road route via OSRM...</span>
                   </div>
                 )}
 
                 {/* Non-blocking Route Notice / Fallback Banner */}
                 {routeNotice && (
-                  <div className="absolute top-4 left-4 right-4 bg-[#FEF3C7] border-2 border-[#F59E0B] p-3 rounded-xl flex items-center gap-3 text-[#92400E] text-xs z-10 shadow-[4px_4px_0px_#F59E0B] animate-in fade-in">
-                    <AlertCircle className="w-4 h-4 text-[#F59E0B] shrink-0" />
-                    <div className="flex-1 font-medium">
-                      <span className="font-bold block">Approximate Route Active</span>
+                  <div className="absolute top-4 left-4 right-4 bg-[var(--dp-color-highlight)]/70 border-[1.5px] border-[var(--dp-color-line)] p-3 rounded-xl flex items-center gap-3 text-[var(--dp-color-ink)] text-xs z-10 shadow-[2px_2px_0px_var(--dp-color-line)] animate-in fade-in">
+                    <AlertCircle className="w-4 h-4 text-[var(--dp-color-annotation)] shrink-0" />
+                    <div className="flex-1 font-medium font-['Outfit',sans-serif] text-sm">
+                      <span className="font-bold block font-['Outfit',sans-serif]">Approximate Route Active</span>
                       <span>{routeNotice}</span>
                     </div>
                   </div>
@@ -1173,37 +1173,37 @@ export const OrderTrackingPage: React.FC = () => {
 
                 {/* Map Error Notice */}
                 {mapError && (
-                  <div className="absolute bottom-4 left-4 right-4 bg-[#FEE2E2] border-2 border-[#EF4444] p-3 rounded-xl flex items-center gap-3 text-[#B91C1C] text-xs z-10 shadow-[4px_4px_0px_#EF4444] font-bold">
-                    <AlertCircle className="w-4 h-4 text-[#EF4444] shrink-0" />
+                  <div className="absolute bottom-4 left-4 right-4 bg-[var(--dp-color-accent)]/15 border-[1.5px] border-[var(--dp-color-accent)] p-3 rounded-xl flex items-center gap-3 text-[var(--dp-color-accent)] text-xs z-10 shadow-[2px_2px_0px_var(--dp-color-accent)] font-bold font-['Outfit',sans-serif]">
+                    <AlertCircle className="w-4 h-4 text-[var(--dp-color-accent)] shrink-0" />
                     <span>{mapError}</span>
                   </div>
                 )}
               </div>
 
               {/* Simulation Interactive Control Bar */}
-              <div className="p-4 bg-[#FAF6EE] border-t-2 border-[#121212] flex flex-wrap items-center justify-between gap-4">
+              <div className="p-4 bg-[var(--dp-color-ground)] border-t-[1.5px] border-[var(--dp-color-line)] flex flex-wrap items-center justify-between gap-4">
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="text-[11px] uppercase font-black text-[#121212] tracking-wider font-['Oswald'] bg-[#FFD13B] border border-[#121212] px-2 py-0.5 rounded">
+                  <span className="text-xs uppercase font-bold text-[var(--dp-color-ink)] tracking-wider font-['Outfit',sans-serif] bg-[var(--dp-color-highlight)] border-[1.5px] border-[var(--dp-color-line)] px-2 py-0.5 rounded shadow-[1px_1px_0px_var(--dp-color-line)]">
                     Controls:
                   </span>
 
                   <button
                     type="button"
                     onClick={handlePlayPause}
-                    className="px-3.5 py-1.5 rounded-xl bg-white hover:bg-[#FFF4C2] border-2 border-[#121212] text-[#121212] shadow-[2px_2px_0px_#121212] hover:translate-x-[1px] hover:translate-y-[1px] transition-all cursor-pointer flex items-center gap-1.5 text-xs font-black font-['Outfit']"
+                    className="px-3.5 py-1.5 rounded-[var(--dp-radius-control)] bg-[var(--dp-color-scrap)] hover:bg-[var(--dp-color-highlight)]/40 border-[1.5px] border-[var(--dp-color-line)] text-[var(--dp-color-ink)] shadow-[1.5px_1.5px_0px_var(--dp-color-line)] hover:translate-x-[1px] hover:translate-y-[1px] transition-all cursor-pointer flex items-center gap-1.5 text-xs font-bold font-['Outfit',sans-serif] focus:outline-none focus-visible:outline-2 focus-visible:outline-dashed focus-visible:outline-[var(--dp-color-annotation)]"
                     title={isPlaying ? 'Pause Simulation' : 'Resume Simulation'}
                   >
-                    {isPlaying ? <Pause className="w-3.5 h-3.5 text-[#FF650D]" /> : <Play className="w-3.5 h-3.5 text-[#FF650D]" />}
+                    {isPlaying ? <Pause className="w-3.5 h-3.5 text-[var(--dp-color-accent)]" /> : <Play className="w-3.5 h-3.5 text-[var(--dp-color-accent)]" />}
                     <span>{isPlaying ? 'Pause' : 'Play'}</span>
                   </button>
 
                   <button
                     type="button"
                     onClick={handleReset}
-                    className="px-3.5 py-1.5 rounded-xl bg-white hover:bg-[#FAF6EE] border-2 border-[#121212] text-[#5E5854] hover:text-[#121212] shadow-[2px_2px_0px_#121212] hover:translate-x-[1px] hover:translate-y-[1px] transition-all cursor-pointer flex items-center gap-1.5 text-xs font-bold font-['Outfit']"
+                    className="px-3.5 py-1.5 rounded-[var(--dp-radius-control)] bg-[var(--dp-color-scrap)] hover:bg-[var(--dp-color-highlight)]/40 border-[1.5px] border-[var(--dp-color-line)] text-[var(--dp-color-ink-muted)] hover:text-[var(--dp-color-ink)] shadow-[1.5px_1.5px_0px_var(--dp-color-line)] hover:translate-x-[1px] hover:translate-y-[1px] transition-all cursor-pointer flex items-center gap-1.5 text-xs font-bold font-['Outfit',sans-serif] focus:outline-none focus-visible:outline-2 focus-visible:outline-dashed focus-visible:outline-[var(--dp-color-annotation)]"
                     title="Restart Simulation"
                   >
-                    <RotateCcw className="w-3.5 h-3.5 text-[#5E5854]" />
+                    <RotateCcw className="w-3.5 h-3.5 text-[var(--dp-color-ink-muted)]" />
                     <span>Reset</span>
                   </button>
 
@@ -1213,10 +1213,10 @@ export const OrderTrackingPage: React.FC = () => {
                         key={spd}
                         type="button"
                         onClick={() => handleSpeedChange(spd)}
-                        className={`px-3 py-1 text-xs rounded-xl font-mono font-black border-2 border-[#121212] transition-all cursor-pointer ${
+                        className={`px-3 py-1 text-xs rounded-lg font-mono font-bold border-[1.5px] border-[var(--dp-color-line)] transition-all cursor-pointer focus:outline-none focus-visible:outline-2 focus-visible:outline-dashed focus-visible:outline-[var(--dp-color-annotation)] ${
                           playbackSpeed === spd
-                            ? 'bg-[#FF650D] text-white shadow-[2px_2px_0px_#121212]'
-                            : 'bg-white text-[#5E5854] hover:text-[#121212] shadow-[1px_1px_0px_#121212]'
+                            ? 'bg-[var(--dp-color-accent)] text-white shadow-[1.5px_1.5px_0px_rgba(56,53,47,0.18)]'
+                            : 'bg-[var(--dp-color-scrap)] text-[var(--dp-color-ink-muted)] hover:text-[var(--dp-color-ink)] shadow-[1px_1px_0px_var(--dp-color-line)]'
                         }`}
                       >
                         {spd}x
@@ -1225,8 +1225,8 @@ export const OrderTrackingPage: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="text-[11px] text-[#5E5854] font-medium flex items-center gap-1.5">
-                  <Info className="w-4 h-4 text-[#FF650D] shrink-0" />
+                <div className="text-xs text-[var(--dp-color-ink-muted)] font-['Outfit',sans-serif] flex items-center gap-1.5">
+                  <Info className="w-4 h-4 text-[var(--dp-color-annotation)] shrink-0" />
                   <span>Simulated courier telemetry following real road geometry.</span>
                 </div>
               </div>
@@ -1234,26 +1234,26 @@ export const OrderTrackingPage: React.FC = () => {
 
             {/* Rider Information Card */}
             {order.rider && (
-              <div className="bg-white border-2 sm:border-[2.5px] border-[#121212] rounded-2xl p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-[6px_6px_0px_#121212]">
+              <div className="bg-[var(--dp-color-scrap)] border-[1.5px] border-[var(--dp-color-line)] rounded-2xl p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-[2.5px_2.5px_0px_rgba(56,53,47,0.10)]">
                 <div className="flex items-center gap-4">
                   <img
                     src={order.rider.avatarUrl}
                     alt={order.rider.name}
-                    className="w-16 h-16 rounded-2xl object-cover border-2 border-[#121212] shadow-[2px_2px_0px_#121212]"
+                    className="w-16 h-16 rounded-2xl object-cover border-[1.5px] border-[var(--dp-color-line)] shadow-[1.5px_1.5px_0px_var(--dp-color-line)]"
                   />
                   <div>
                     <div className="flex items-center gap-2">
-                      <h4 className="text-base font-black text-[#121212] font-['Outfit']">
+                      <h4 className="text-base font-bold text-[var(--dp-color-ink)] font-['Outfit',sans-serif]">
                         {order.rider.name}
                       </h4>
-                      <span className="text-[10px] bg-[#D1FAE5] border border-[#121212] text-[#059669] font-black px-2 py-0.5 rounded font-['Oswald']">
+                      <span className="text-xs bg-[var(--dp-color-highlight)] border-[1.5px] border-[var(--dp-color-line)] text-[var(--dp-color-ink)] font-bold px-2 py-0.5 rounded font-['Outfit',sans-serif]">
                         4.9 ★ (1,240 deliveries)
                       </span>
                     </div>
-                    <p className="text-xs text-[#5E5854] font-bold mt-0.5">
+                    <p className="text-xs text-[var(--dp-color-ink-muted)] font-['Outfit',sans-serif] mt-0.5">
                       {order.rider.vehicleModel} • <span className="font-mono">{order.rider.vehicleNumber}</span>
                     </p>
-                    <div className="flex items-center gap-1.5 text-[11px] text-[#059669] font-bold mt-1">
+                    <div className="flex items-center gap-1.5 text-xs text-[#059669] font-bold font-['Outfit',sans-serif] mt-1">
                       <ShieldCheck className="w-3.5 h-3.5" />
                       <span>Thermal-sealed insulated pouch verified</span>
                     </div>
@@ -1264,9 +1264,9 @@ export const OrderTrackingPage: React.FC = () => {
                   <button
                     type="button"
                     onClick={handleCallRider}
-                    className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#FAF6EE] hover:bg-[#FFF4C2] border-2 border-[#121212] text-[#121212] text-xs font-black font-['Outfit'] shadow-[3px_3px_0px_#121212] hover:translate-x-[1px] hover:translate-y-[1px] transition-all cursor-pointer"
+                    className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-[var(--dp-radius-control)] bg-[var(--dp-color-ground)] hover:bg-[var(--dp-color-highlight)] border-[1.5px] border-[var(--dp-color-line)] text-[var(--dp-color-ink)] text-xs font-bold font-['Outfit',sans-serif] shadow-[1.5px_1.5px_0px_var(--dp-color-line)] hover:translate-x-[1px] hover:translate-y-[1px] transition-all cursor-pointer focus:outline-none focus-visible:outline-2 focus-visible:outline-dashed focus-visible:outline-[var(--dp-color-annotation)]"
                   >
-                    <Phone className="w-4 h-4 text-[#FF650D]" />
+                    <Phone className="w-4 h-4 text-[var(--dp-color-accent)]" />
                     <span>Call Courier</span>
                   </button>
                 </div>
@@ -1274,9 +1274,9 @@ export const OrderTrackingPage: React.FC = () => {
             )}
 
             {callRiderToast && (
-              <div className="p-3.5 bg-[#FFF4C2] border-2 border-[#121212] text-[#121212] text-xs font-bold rounded-xl flex items-center justify-between shadow-[4px_4px_0px_#121212] animate-in fade-in">
+              <div className="p-3.5 bg-[var(--dp-color-highlight)]/40 border-[1.5px] border-[var(--dp-color-line)] text-[var(--dp-color-ink)] text-xs font-bold font-['Outfit',sans-serif] text-sm rounded-xl flex items-center justify-between shadow-[2px_2px_0px_var(--dp-color-line)] animate-in fade-in">
                 <span>Simulating secure phone bridge to {order.rider?.name} ({order.rider?.phone})...</span>
-                <span className="text-[10px] font-mono uppercase bg-[#121212] text-[#FFF4C2] px-2 py-0.5 rounded">Demo Masking</span>
+                <span className="text-[10px] font-mono uppercase bg-[var(--dp-color-ground)] text-[var(--dp-color-ink)] border-[1.5px] border-[var(--dp-color-line)] px-2 py-0.5 rounded">Demo Masking</span>
               </div>
             )}
           </div>
@@ -1284,77 +1284,77 @@ export const OrderTrackingPage: React.FC = () => {
           {/* Right Column: Receipt Breakdown & Destination */}
           <div className="lg:col-span-4 space-y-6">
             {/* Delivery Destination Card */}
-            <div className="bg-white border-2 sm:border-[2.5px] border-[#121212] rounded-2xl p-5 space-y-3 shadow-[6px_6px_0px_#121212]">
-              <span className="text-[11px] uppercase font-black text-[#FF650D] tracking-widest font-['Oswald'] bg-[#121212] text-[#FFF4C2] px-2 py-0.5 rounded">
+            <div className="bg-[var(--dp-color-scrap)] border-[1.5px] border-[var(--dp-color-line)] rounded-2xl p-5 space-y-3 shadow-[2.5px_2.5px_0px_rgba(56,53,47,0.10)]">
+              <span className="text-xs uppercase font-bold text-[var(--dp-color-accent)] tracking-wider font-['Outfit',sans-serif] bg-[var(--dp-color-ground)] border-[1.5px] border-[var(--dp-color-line)] px-2 py-0.5 rounded shadow-[1px_1px_0px_var(--dp-color-line)]">
                 Delivery Destination
               </span>
               <div className="flex items-start gap-3 pt-1">
-                <MapPin className="w-4 h-4 text-[#FF650D] shrink-0 mt-0.5" />
+                <MapPin className="w-4 h-4 text-[var(--dp-color-accent)] shrink-0 mt-0.5" />
                 <div className="text-xs space-y-1">
-                  <div className="font-black text-[#121212] font-['Outfit'] text-sm">
+                  <div className="font-bold text-[var(--dp-color-ink)] font-['Outfit',sans-serif] text-base">
                     {order.deliveryAddress.label} • {order.deliveryAddress.recipientName}
                   </div>
-                  <p className="text-[#5E5854] font-medium leading-relaxed">
+                  <p className="text-[var(--dp-color-ink-muted)] font-['Outfit',sans-serif] leading-relaxed text-sm">
                     {order.deliveryAddress.addressLine1}
                     {order.deliveryAddress.addressLine2
                       ? `, ${order.deliveryAddress.addressLine2}`
                       : ''}
                     , {order.deliveryAddress.city} - {order.deliveryAddress.pincode}
                   </p>
-                  <p className="text-[#121212] font-mono font-bold">{order.deliveryAddress.recipientPhone}</p>
+                  <p className="text-[var(--dp-color-ink)] font-mono font-bold">{order.deliveryAddress.recipientPhone}</p>
                 </div>
               </div>
             </div>
 
             {/* Order Items & Bill Breakdown */}
-            <div className="bg-[#FFF4C2] border-2 sm:border-[2.5px] border-[#121212] rounded-2xl p-5 space-y-4 shadow-[6px_6px_0px_#121212]">
-              <div className="flex items-center justify-between border-b-2 border-[#121212] pb-3">
-                <span className="text-[11px] uppercase font-black text-[#121212] tracking-widest font-['Oswald']">
+            <div className="bg-[var(--dp-color-highlight)]/30 border-[1.5px] border-[var(--dp-color-line)] rounded-2xl p-5 space-y-4 shadow-[3px_3px_0px_rgba(56,53,47,0.12)]">
+              <div className="flex items-center justify-between border-b-[1.5px] border-[var(--dp-color-line)] pb-3">
+                <span className="text-xs uppercase font-bold text-[var(--dp-color-ink)] tracking-wider font-['Outfit',sans-serif]">
                   Itemized Tasting Receipt
                 </span>
-                <Receipt className="w-4 h-4 text-[#121212]" />
+                <Receipt className="w-4 h-4 text-[var(--dp-color-ink)]" />
               </div>
 
               <div className="space-y-3 max-h-52 overflow-y-auto pr-1">
                 {order.items.map((item) => (
                   <div
                     key={item.id}
-                    className="flex items-start justify-between text-xs py-1.5 border-b border-[#121212]/15 last:border-0"
+                    className="flex items-start justify-between text-xs py-1.5 border-b-[1.5px] border-[var(--dp-color-line)]/50 last:border-0"
                   >
                     <div className="space-y-0.5 pr-2">
-                      <div className="text-[#121212] font-bold font-['Outfit']">
+                      <div className="text-[var(--dp-color-ink)] font-bold font-['Outfit',sans-serif] text-sm">
                         {item.quantity}× {item.itemNameSnapshot}
                       </div>
                       {item.customizationDetailsSnapshot &&
                         item.customizationDetailsSnapshot.length > 0 && (
-                          <div className="text-[11px] text-[#5E5854] font-medium">
+                          <div className="text-xs text-[var(--dp-color-ink-muted)] font-['Outfit',sans-serif]">
                             {item.customizationDetailsSnapshot.map((c) => c.optionName).join(', ')}
                           </div>
                         )}
                     </div>
-                    <span className="font-mono font-bold text-[#121212] shrink-0">
+                    <span className="font-mono font-bold text-[var(--dp-color-ink)] shrink-0">
                       {formatCurrency(item.totalPriceSnapshot, 'INR')}
                     </span>
                   </div>
                 ))}
               </div>
 
-              <div className="border-t-2 border-[#121212] pt-3 space-y-1.5 text-xs font-medium">
-                <div className="flex justify-between text-[#5E5854]">
+              <div className="border-t-[1.5px] border-[var(--dp-color-line)] pt-3 space-y-1.5 text-xs font-['Outfit',sans-serif] text-sm">
+                <div className="flex justify-between text-[var(--dp-color-ink-muted)]">
                   <span>Item Subtotal</span>
-                  <span className="font-mono font-bold text-[#121212]">
+                  <span className="font-mono font-bold text-[var(--dp-color-ink)]">
                     {formatCurrency(order.itemTotal, 'INR')}
                   </span>
                 </div>
-                <div className="flex justify-between text-[#5E5854]">
+                <div className="flex justify-between text-[var(--dp-color-ink-muted)]">
                   <span>Thermal Delivery</span>
-                  <span className="font-mono font-bold text-[#121212]">
+                  <span className="font-mono font-bold text-[var(--dp-color-ink)]">
                     {order.deliveryFee === 0 ? 'FREE' : formatCurrency(order.deliveryFee, 'INR')}
                   </span>
                 </div>
-                <div className="flex justify-between text-[#5E5854]">
+                <div className="flex justify-between text-[var(--dp-color-ink-muted)]">
                   <span>GST & Service Levies</span>
-                  <span className="font-mono font-bold text-[#121212]">
+                  <span className="font-mono font-bold text-[var(--dp-color-ink)]">
                     {formatCurrency(order.taxAmount, 'INR')}
                   </span>
                 </div>
@@ -1366,9 +1366,9 @@ export const OrderTrackingPage: React.FC = () => {
                     </span>
                   </div>
                 )}
-                <div className="border-t-2 border-[#121212] pt-2 flex justify-between items-center text-sm font-black text-[#121212] font-['Outfit']">
+                <div className="border-t-[1.5px] border-[var(--dp-color-line)] pt-2 flex justify-between items-center text-sm font-bold text-[var(--dp-color-ink)] font-['Outfit',sans-serif]">
                   <span>Paid via {order.paymentMethod}</span>
-                  <span className="text-xl font-mono font-black text-[#FF650D]">
+                  <span className="text-xl font-mono font-bold text-[var(--dp-color-accent)]">
                     {formatCurrency(order.finalPaidAmount, 'INR')}
                   </span>
                 </div>
@@ -1377,10 +1377,10 @@ export const OrderTrackingPage: React.FC = () => {
               <div className="pt-2">
                 <Link
                   to="/restaurants"
-                  className="w-full py-2.5 rounded-xl bg-white hover:bg-[#FAF6EE] border-2 border-[#121212] shadow-[3px_3px_0px_#121212] text-[#121212] text-xs font-black font-['Outfit'] flex items-center justify-center gap-2 transition-all hover:translate-x-[1px] hover:translate-y-[1px]"
+                  className="w-full py-2.5 rounded-[var(--dp-radius-control)] bg-[var(--dp-color-scrap)] hover:bg-[var(--dp-color-highlight)]/40 border-[1.5px] border-[var(--dp-color-line)] shadow-[1.5px_1.5px_0px_var(--dp-color-line)] text-[var(--dp-color-ink)] text-xs font-bold font-['Outfit',sans-serif] flex items-center justify-center gap-2 transition-all hover:translate-x-[1px] hover:translate-y-[1px] focus:outline-none focus-visible:outline-2 focus-visible:outline-dashed focus-visible:outline-[var(--dp-color-annotation)]"
                 >
                   <span>Explore More Kitchens</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-[#FF650D]" />
+                  <ArrowRight className="w-3.5 h-3.5 text-[var(--dp-color-accent)]" />
                 </Link>
               </div>
             </div>

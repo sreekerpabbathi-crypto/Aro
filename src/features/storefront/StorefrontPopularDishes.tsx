@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Plus, Check, Star } from 'lucide-react'
 import { Badge } from '@/components/common/Badge'
 import { formatCurrency } from '@/lib/utils'
+import { ChilliDoodle } from '@/components/sketch/SketchDoodles'
 
 export interface DishItem {
   id: string
@@ -92,13 +93,13 @@ const curatedDishes: DishItem[] = [
 interface StorefrontPopularDishesProps {
   onAddToCart?: (dish: DishItem) => void
   vegOnly?: boolean
+  selectedCuisine?: string
 }
-
-import { ChilliDoodle } from '@/components/sketch/SketchDoodles'
 
 export const StorefrontPopularDishes: React.FC<StorefrontPopularDishesProps> = ({
   onAddToCart,
   vegOnly = false,
+  selectedCuisine = 'all',
 }) => {
   const [addedIds, setAddedIds] = useState<Record<string, boolean>>({})
 
@@ -110,25 +111,38 @@ export const StorefrontPopularDishes: React.FC<StorefrontPopularDishesProps> = (
     }, 1500)
   }
 
+  const cuisineFiltered =
+    selectedCuisine && selectedCuisine !== 'all'
+      ? curatedDishes.filter((d) => {
+          if (selectedCuisine === 'hyderabadi-dum') return /biryani|marag|nizami/i.test(d.name)
+          if (selectedCuisine === 'japanese-robata') return /hamachi|mushroom|nigiri|robata/i.test(d.name)
+          if (selectedCuisine === 'artisanal-italian') return /pizza|burrata|italian/i.test(d.name)
+          if (selectedCuisine === 'contemporary-deccani') return /deccani|marag|tart|irani/i.test(d.name)
+          return true
+        })
+      : curatedDishes
+
+  const finalPool = cuisineFiltered.length > 0 ? cuisineFiltered : curatedDishes
+
   const displayedDishes = vegOnly
-    ? curatedDishes.filter((d) => d.isVeg)
-    : curatedDishes
+    ? finalPool.filter((d) => d.isVeg)
+    : finalPool
 
   return (
-    <section id="popular-dishes" className="py-12 border-t-2 border-[#121212]/15">
+    <section id="popular-dishes" className="py-12 border-t-[1.5px] border-[var(--dp-color-line)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-end justify-between mb-8">
           <div>
             <div className="flex items-center gap-1.5 mb-1">
-              <ChilliDoodle className="w-4 h-4 text-[#FF650D]" />
-              <span className="font-['Oswald'] text-xs font-black uppercase tracking-wider text-[#FF650D]">
+              <ChilliDoodle className="w-4 h-4 text-[var(--dp-color-accent)]" />
+              <span className="font-['Outfit',sans-serif] text-xs font-bold uppercase tracking-wider text-[var(--dp-color-annotation)]">
                 Fresh From The Pass
               </span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-[#121212] font-['Outfit']">
+            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[var(--dp-color-ink)] font-['Outfit',sans-serif]">
               CURATED DISHES
             </h2>
-            <p className="text-sm text-[#5E5854] mt-1 font-medium">
+            <p className="text-sm text-[var(--dp-color-ink-muted)] mt-1 font-normal font-['Outfit',sans-serif]">
               Signature recipes crafted with uncompromising precision and premium ingredients
             </p>
           </div>
@@ -140,18 +154,18 @@ export const StorefrontPopularDishes: React.FC<StorefrontPopularDishesProps> = (
             return (
               <div
                 key={dish.id}
-                className="bg-white border-[2.5px] border-[#121212] rounded-2xl p-4 shadow-[4px_4px_0px_#121212] hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[7px_7px_0px_#121212] transition-all flex flex-col justify-between group"
+                className="bg-[var(--dp-color-scrap)] border-[1.5px] border-[var(--dp-color-line)] rounded-2xl p-4 shadow-[2px_2px_0px_rgba(56,53,47,0.12)] hover:border-[var(--dp-color-ink)] hover:shadow-[3px_3px_0px_rgba(56,53,47,0.18)] hover:-translate-y-0.5 transition-all flex flex-col justify-between group"
               >
                 <div>
                   {/* Dish Image */}
-                  <div className="relative w-full h-52 rounded-xl overflow-hidden mb-4 border-2 border-[#121212] bg-[#FAF6EE]">
+                  <div className="relative w-full h-52 rounded-xl overflow-hidden mb-4 border-[1.5px] border-[var(--dp-color-line)] bg-[var(--dp-color-ground)]">
                     <img
                       src={dish.imageUrl}
                       alt={dish.name}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[var(--dp-color-ink)]/60 via-transparent to-transparent" />
 
                     {/* Veg / Non-Veg Indicator */}
                     <div className="absolute top-2.5 left-2.5">
@@ -168,8 +182,8 @@ export const StorefrontPopularDishes: React.FC<StorefrontPopularDishesProps> = (
                     )}
 
                     {/* Rating Pill */}
-                    <div className="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded-md bg-white border-2 border-[#121212] text-xs font-black text-[#121212] shadow-[2px_2px_0px_#121212] flex items-center gap-1">
-                      <Star className="w-3.5 h-3.5 fill-[#FFD13B] text-[#121212]" />
+                    <div className="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded-md bg-[var(--dp-color-scrap)] border-[1.5px] border-[var(--dp-color-line)] text-xs font-bold text-[var(--dp-color-ink)] shadow-[1px_1px_0px_var(--dp-color-line)] flex items-center gap-1 font-['Outfit',sans-serif]">
+                      <Star className="w-3.5 h-3.5 fill-[var(--dp-color-accent)] text-[var(--dp-color-accent)]" />
                       <span>{dish.rating.toFixed(1)}</span>
                     </div>
                   </div>
@@ -177,31 +191,31 @@ export const StorefrontPopularDishes: React.FC<StorefrontPopularDishesProps> = (
                   {/* Details */}
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
-                      <span className="text-[11px] font-black uppercase font-['Oswald'] text-[#FF650D] tracking-wider">
+                      <span className="text-[11px] font-bold uppercase font-['Outfit',sans-serif] text-[var(--dp-color-accent)] tracking-wider">
                         {dish.restaurantName}
                       </span>
-                      <span className="text-[11px] font-mono text-[#5E5854] font-bold">
+                      <span className="text-[11px] font-mono text-[var(--dp-color-ink-muted)] font-medium">
                         {dish.prepTimeMinutes} mins
                       </span>
                     </div>
 
-                    <h3 className="text-base sm:text-lg font-black text-[#121212] font-['Outfit'] group-hover:text-[#FF650D] transition-colors leading-snug">
+                    <h3 className="text-base sm:text-lg font-bold text-[var(--dp-color-ink)] font-['Outfit',sans-serif] group-hover:text-[var(--dp-color-accent)] transition-colors leading-snug">
                       {dish.name}
                     </h3>
 
-                    <p className="text-xs text-[#5E5854] line-clamp-2 leading-relaxed font-medium">
+                    <p className="text-xs text-[var(--dp-color-ink-muted)] line-clamp-2 leading-relaxed font-normal font-['Outfit',sans-serif]">
                       {dish.description}
                     </p>
                   </div>
                 </div>
 
                 {/* Price and Add to Cart Action */}
-                <div className="pt-4 mt-4 border-t-2 border-[#121212]/10 flex items-center justify-between">
+                <div className="pt-4 mt-4 border-t-[1.5px] border-[var(--dp-color-line)]/50 flex items-center justify-between">
                   <div className="flex flex-col">
-                    <span className="text-[10px] uppercase font-black font-['Oswald'] tracking-wider text-[#5E5854]">
+                    <span className="text-[10px] uppercase font-bold tracking-wider text-[var(--dp-color-ink-muted)] font-['Outfit',sans-serif]">
                       Price
                     </span>
-                    <span className="text-lg font-black text-[#121212] font-['Oswald']">
+                    <span className="text-lg font-black text-[var(--dp-color-ink)] font-['Outfit',sans-serif]">
                       {formatCurrency(dish.price, 'INR')}
                     </span>
                   </div>
@@ -209,20 +223,20 @@ export const StorefrontPopularDishes: React.FC<StorefrontPopularDishesProps> = (
                   <button
                     type="button"
                     onClick={() => handleAdd(dish)}
-                    className={`px-4 py-2 rounded-xl text-xs font-black uppercase font-['Oswald'] tracking-wider border-2 border-[#121212] flex items-center gap-1.5 transition-all cursor-pointer ${
+                    className={`px-4 py-2 rounded-[var(--dp-radius-control)] text-xs font-bold uppercase font-['Outfit',sans-serif] tracking-wider border-[1.5px] flex items-center gap-1.5 transition-all cursor-pointer ${
                       isAdded
-                        ? 'bg-emerald-500 text-white shadow-[2px_2px_0px_#121212]'
-                        : 'bg-[#FF650D] text-white shadow-[3px_3px_0px_#121212] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[5px_5px_0px_#121212] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#121212]'
+                        ? 'bg-[#2d5f3e] text-white border-[#2d5f3e] shadow-[1px_1px_0px_var(--dp-color-ink)]'
+                        : 'bg-[var(--dp-color-accent)] text-white border-[var(--dp-color-accent)] shadow-[1.5px_1.5px_0px_var(--dp-color-ink)] hover:bg-[#852f25] hover:-translate-y-0.5 active:translate-y-0.5'
                     }`}
                   >
                     {isAdded ? (
                       <>
-                        <Check className="w-3.5 h-3.5 stroke-[3]" />
+                        <Check className="w-3.5 h-3.5 stroke-[2.5]" />
                         <span>Added</span>
                       </>
                     ) : (
                       <>
-                        <Plus className="w-3.5 h-3.5 stroke-[3]" />
+                        <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
                         <span>Add To Cart</span>
                       </>
                     )}

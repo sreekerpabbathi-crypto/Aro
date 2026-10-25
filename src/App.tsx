@@ -47,21 +47,21 @@ export const App: React.FC = () => {
             <Route
               path="*"
               element={
-                <div className="min-h-screen flex flex-col items-center justify-center bg-[#FAF6EE] text-[#121212] paper-grid p-6 text-center">
-                  <div className="bg-white border-2 sm:border-[2.5px] border-[#121212] rounded-3xl p-8 sm:p-12 shadow-[8px_8px_0px_#121212] max-w-md w-full space-y-4">
-                    <span className="text-8xl font-black text-[#FF650D] font-['Oswald'] block tracking-tighter">
+                <div className="min-h-screen flex flex-col items-center justify-center bg-[var(--dp-color-ground)] text-[var(--dp-color-ink)] paper-grid p-6 text-center">
+                  <div className="bg-[var(--dp-color-scrap)] border-[1.5px] border-[var(--dp-color-ink)] rounded-2xl p-8 sm:p-12 shadow-[3px_3px_0px_var(--dp-color-ink)] max-w-md w-full space-y-4">
+                    <span className="text-7xl sm:text-8xl font-black text-[var(--dp-color-accent)] font-['Outfit',sans-serif] block tracking-tight">
                       404
                     </span>
-                    <h1 className="text-2xl sm:text-3xl font-black font-['Outfit'] text-[#121212]">
+                    <h1 className="text-2xl sm:text-3xl font-extrabold font-['Outfit',sans-serif] text-[var(--dp-color-ink)]">
                       Coordinate Not Found
                     </h1>
-                    <p className="text-xs sm:text-sm text-[#5E5854] font-medium leading-relaxed">
+                    <p className="text-sm sm:text-base text-[var(--dp-color-ink-muted)] font-normal leading-relaxed">
                       The dining destination or tasting course you requested does not exist in our Hyderabad catalog or has been retired.
                     </p>
                     <div className="pt-2">
                       <Link
                         to="/home"
-                        className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#FF650D] hover:bg-[#E55400] text-white font-black font-['Outfit'] text-sm border-2 border-[#121212] shadow-[3px_3px_0px_#121212] hover:translate-x-[1px] hover:translate-y-[1px] transition-all"
+                        className="inline-flex items-center gap-2 px-6 py-3 rounded-[var(--dp-radius-control)] bg-[var(--dp-color-accent)] hover:bg-[#852f25] text-white font-medium text-base border-[1.5px] border-[var(--dp-color-accent)] shadow-[2px_2px_0px_var(--dp-color-ink)] transition-all hover:translate-x-[-0.5px] hover:translate-y-[-0.5px] active:translate-x-[1px] active:translate-y-[1px]"
                       >
                         Return to Storefront →
                       </Link>

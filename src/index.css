@@ -1,71 +1,251 @@
 @import "tailwindcss";
 @import "maplibre-gl/dist/maplibre-gl.css";
 
-@theme {
-  --font-serif: 'Fraunces', Georgia, serif;
-  --font-condensed: 'Oswald', sans-serif;
-  --font-display: 'Outfit', sans-serif;
-  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-  --font-hand: 'Caveat', cursive;
-  --font-kalam: 'Kalam', cursive;
+/* Font Aliases for Sketch Working Hand and Marker (bound to clean sans with cursive fallback only for annotations) */
+@font-face {
+  font-family: 'Sketch Working Hand';
+  src: local('Outfit'), local('sans-serif');
+}
 
-  /* Master Specification Editorial Color Palette */
-  --color-aro-orange: #FF650D;
-  --color-aro-burgundy: #641820;
-  --color-aro-cream: #FFF0D5;
-  --color-aro-cream-subtle: #FAF5EE;
-  --color-aro-cream-border: #EADBCE;
-  --color-aro-tomato: #E9432E;
-  --color-aro-ink: #211A19;
-  --color-aro-ink-subtle: #3A2F2D;
-  
-  /* Neo-Brutalism Palette Tokens */
-  --color-nb-paper: #FAF6EE;
-  --color-nb-card: #FFFFFF;
-  --color-nb-black: #121212;
-  --color-nb-yellow: #FFD13B;
-  --color-nb-yellow-light: #FFF4C2;
-  --color-nb-orange: #FF650D;
-  --color-nb-orange-light: #FFE2D4;
-  --color-nb-red: #EF4444;
-  --color-nb-green: #10B981;
-  --color-nb-purple: #8B5CF6;
-  --color-nb-muted: #5E5854;
-
-  /* Retain brand aliases */
-  --color-aro-primary: #FF650D;
-  --color-aro-primary-hover: #E55400;
-  --color-aro-accent: #E9432E;
-  --color-aro-bg: #211A19;
-  --color-aro-surface: #2E2423;
-  --color-aro-surface-elevated: #3C302E;
-  --color-aro-surface-border: #4D3F3C;
-  --color-aro-muted: #A89A97;
-  --color-aro-text: #FFF0D5;
+@font-face {
+  font-family: 'Sketch Working Marker';
+  src: local('Outfit'), local('sans-serif');
 }
 
 :root {
-  color-scheme: dark light;
+  /* ==========================================================================
+     Authoritative Design System Tokens: Sketch Working Sheet
+     ========================================================================== */
+  --dp-color-ground: #f7f2e7;
+  --dp-color-ink: #38352f;
+  --dp-color-ink-muted: #514d44;
+  --dp-color-line: #b3ac9d;
+  --dp-color-accent: #9e3a2e;
+  --dp-color-annotation: #344c69;
+  --dp-color-highlight: #f0dfa0;
+  --dp-color-scrap: #fcf8ef;
+
+  /* Centralized Typography Hierarchy: Clean Bold Sans Headings + Body, Handwriting for Accents ONLY */
+  --dp-typography-display-face: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --dp-typography-reading-face: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --dp-typography-body-face: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --dp-typography-annotation-face: 'Caveat', 'Patrick Hand', cursive;
+
+  /* Typographic Weights & Spacing */
+  --dp-font-weight-display: 800;
+  --dp-font-weight-heading: 700;
+  --dp-font-weight-medium: 600;
+  --dp-font-weight-body: 400;
+
+  --dp-line-height-tight: 1.15;
+  --dp-line-height-snug: 1.3;
+  --dp-line-height-normal: 1.55;
+  --dp-letter-spacing-tight: -0.02em;
+  --dp-letter-spacing-wide: 0.05em;
+
+  /* Responsive Type Scale Reference */
+  --dp-typography-body: 15px;
+  --dp-typography-reading: 15px;
+  --dp-typography-detail: 13px;
+
+  --dp-spacing-item-gap: 16px;
+  --dp-radius-control: 9px 4px 17px 5px / 4px 12px 5px 9px;
+  --dp-border-fine-stroke: 1.5px;
+  --dp-motion-control: 100ms;
+
+  color-scheme: light;
+}
+
+@theme {
+  --font-serif: 'Fraunces', Georgia, serif;
+  --font-condensed: 'Oswald', sans-serif;
+  --font-display: var(--dp-typography-display-face);
+  --font-sans: var(--dp-typography-reading-face);
+  --font-body: var(--dp-typography-body-face);
+  --font-annotation: var(--dp-typography-annotation-face);
+  --font-hand: var(--dp-typography-annotation-face);
+  --font-sketch: var(--dp-typography-annotation-face);
+  --font-marker: var(--dp-typography-display-face);
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Authoritative Token Mappings */
+  --color-ground: var(--dp-color-ground);
+  --color-ink: var(--dp-color-ink);
+  --color-ink-muted: var(--dp-color-ink-muted);
+  --color-line: var(--dp-color-line);
+  --color-accent: var(--dp-color-accent);
+  --color-annotation: var(--dp-color-annotation);
+  --color-highlight: var(--dp-color-highlight);
+  --color-scrap: var(--dp-color-scrap);
+
+  /* Legacy & Brand Token Overrides to Prevent Old Palette Leaks */
+  --color-aro-orange: var(--dp-color-accent);
+  --color-aro-burgundy: var(--dp-color-accent);
+  --color-aro-cream: var(--dp-color-ground);
+  --color-aro-cream-subtle: var(--dp-color-scrap);
+  --color-aro-cream-border: var(--dp-color-line);
+  --color-aro-tomato: var(--dp-color-accent);
+  --color-aro-ink: var(--dp-color-ink);
+  --color-aro-ink-subtle: var(--dp-color-ink-muted);
+  --color-aro-primary: var(--dp-color-accent);
+  --color-aro-primary-hover: #822e23;
+  --color-aro-accent: var(--dp-color-accent);
+  --color-aro-bg: var(--dp-color-ground);
+  --color-aro-surface: var(--dp-color-scrap);
+  --color-aro-surface-elevated: var(--dp-color-ground);
+  --color-aro-surface-border: var(--dp-color-line);
+  --color-aro-muted: var(--dp-color-ink-muted);
+  --color-aro-text: var(--dp-color-ink);
+
+  /* Neo-Brutalism Alias Remappings */
+  --color-nb-paper: var(--dp-color-ground);
+  --color-nb-card: var(--dp-color-scrap);
+  --color-nb-black: var(--dp-color-ink);
+  --color-nb-yellow: var(--dp-color-highlight);
+  --color-nb-yellow-light: var(--dp-color-highlight);
+  --color-nb-orange: var(--dp-color-accent);
+  --color-nb-orange-light: var(--dp-color-highlight);
+  --color-nb-red: var(--dp-color-accent);
+  --color-nb-green: var(--dp-color-annotation);
+  --color-nb-purple: var(--dp-color-annotation);
+  --color-nb-muted: var(--dp-color-ink-muted);
 }
 
 body {
-  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-  background-color: #211A19;
-  color: #FFF0D5;
+  font-family: var(--dp-typography-body-face);
+  background-color: var(--dp-color-ground);
+  color: var(--dp-color-ink);
   margin: 0;
   padding: 0;
+  line-height: var(--dp-line-height-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Retro Editorial Grain Texture */
+/* ==========================================================================
+   Accessibility & Focus Outlines
+   ========================================================================== */
+:focus-visible,
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px dashed var(--dp-color-annotation) !important;
+  outline-offset: 3px !important;
+}
+
+/* ==========================================================================
+   Quiet Paper Texture Utilities
+   ========================================================================== */
 .paper-grain {
-  background-image: radial-gradient(rgba(255, 240, 213, 0.04) 1px, transparent 0);
-  background-size: 24px 24px;
+  background-image: radial-gradient(rgba(56, 53, 47, 0.04) 1px, transparent 0);
+  background-size: 20px 20px;
 }
 
 .paper-grain-light {
-  background-image: radial-gradient(rgba(33, 26, 25, 0.05) 1px, transparent 0);
+  background-image: radial-gradient(rgba(56, 53, 47, 0.03) 1px, transparent 0);
   background-size: 20px 20px;
+}
+
+.paper-grid {
+  background-color: var(--dp-color-ground);
+  background-image: radial-gradient(rgba(56, 53, 47, 0.05) 1.2px, transparent 1.2px);
+  background-size: 24px 24px;
+}
+
+.paper-lined {
+  background-color: var(--dp-color-ground);
+  background-image: linear-gradient(rgba(179, 172, 157, 0.3) 1px, transparent 1px);
+  background-size: 100% 28px;
+}
+
+/* ==========================================================================
+   Working Sheet Surface & Card Utilities
+   ========================================================================== */
+.paper-card {
+  background-color: var(--dp-color-scrap);
+  border: var(--dp-border-fine-stroke) solid var(--dp-color-line);
+  box-shadow: 2px 2px 0px rgba(56, 53, 47, 0.12);
+  border-radius: 0.875rem;
+  transition: transform var(--dp-motion-control) ease, box-shadow var(--dp-motion-control) ease;
+}
+
+.paper-card:hover {
+  box-shadow: 3px 3px 0px rgba(56, 53, 47, 0.18);
+  border-color: var(--dp-color-ink);
+}
+
+.paper-card-highlight {
+  background-color: var(--dp-color-scrap);
+  border: var(--dp-border-fine-stroke) solid var(--dp-color-ink);
+  box-shadow: 2.5px 2.5px 0px var(--dp-color-ink);
+  border-radius: 0.875rem;
+}
+
+.editorial-card {
+  background-color: var(--dp-color-scrap);
+  border: var(--dp-border-fine-stroke) solid var(--dp-color-line);
+  border-radius: 0.875rem;
+  transition: transform var(--dp-motion-control) ease, box-shadow var(--dp-motion-control) ease, border-color var(--dp-motion-control) ease;
+}
+
+.editorial-card:hover {
+  border-color: var(--dp-color-ink);
+  box-shadow: 2.5px 2.5px 0px rgba(56, 53, 47, 0.18);
+}
+
+.editorial-card-light {
+  background-color: var(--dp-color-scrap);
+  color: var(--dp-color-ink);
+  border: var(--dp-border-fine-stroke) solid var(--dp-color-line);
+  border-radius: 0.875rem;
+}
+
+/* ==========================================================================
+   Refined Tactile Shadow Tokens (Restrained Hard Offsets)
+   ========================================================================== */
+.nb-shadow-sm {
+  box-shadow: 1.5px 1.5px 0px var(--dp-color-line);
+}
+
+.nb-shadow {
+  box-shadow: 2px 2px 0px var(--dp-color-line);
+}
+
+.nb-shadow-lg {
+  box-shadow: 3px 3px 0px rgba(56, 53, 47, 0.16);
+}
+
+.nb-shadow-xl {
+  box-shadow: 4px 4px 0px rgba(56, 53, 47, 0.2);
+}
+
+.nb-shadow-orange,
+.nb-shadow-accent {
+  box-shadow: 2.5px 2.5px 0px var(--dp-color-accent);
+}
+
+.nb-shadow-yellow {
+  box-shadow: 2.5px 2.5px 0px var(--dp-color-highlight);
+}
+
+.nb-button-tactile {
+  border: var(--dp-border-fine-stroke) solid var(--dp-color-ink);
+  box-shadow: 2px 2px 0px var(--dp-color-ink);
+  border-radius: var(--dp-radius-control);
+  transition: transform var(--dp-motion-control) ease, box-shadow var(--dp-motion-control) ease;
+  user-select: none;
+}
+
+.nb-button-tactile:hover {
+  transform: translate(-0.5px, -0.5px) rotate(-0.5deg);
+  box-shadow: 2.5px 2.5px 0px var(--dp-color-ink);
+}
+
+.nb-button-tactile:active {
+  transform: translate(1.5px, 1.5px);
+  box-shadow: 0px 0px 0px transparent;
 }
 
 /* Editorial Circular Stamp Seal */
@@ -74,115 +254,55 @@ body {
   align-items: center;
   justify-content: center;
   border-radius: 9999px;
-  border: 2px dashed #FF650D;
+  border: var(--dp-border-fine-stroke) dashed var(--dp-color-accent);
   text-transform: uppercase;
-  font-family: 'Oswald', sans-serif;
-  letter-spacing: 0.15em;
-  transform: rotate(-4deg);
+  font-family: var(--dp-typography-display-face);
+  letter-spacing: 0.12em;
+  transform: rotate(-3deg);
 }
 
 /* Tilted editorial panel */
 .tilted-panel-left {
-  transform: rotate(-1.5deg);
+  transform: rotate(-0.8deg);
 }
 
 .tilted-panel-right {
-  transform: rotate(1.5deg);
+  transform: rotate(0.8deg);
 }
 
-/* Glassmorphism / Editorial Surface Utilities */
-.editorial-card {
-  background-color: #2E2423;
-  border: 1px solid #4D3F3C;
-  border-radius: 1.25rem;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-}
-
-.editorial-card:hover {
-  border-color: #FF650D;
-  box-shadow: 0 16px 32px -8px rgba(255, 101, 13, 0.15);
-}
-
-.editorial-card-light {
-  background-color: #FAF5EE;
-  color: #211A19;
-  border: 1px solid #EADBCE;
-  border-radius: 1.25rem;
-}
-
-/* Neo-Brutalism Design Utilities */
-.nb-shadow-sm {
-  box-shadow: 2px 2px 0px #121212;
-}
-
-.nb-shadow {
-  box-shadow: 4px 4px 0px #121212;
-}
-
-.nb-shadow-lg {
-  box-shadow: 6px 6px 0px #121212;
-}
-
-.nb-shadow-xl {
-  box-shadow: 8px 8px 0px #121212;
-}
-
-.nb-shadow-orange {
-  box-shadow: 4px 4px 0px #FF650D;
-}
-
-.nb-shadow-yellow {
-  box-shadow: 4px 4px 0px #FFD13B;
-}
-
-.nb-button-tactile {
-  border: 2px solid #121212;
-  box-shadow: 4px 4px 0px #121212;
-  transition: transform 0.1s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.1s cubic-bezier(0.16, 1, 0.3, 1);
-  user-select: none;
-}
-
-.nb-button-tactile:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0px #121212;
-}
-
-.nb-button-tactile:active {
-  transform: translate(2px, 2px);
-  box-shadow: 0px 0px 0px #121212;
-}
-
+/* ==========================================================================
+   Reduced Motion
+   ========================================================================== */
 @media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transform: none !important;
+  }
   .nb-button-tactile:hover,
-  .nb-button-tactile:active {
+  .nb-button-tactile:active,
+  .editorial-seal,
+  .tilted-panel-left,
+  .tilted-panel-right {
     transform: none !important;
   }
 }
 
-.paper-grid {
-  background-color: #FAF6EE;
-  background-image: radial-gradient(rgba(18, 18, 18, 0.08) 1.2px, transparent 1.2px);
-  background-size: 20px 20px;
-}
-
-.paper-lined {
-  background-color: #FAF6EE;
-  background-image: linear-gradient(rgba(18, 18, 18, 0.06) 1px, transparent 1px);
-  background-size: 100% 28px;
-}
-
-/* Custom Scrollbars */
+/* Custom Paper Scrollbars */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #211A19;
+  background: var(--dp-color-ground);
 }
 ::-webkit-scrollbar-thumb {
-  background: #4D3F3C;
+  background: var(--dp-color-line);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #FF650D;
+  background: var(--dp-color-ink-muted);
 }

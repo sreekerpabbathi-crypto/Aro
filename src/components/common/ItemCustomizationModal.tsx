@@ -127,10 +127,10 @@ export const ItemCustomizationModal: React.FC<ItemCustomizationModalProps> = ({
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-2xl bg-white border-[2.5px] border-[#121212] text-[#121212] p-6 sm:p-7 shadow-[8px_8px_0px_#121212] flex flex-col justify-between">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-[2px] animate-in fade-in duration-200">
+      <div className="relative w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-2xl bg-[var(--dp-color-scrap)] border-[1.5px] border-[var(--dp-color-ink)] text-[var(--dp-color-ink)] p-6 sm:p-7 shadow-[3px_3px_0px_rgba(56,53,47,0.2)] flex flex-col justify-between">
         {/* Header */}
-        <div className="flex items-start justify-between pb-4 border-b-2 border-[#121212]">
+        <div className="flex items-start justify-between pb-4 border-b-[1.5px] border-[var(--dp-color-line)]">
           <div className="space-y-1.5 pr-4">
             <div className="flex items-center gap-2">
               <Badge variant={item.isVeg ? 'veg' : 'nonveg'}>
@@ -138,10 +138,10 @@ export const ItemCustomizationModal: React.FC<ItemCustomizationModalProps> = ({
               </Badge>
               {item.isChefSpecial && <Badge variant="accent">Chef Special</Badge>}
             </div>
-            <h3 className="text-xl sm:text-2xl font-black font-['Outfit'] text-[#121212] tracking-tight">
+            <h3 className="text-xl sm:text-2xl font-extrabold font-['Outfit',sans-serif] text-[var(--dp-color-ink)] tracking-tight">
               {item.name}
             </h3>
-            <p className="text-xs sm:text-sm text-[#5E5854] leading-relaxed max-w-sm">
+            <p className="text-xs sm:text-sm text-[var(--dp-color-ink-muted)] leading-relaxed max-w-sm">
               {item.description}
             </p>
           </div>
@@ -149,9 +149,10 @@ export const ItemCustomizationModal: React.FC<ItemCustomizationModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="p-2 rounded-lg bg-white border-2 border-[#121212] shadow-[2px_2px_0px_#121212] hover:bg-[#FFF4C2] transition-colors cursor-pointer shrink-0"
+            className="p-2 rounded-[var(--dp-radius-control)] bg-[var(--dp-color-scrap)] border-[1.5px] border-[var(--dp-color-line)] shadow-[1px_1px_0px_var(--dp-color-line)] hover:border-[var(--dp-color-ink)] transition-colors cursor-pointer shrink-0"
+            aria-label="Close modal"
           >
-            <X className="w-5 h-5 text-[#121212]" />
+            <X className="w-5 h-5 text-[var(--dp-color-ink)]" />
           </button>
         </div>
 
@@ -166,15 +167,15 @@ export const ItemCustomizationModal: React.FC<ItemCustomizationModalProps> = ({
                 <div key={group.id} className="space-y-3">
                   <div className="flex items-center justify-between">
                     <div>
-                      <h4 className="text-sm font-black text-[#121212] font-['Outfit'] flex items-center gap-1.5 uppercase tracking-wide">
+                      <h4 className="text-sm font-bold text-[var(--dp-color-ink)] font-['Outfit',sans-serif] flex items-center gap-1.5 uppercase tracking-wide">
                         <span>{group.name}</span>
                         {group.isRequired && (
-                          <span className="text-[10px] text-[#EF4444] font-black font-['Oswald'] px-1.5 py-0.5 rounded bg-[#FEECEB] border border-[#EF4444]">
+                          <span className="text-[10px] text-[var(--dp-color-accent)] font-bold px-1.5 py-0.5 rounded bg-[var(--dp-color-highlight)]/40 border-[1.5px] border-[var(--dp-color-accent)]">
                             REQUIRED
                           </span>
                         )}
                       </h4>
-                      <p className="text-[11px] text-[#5E5854] font-medium">
+                      <p className="text-[11px] text-[var(--dp-color-ink-muted)] font-medium">
                         {isSingleChoice
                           ? 'Choose 1 option'
                           : `Choose up to ${group.maxSelect} options`}
@@ -195,28 +196,28 @@ export const ItemCustomizationModal: React.FC<ItemCustomizationModalProps> = ({
                               handleMultiSelect(group.id, opt, group.maxSelect)
                             }
                           }}
-                          className={`flex items-center justify-between p-3.5 rounded-xl border-2 border-[#121212] text-xs cursor-pointer transition-all ${
+                          className={`flex items-center justify-between p-3.5 rounded-xl border-[1.5px] text-xs cursor-pointer transition-all ${
                             isSelected
-                              ? 'bg-[#FFD13B] shadow-[3px_3px_0px_#121212] -translate-x-0.5 -translate-y-0.5 text-[#121212]'
-                              : 'bg-[#FAF6EE] shadow-[2px_2px_0px_#121212] hover:bg-[#FFF4C2] text-[#121212]'
+                              ? 'bg-[var(--dp-color-highlight)] border-[var(--dp-color-ink)] shadow-[1.5px_1.5px_0px_var(--dp-color-ink)] text-[var(--dp-color-ink)]'
+                              : 'bg-[var(--dp-color-ground)] border-[var(--dp-color-line)] shadow-[1px_1px_0px_var(--dp-color-line)] hover:border-[var(--dp-color-ink)] text-[var(--dp-color-ink)]'
                           }`}
                         >
                           <div className="flex items-center gap-2.5">
                             <div
                               className={`w-4 h-4 rounded-${
                                 isSingleChoice ? 'full' : 'md'
-                              } border-2 border-[#121212] flex items-center justify-center ${
+                              } border-[1.5px] border-[var(--dp-color-ink)] flex items-center justify-center ${
                                 isSelected
-                                  ? 'bg-[#121212] text-white'
+                                  ? 'bg-[var(--dp-color-ink)] text-white'
                                   : 'bg-white'
                               }`}
                             >
                               {isSelected && <Check className="w-2.5 h-2.5 stroke-[3]" />}
                             </div>
-                            <span className="font-bold text-[13px]">{opt.name}</span>
+                            <span className="font-medium text-[13px]">{opt.name}</span>
                           </div>
 
-                          <span className="font-black font-['Oswald'] text-xs">
+                          <span className="font-bold text-xs">
                             {opt.additionalPrice > 0
                               ? `+${formatCurrency(opt.additionalPrice, 'INR')}`
                               : 'Free'}
@@ -229,7 +230,7 @@ export const ItemCustomizationModal: React.FC<ItemCustomizationModalProps> = ({
               )
             })
           ) : (
-            <div className="py-4 text-center text-xs text-[#5E5854] font-medium bg-[#FAF6EE] border-2 border-dashed border-[#121212] rounded-xl p-4">
+            <div className="py-4 text-center text-xs text-[var(--dp-color-ink-muted)] font-medium bg-[var(--dp-color-ground)] border-[1.5px] border-dashed border-[var(--dp-color-line)] rounded-xl p-4">
               This dish comes freshly prepared according to the chef's signature recipe. No modifications required.
             </div>
           )}
@@ -237,32 +238,34 @@ export const ItemCustomizationModal: React.FC<ItemCustomizationModalProps> = ({
 
         {/* Validation Warning */}
         {validationError && (
-          <div className="mb-4 p-3 rounded-xl bg-[#FEECEB] border-2 border-[#EF4444] text-xs text-[#DC2626] font-bold flex items-center gap-2 shadow-[2px_2px_0px_#EF4444]">
-            <Flame className="w-4 h-4 text-[#EF4444] shrink-0" />
+          <div className="mb-4 p-3 rounded-xl bg-[var(--dp-color-highlight)]/40 border-[1.5px] border-[var(--dp-color-accent)] text-xs text-[var(--dp-color-accent)] font-bold flex items-center gap-2 shadow-[1px_1px_0px_var(--dp-color-accent)]">
+            <Flame className="w-4 h-4 text-[var(--dp-color-accent)] shrink-0" />
             <span>{validationError}</span>
           </div>
         )}
 
         {/* Quantity and Confirm Action */}
-        <div className="pt-4 border-t-2 border-[#121212] flex items-center justify-between gap-4">
-          <div className="flex items-center gap-2 bg-[#FAF6EE] border-2 border-[#121212] rounded-xl p-1 shadow-[2px_2px_0px_#121212]">
+        <div className="pt-4 border-t-[1.5px] border-[var(--dp-color-line)] flex items-center justify-between gap-4">
+          <div className="flex items-center gap-2 bg-[var(--dp-color-ground)] border-[1.5px] border-[var(--dp-color-line)] rounded-[var(--dp-radius-control)] p-1 shadow-[1px_1px_0px_var(--dp-color-line)]">
             <button
               type="button"
               onClick={() => setQuantity((q) => Math.max(1, q - 1))}
               disabled={quantity <= 1}
-              className="p-1.5 rounded-lg text-[#121212] hover:bg-[#FFF4C2] disabled:opacity-30 cursor-pointer font-bold"
+              className="p-1.5 rounded text-[var(--dp-color-ink)] hover:bg-[var(--dp-color-scrap)] disabled:opacity-30 cursor-pointer font-bold"
+              aria-label="Decrease quantity"
             >
-              <Minus className="w-4 h-4 stroke-[2.5]" />
+              <Minus className="w-4 h-4 stroke-[2]" />
             </button>
-            <span className="font-black text-sm text-[#121212] px-2 font-['Oswald']">
+            <span className="font-bold text-sm text-[var(--dp-color-ink)] px-2 font-['Outfit',sans-serif]">
               {quantity}
             </span>
             <button
               type="button"
               onClick={() => setQuantity((q) => q + 1)}
-              className="p-1.5 rounded-lg text-[#121212] hover:bg-[#FFF4C2] cursor-pointer font-bold"
+              className="p-1.5 rounded text-[var(--dp-color-ink)] hover:bg-[var(--dp-color-scrap)] cursor-pointer font-bold"
+              aria-label="Increase quantity"
             >
-              <Plus className="w-4 h-4 stroke-[2.5]" />
+              <Plus className="w-4 h-4 stroke-[2]" />
             </button>
           </div>
 
@@ -271,7 +274,7 @@ export const ItemCustomizationModal: React.FC<ItemCustomizationModalProps> = ({
             variant="primary"
             onClick={handleConfirm}
             disabled={Boolean(validationError)}
-            className="flex-1 font-black uppercase font-['Oswald'] tracking-wider text-sm cursor-pointer shadow-[3px_3px_0px_#121212]"
+            className="flex-1 font-medium tracking-wide text-sm cursor-pointer shadow-[2px_2px_0px_var(--dp-color-ink)]"
           >
             Add to Order • {formatCurrency(finalPrice, 'INR')}
           </Button>

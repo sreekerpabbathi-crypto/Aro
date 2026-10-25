@@ -8,26 +8,20 @@ import { LandingFinalCTA } from './LandingFinalCTA'
 import { LandingFooter } from './LandingFooter'
 
 /**
- * ARO — Neo-Brutalism × Hand-Drawn Sketch × Food Photography
- * Landing Page Redesign
+ * ARO — Premium Sketch Working Sheet
  *
- * Combines:
- * - Structural Neo-Brutalism: Bold display typography, 2-3px black borders, hard offset shadows,
- *   warm cream paper canvas, tactile button physics.
- * - Personality Hand-Drawn Sketch: Organic wavy underlines, hand-drawn curved arrows,
- *   food doodles (chillies, biryani handi, fork/spoon), washi-tape stickers, handwritten annotations.
- * - Appetite Food Photography: High-definition, authentic Hyderabadi Dum Biryani, crisp Ghee Dosas,
- *   Robata & Smash burgers, wood-fired pizza, momos and desserts.
+ * Restrained warm paper ground, handwritten reading text, heavy marker headings,
+ * pencil-like fine strokes, blue notes, red key emphasis, and rare pale yellow highlights.
  */
 export const CinematicLandingPage: React.FC = () => {
   return (
-    <div className="min-h-screen w-full bg-[#FAF6EE] text-[#121212] flex flex-col justify-between overflow-x-hidden selection:bg-[#FFD13B] selection:text-[#121212] paper-grid">
-      {/* 1. Distinctive Neo-Brutalist Navigation */}
+    <div className="min-h-screen w-full bg-[var(--dp-color-ground)] text-[var(--dp-color-ink)] flex flex-col justify-between overflow-x-hidden selection:bg-[var(--dp-color-highlight)] selection:text-[var(--dp-color-ink)] paper-grid">
+      {/* 1. Refined Working Sheet Navigation */}
       <LandingNavbar />
 
       {/* Main Page Sections */}
       <main className="flex-1 w-full">
-        {/* 2. Hero Section: Jaw-dropping food photography & bold typography */}
+        {/* 2. Hero Section: Open working sheet, large statement heading, taped reference */}
         <LandingHero />
 
         {/* 3. Food Discovery & Categories */}
@@ -36,14 +30,14 @@ export const CinematicLandingPage: React.FC = () => {
         {/* 4. Featured Culinary Heavyweights & Masterpiece Dishes */}
         <LandingFeaturedRestaurants />
 
-        {/* 5. How ARO Works: 3-Step Process */}
+        {/* 5. How ARO Works: 3-Step Process on paper strip */}
         <LandingHowItWorks />
 
-        {/* 6. High-Contrast Final Call To Action */}
+        {/* 6. Restrained Red Accent Call To Action */}
         <LandingFinalCTA />
       </main>
 
-      {/* 7. Comprehensive Neo-Brutalist Footer */}
+      {/* 7. Lightly Divided Working Sheet Footer */}
       <LandingFooter />
     </div>
   )

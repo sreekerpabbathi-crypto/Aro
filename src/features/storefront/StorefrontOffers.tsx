@@ -26,18 +26,18 @@ export const StorefrontOffers: React.FC = () => {
   ]
 
   return (
-    <section id="offers" className="py-12 border-t-2 border-[#121212]/15">
+    <section id="offers" className="py-12 border-t-[1.5px] border-[var(--dp-color-line)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-end justify-between mb-8">
           <div>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#FFD13B] border-2 border-[#121212] shadow-[2px_2px_0px_#121212] text-xs font-black uppercase font-['Oswald'] text-[#121212] mb-2">
-              <Sparkles className="w-3.5 h-3.5 text-[#121212]" />
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-[var(--dp-radius-control)] bg-[var(--dp-color-highlight)] border-[1.5px] border-[var(--dp-color-ink)] shadow-[1px_1px_0px_var(--dp-color-ink)] text-xs font-bold uppercase font-['Outfit',sans-serif] text-[var(--dp-color-ink)] mb-2 tracking-wider">
+              <Sparkles className="w-3.5 h-3.5 text-[var(--dp-color-accent)]" />
               <span>Privileges & Perks</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-[#121212] font-['Outfit']">
+            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[var(--dp-color-ink)] font-['Outfit',sans-serif]">
               CURATED DINING PRIVILEGES
             </h2>
-            <p className="text-sm text-[#5E5854] mt-1 font-medium">
+            <p className="text-sm text-[var(--dp-color-ink-muted)] mt-1 font-normal font-['Outfit',sans-serif]">
               Complimentary seasonal privileges and promo codes applied directly at checkout
             </p>
           </div>
@@ -47,29 +47,29 @@ export const StorefrontOffers: React.FC = () => {
           {offers.map((offer, idx) => (
             <div
               key={idx}
-              className="p-6 sm:p-7 rounded-2xl bg-[#FFF4C2] border-[2.5px] border-[#121212] shadow-[5px_5px_0px_#121212] relative overflow-hidden flex flex-col justify-between"
+              className="p-6 sm:p-7 rounded-2xl bg-[var(--dp-color-highlight)]/30 border-[1.5px] border-[var(--dp-color-line)] shadow-[2px_2px_0px_rgba(56,53,47,0.12)] relative overflow-hidden flex flex-col justify-between"
             >
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-[11px] font-black uppercase font-['Oswald'] tracking-wider text-[#FF650D] px-2.5 py-0.5 rounded bg-white border border-[#121212]">
+                  <span className="text-[11px] font-bold uppercase font-['Outfit',sans-serif] tracking-wider text-[var(--dp-color-accent)] px-2.5 py-0.5 rounded bg-[var(--dp-color-scrap)] border-[1.5px] border-[var(--dp-color-line)]">
                     {offer.badge}
                   </span>
-                  <div className="w-9 h-9 rounded-lg bg-white border-2 border-[#121212] shadow-[2px_2px_0px_#121212] flex items-center justify-center text-[#121212]">
-                    <TicketPercent className="w-5 h-5 text-[#FF650D]" />
+                  <div className="w-9 h-9 rounded-lg bg-[var(--dp-color-scrap)] border-[1.5px] border-[var(--dp-color-line)] shadow-[1px_1px_0px_var(--dp-color-line)] flex items-center justify-center text-[var(--dp-color-accent)]">
+                    <TicketPercent className="w-5 h-5 text-[var(--dp-color-accent)]" />
                   </div>
                 </div>
 
-                <h3 className="text-lg sm:text-xl font-black text-[#121212] font-['Outfit']">
+                <h3 className="text-lg sm:text-xl font-bold text-[var(--dp-color-ink)] font-['Outfit',sans-serif]">
                   {offer.title}
                 </h3>
-                <p className="text-xs sm:text-sm text-[#5E5854] leading-relaxed font-medium">
+                <p className="text-xs sm:text-sm text-[var(--dp-color-ink-muted)] leading-relaxed font-normal font-['Outfit',sans-serif]">
                   {offer.desc}
                 </p>
               </div>
 
               <div className="pt-6 flex items-center justify-between gap-4">
                 <div className="flex items-center gap-2">
-                  <span className="px-3.5 py-1.5 rounded-lg bg-white border-2 border-dashed border-[#121212] font-['Oswald'] font-black text-sm text-[#121212] tracking-wider shadow-[2px_2px_0px_#121212]">
+                  <span className="px-3.5 py-1.5 rounded-[var(--dp-radius-control)] bg-[var(--dp-color-scrap)] border-[1.5px] border-dashed border-[var(--dp-color-ink)] font-mono font-bold text-sm text-[var(--dp-color-ink)] tracking-wider shadow-[1px_1px_0px_var(--dp-color-line)]">
                     {offer.code}
                   </span>
                 </div>
@@ -77,17 +77,17 @@ export const StorefrontOffers: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => copyToClipboard(offer.code)}
-                  className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white hover:bg-[#FAF6EE] border-2 border-[#121212] text-xs font-black uppercase font-['Oswald'] tracking-wider text-[#121212] shadow-[2px_2px_0px_#121212] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[4px_4px_0px_#121212] active:translate-x-0.5 active:translate-y-0.5 active:shadow-[1px_1px_0px_#121212] transition-all cursor-pointer"
+                  className="flex items-center gap-1.5 px-4 py-2 rounded-[var(--dp-radius-control)] bg-[var(--dp-color-scrap)] hover:bg-[var(--dp-color-ground)] border-[1.5px] border-[var(--dp-color-line)] hover:border-[var(--dp-color-ink)] text-xs font-bold uppercase font-['Outfit',sans-serif] tracking-wider text-[var(--dp-color-ink)] shadow-[1px_1px_0px_var(--dp-color-line)] active:translate-x-0.5 active:translate-y-0.5 transition-all cursor-pointer"
                 >
                   {copiedCode === offer.code ? (
                     <>
-                      <Check className="w-4 h-4 text-emerald-600 stroke-[3]" />
-                      <span className="text-emerald-700">Copied</span>
+                      <Check className="w-4 h-4 text-[#2d5f3e] stroke-[2.5]" />
+                      <span className="text-[#2d5f3e] font-['Outfit',sans-serif] font-bold">Copied</span>
                     </>
                   ) : (
                     <>
-                      <Copy className="w-4 h-4 text-[#FF650D]" />
-                      <span>Copy Code</span>
+                      <Copy className="w-4 h-4 text-[var(--dp-color-accent)]" />
+                      <span className="font-['Outfit',sans-serif] font-bold">Copy Code</span>
                     </>
                   )}
                 </button>
