@@ -27,7 +27,14 @@ import type { Order, CustomerAddress } from '@/types'
 export const CheckoutPage: React.FC = () => {
   const navigate = useNavigate()
   const { items, activeRestaurant, totals, clearCart } = useCart()
-  const { user, addresses, addAddress, saveOrder } = useAuth()
+  const { user, addresses, addAddress, saveOrder, isAuthLoading } = useAuth()
+
+  // Route Guard: Guests attempting checkout are redirected to /auth?redirect=/checkout
+  React.useEffect(() => {
+    if (!isAuthLoading && !user) {
+      navigate('/auth?redirect=/checkout', { replace: true })
+    }
+  }, [user, isAuthLoading, navigate])
 
   // Selected delivery address
   const [selectedAddressId, setSelectedAddressId] = useState<string>(
@@ -51,13 +58,35 @@ export const CheckoutPage: React.FC = () => {
   // Payment method simulation
   type PaymentMethod = 'UPI' | 'CARD' | 'NET_BANKING' | 'CASH_ON_DELIVERY'
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('UPI')
-  const [upiId, setUpiId] = useState('sreeram@okhdfcbank')
+  const [upiId, setUpiId] = useState(() => (user?.email ? `${user.email.split('@')[0]}@okhdfcbank` : 'patron@okhdfcbank'))
   const [cardNumber, setCardNumber] = useState('4532 •••• •••• 8821')
   const [selectedBank, setSelectedBank] = useState('HDFC Bank')
 
   // Submitting state
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [errorNotice, setErrorNotice] = useState<string | null>(null)
+
+  // If verifying authentication session
+  if (isAuthLoading) {
+    return (
+      <div className="min-h-screen flex flex-col bg-[var(--dp-color-ground)] text-[var(--dp-color-ink)] paper-grid">
+        <StorefrontNavbar cartCount={items.length} />
+        <main className="flex-1 max-w-lg mx-auto px-4 py-24 flex items-center justify-center">
+          <div className="flex flex-col items-center gap-3">
+            <div className="w-8 h-8 border-2 border-[var(--dp-color-accent)] border-t-transparent rounded-full animate-spin" />
+            <span className="text-xs font-bold text-[var(--dp-color-ink-muted)] font-['Outfit',sans-serif]">
+              Verifying Patron Checkout Session...
+            </span>
+          </div>
+        </main>
+        <StorefrontFooter />
+      </div>
+    )
+  }
+
+  if (!user) {
+    return null
+  }
 
   // If cart is empty, redirect back
   if (items.length === 0) {
@@ -95,8 +124,8 @@ export const CheckoutPage: React.FC = () => {
 
     const newAddr: Omit<CustomerAddress, 'id' | 'userId'> = {
       label: newLabel,
-      recipientName: user?.fullName || 'Sreeram K',
-      recipientPhone: user?.phone || '+91 98765 01234',
+      recipientName: user?.fullName || 'Patron',
+      recipientPhone: user?.phone || '',
       addressLine1: newAddressLine1,
       addressLine2: newAddressLine2 || undefined,
       landmark: newLandmark || undefined,

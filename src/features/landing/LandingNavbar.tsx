@@ -132,19 +132,35 @@ export const LandingNavbar: React.FC = () => {
             )}
           </Link>
 
-          {/* Account Button */}
-          <Link
-            to="/account"
-            className="hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-[var(--dp-radius-control)] bg-[var(--dp-color-scrap)] border-[1.5px] border-[var(--dp-color-line)] text-xs font-semibold text-[var(--dp-color-ink)] shadow-[1.5px_1.5px_0px_var(--dp-color-line)] hover:border-[var(--dp-color-ink)] active:translate-x-[1px] active:translate-y-[1px] transition-all font-['Outfit',sans-serif]"
-          >
-            <User className="w-3.5 h-3.5 text-[var(--dp-color-ink)]" />
-            <span>{user?.fullName?.split(' ')[0] || 'Account'}</span>
-          </Link>
+          {/* Account / Sign In Button */}
+          {user ? (
+            <Link
+              to="/account"
+              className="hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-[var(--dp-radius-control)] bg-[var(--dp-color-scrap)] border-[1.5px] border-[var(--dp-color-line)] text-xs font-semibold text-[var(--dp-color-ink)] shadow-[1.5px_1.5px_0px_var(--dp-color-line)] hover:border-[var(--dp-color-ink)] active:translate-x-[1px] active:translate-y-[1px] transition-all font-['Outfit',sans-serif]"
+            >
+              <User className="w-3.5 h-3.5 text-[var(--dp-color-ink)]" />
+              <span>{user?.fullName?.split(' ')[0] || 'Account'}</span>
+            </Link>
+          ) : (
+            <Link
+              to="/auth"
+              className="hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-[var(--dp-radius-control)] bg-[var(--dp-color-scrap)] border-[1.5px] border-[var(--dp-color-line)] text-xs font-semibold text-[var(--dp-color-ink)] shadow-[1.5px_1.5px_0px_var(--dp-color-line)] hover:border-[var(--dp-color-ink)] active:translate-x-[1px] active:translate-y-[1px] transition-all font-['Outfit',sans-serif]"
+            >
+              <User className="w-3.5 h-3.5 text-[var(--dp-color-ink)]" />
+              <span>Sign In</span>
+            </Link>
+          )}
 
-          {/* Primary Explore/Order CTA */}
+          {/* Primary Order Food CTA with Authentication-Aware Redirection */}
           <button
             type="button"
-            onClick={() => navigate('/restaurants')}
+            onClick={() => {
+              if (user) {
+                navigate('/restaurants')
+              } else {
+                navigate('/auth?redirect=/restaurants')
+              }
+            }}
             className="flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-[var(--dp-radius-control)] bg-[var(--dp-color-accent)] text-white text-xs sm:text-sm font-semibold border-[1.5px] border-[var(--dp-color-accent)] shadow-[2px_2px_0px_var(--dp-color-ink)] hover:bg-[#852f25] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[2.5px_2.5px_0px_var(--dp-color-ink)] active:translate-x-[1.5px] active:translate-y-[1.5px] active:shadow-none transition-all cursor-pointer"
           >
             <span className="font-['Outfit',sans-serif] font-bold text-sm">Order Food</span>
@@ -213,13 +229,23 @@ export const LandingNavbar: React.FC = () => {
             >
               Enter Storefront →
             </Link>
-            <Link
-              to="/account"
-              onClick={() => setMobileMenuOpen(false)}
-              className="w-full py-2.5 text-center bg-[var(--dp-color-highlight)]/40 border-[1.5px] border-[var(--dp-color-line)] rounded-lg text-sm font-bold font-['Outfit',sans-serif] text-[var(--dp-color-ink)] shadow-[1px_1px_0px_var(--dp-color-line)]"
-            >
-              Account / Orders
-            </Link>
+            {user ? (
+              <Link
+                to="/account"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full py-2.5 text-center bg-[var(--dp-color-highlight)]/40 border-[1.5px] border-[var(--dp-color-line)] rounded-lg text-sm font-bold font-['Outfit',sans-serif] text-[var(--dp-color-ink)] shadow-[1px_1px_0px_var(--dp-color-line)]"
+              >
+                Account / Orders ({user.fullName?.split(' ')[0] || 'Patron'})
+              </Link>
+            ) : (
+              <Link
+                to="/auth"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full py-2.5 text-center bg-[var(--dp-color-highlight)]/40 border-[1.5px] border-[var(--dp-color-line)] rounded-lg text-sm font-bold font-['Outfit',sans-serif] text-[var(--dp-color-ink)] shadow-[1px_1px_0px_var(--dp-color-line)]"
+              >
+                Sign In / Register
+              </Link>
+            )}
           </div>
         </div>
       )}

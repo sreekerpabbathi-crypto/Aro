@@ -23,8 +23,15 @@ import type { Order, CustomerAddress, MenuItem } from '@/types'
 
 export const AccountPage: React.FC = () => {
   const navigate = useNavigate()
-  const { user, addresses, addAddress, favorites, toggleFavorite, orders } = useAuth()
+  const { user, addresses, addAddress, favorites, toggleFavorite, orders, logout, isAuthLoading } = useAuth()
   const { addToCart, items: cartItems } = useCart()
+
+  // Route Guard: redirect unauthenticated visitors to /auth?redirect=/account
+  React.useEffect(() => {
+    if (!isAuthLoading && !user) {
+      navigate('/auth?redirect=/account', { replace: true })
+    }
+  }, [user, isAuthLoading, navigate])
 
   const [activeTab, setActiveTab] = useState<'orders' | 'addresses' | 'favorites' | 'profile'>('orders')
 
@@ -45,53 +52,8 @@ export const AccountPage: React.FC = () => {
   const [newLandmark, setNewLandmark] = useState('')
   const [newPincode, setNewPincode] = useState('500033')
 
-  // Past orders fallback if customer just opened
-  const displayOrders: Order[] = orders.length > 0 ? orders : [
-    {
-      id: 'ord-past-1',
-      orderNumber: 'ARO-719324',
-      customerId: user?.id || 'demo-user-1',
-      restaurantId: 'b0000003-0000-0000-0000-000000000003',
-      restaurantNameSnapshot: 'Forno & Fig',
-      restaurantAddressSnapshot: 'Financial District, Gachibowli, Hyderabad',
-      status: 'delivered',
-      placedAt: '2026-10-18T19:30:00Z',
-      estimatedDeliveryAt: '2026-10-18T20:10:00Z',
-      deliveryAddress: {
-        label: 'Home',
-        recipientName: user?.fullName || 'Sreeram K',
-        recipientPhone: user?.phone || '+91 98765 01234',
-        addressLine1: 'Villa 14, Whispering Palms',
-        addressLine2: 'Road No. 36, Jubilee Hills',
-        city: 'Hyderabad',
-        pincode: '500033',
-        latitude: 17.4325,
-        longitude: 78.4072,
-      },
-      items: [
-        {
-          id: 'oi-past-1',
-          menuItemId: 'mi-101',
-          itemNameSnapshot: 'Handmade Black Truffle Tagliolini',
-          itemPriceSnapshot: 1450,
-          quantity: 2,
-          totalPriceSnapshot: 2900,
-          customizationDetailsSnapshot: [
-            { groupName: 'Portion Size', optionName: 'Classic Degustation', priceSnapshot: 0 },
-          ],
-        },
-      ],
-      itemTotal: 2900,
-      deliveryFee: 0,
-      taxAmount: 145,
-      discountAmount: 200,
-      finalPaidAmount: 2845,
-      paymentMethod: 'UPI',
-      paymentStatus: 'PAID',
-      timeline: [],
-    },
-  ]
-
+  // Orders directly tied to actual authenticated customer
+  const displayOrders: Order[] = orders
   // Favorite restaurants
   const favoriteRestaurants = INITIAL_RESTAURANTS.filter((r) => favorites.includes(r.id))
 
@@ -125,8 +87,8 @@ export const AccountPage: React.FC = () => {
 
     const newAddr: Omit<CustomerAddress, 'id' | 'userId'> = {
       label: newLabel,
-      recipientName: user?.fullName || 'Sreeram K',
-      recipientPhone: user?.phone || '+91 98765 01234',
+      recipientName: user?.fullName || 'Patron',
+      recipientPhone: user?.phone || '',
       addressLine1: newAddressLine1,
       addressLine2: newAddressLine2 || undefined,
       landmark: newLandmark || undefined,
@@ -152,6 +114,27 @@ export const AccountPage: React.FC = () => {
       setReviewOrder(null)
       setReviewText('')
     }, 1800)
+  }
+
+  if (isAuthLoading) {
+    return (
+      <div className="min-h-screen flex flex-col bg-[var(--dp-color-ground)] text-[var(--dp-color-ink)] paper-grid">
+        <StorefrontNavbar />
+        <main className="flex-1 max-w-7xl mx-auto px-4 py-24 flex items-center justify-center">
+          <div className="flex flex-col items-center gap-3">
+            <div className="w-8 h-8 border-2 border-[var(--dp-color-accent)] border-t-transparent rounded-full animate-spin" />
+            <span className="text-xs font-bold text-[var(--dp-color-ink-muted)] font-['Outfit',sans-serif]">
+              Verifying Patron Credentials...
+            </span>
+          </div>
+        </main>
+        <StorefrontFooter />
+      </div>
+    )
+  }
+
+  if (!user) {
+    return null
   }
 
   return (
@@ -185,28 +168,40 @@ export const AccountPage: React.FC = () => {
 
           <div className="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
-              <img
-                src={user?.avatarUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80'}
-                alt={user?.fullName || 'Profile Avatar'}
-                className="w-20 h-20 rounded-2xl object-cover border-[1.5px] border-[var(--dp-color-line)] shadow-[2px_2px_0px_var(--dp-color-line)]"
-              />
+              {user.avatarUrl ? (
+                <img
+                  src={user.avatarUrl}
+                  alt={user.fullName}
+                  className="w-20 h-20 rounded-2xl object-cover border-[1.5px] border-[var(--dp-color-line)] shadow-[2px_2px_0px_var(--dp-color-line)]"
+                />
+              ) : (
+                <div className="w-20 h-20 rounded-2xl bg-[var(--dp-color-highlight)] border-[1.5px] border-[var(--dp-color-ink)] shadow-[2px_2px_0px_var(--dp-color-ink)] flex items-center justify-center text-2xl font-black font-['Outfit',sans-serif] text-[var(--dp-color-ink)]">
+                  {user.fullName ? user.fullName.charAt(0).toUpperCase() : 'P'}
+                </div>
+              )}
               <div className="space-y-1.5">
                 <div className="flex flex-wrap items-center gap-2.5">
                   <h1 className="text-2xl sm:text-3xl font-extrabold text-[var(--dp-color-ink)] font-['Outfit',sans-serif] tracking-tight">
-                    {user?.fullName || 'Sreeram K'}
+                    {user.fullName}
                   </h1>
                   <span className="px-2.5 py-0.5 rounded-lg bg-[var(--dp-color-highlight)] border-[1.5px] border-[var(--dp-color-line)] text-[var(--dp-color-ink)] font-bold text-xs uppercase font-['Outfit',sans-serif] tracking-wider shadow-[1px_1px_0px_var(--dp-color-line)]">
-                    Epicure Privilege Tier
+                    Standard Patron Role
                   </span>
                 </div>
                 <p className="text-xs text-[var(--dp-color-ink-muted)] font-bold font-['Outfit',sans-serif] text-sm">
-                  {user?.email || 'sreeram@example.com'} • <span className="font-mono">{user?.phone || '+91 98765 01234'}</span>
+                  {user.email} {user.phone && <>• <span className="font-mono">{user.phone}</span></>}
                 </p>
                 <div className="flex items-center gap-2 text-xs text-[var(--dp-color-ink-muted)] font-['Outfit',sans-serif] text-sm">
                   <MapPin className="w-3.5 h-3.5 text-[var(--dp-color-accent)]" />
                   <span>Jubilee Hills, Hyderabad</span>
                   <span>•</span>
-                  <span>Member since Oct 2026</span>
+                  <span>
+                    Member since{' '}
+                    {new Date(user.createdAt).toLocaleDateString('en-IN', {
+                      month: 'short',
+                      year: 'numeric',
+                    })}
+                  </span>
                 </div>
               </div>
             </div>
@@ -275,119 +270,142 @@ export const AccountPage: React.FC = () => {
               </span>
             </div>
 
-            {displayOrders.map((ord) => {
-              const isDelivered = ord.status === 'delivered'
-              return (
-                <div
-                  key={ord.id}
-                  className="bg-[var(--dp-color-scrap)] border-[1.5px] border-[var(--dp-color-line)] rounded-2xl p-6 space-y-4 shadow-[2.5px_2.5px_0px_rgba(56,53,47,0.10)] transition-all hover:-translate-y-0.5"
-                >
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b-[1.5px] border-[var(--dp-color-line)] pb-4">
-                    <div>
-                      <div className="flex items-center gap-2.5">
-                        <span className="text-lg font-bold text-[var(--dp-color-ink)] font-['Outfit',sans-serif]">
-                          {ord.restaurantNameSnapshot}
-                        </span>
-                        <span
-                          className={`text-xs uppercase font-bold font-['Outfit',sans-serif] px-2.5 py-0.5 rounded-md border-[1.5px] border-[var(--dp-color-line)] shadow-[1px_1px_0px_var(--dp-color-line)] ${
-                            isDelivered
-                              ? 'bg-[var(--dp-color-highlight)]/40 text-[#059669]'
-                              : 'bg-[var(--dp-color-highlight)] text-[var(--dp-color-accent)] animate-pulse'
-                          }`}
-                        >
-                          {ord.status.replace('_', ' ')}
-                        </span>
+            {displayOrders.length === 0 ? (
+              <div className="bg-[var(--dp-color-scrap)] border-[1.5px] border-[var(--dp-color-line)] rounded-2xl p-10 text-center space-y-4 shadow-[2px_2px_0px_var(--dp-color-line)]">
+                <div className="w-14 h-14 mx-auto rounded-full bg-[var(--dp-color-highlight)]/40 border-[1.5px] border-[var(--dp-color-line)] flex items-center justify-center text-[var(--dp-color-accent)]">
+                  <Clock className="w-7 h-7" />
+                </div>
+                <h3 className="text-lg font-bold text-[var(--dp-color-ink)] font-['Outfit',sans-serif]">
+                  No Past Orders Found
+                </h3>
+                <p className="text-xs sm:text-sm text-[var(--dp-color-ink-muted)] font-['Outfit',sans-serif] max-w-sm mx-auto">
+                  You haven&apos;t placed any gastronomic orders yet. Explore our curated Hyderabad kitchens and savor your first course!
+                </p>
+                <div className="pt-2">
+                  <Link
+                    to="/restaurants"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-[var(--dp-radius-control)] bg-[var(--dp-color-accent)] text-white text-xs font-bold font-['Outfit',sans-serif] border-[1.5px] border-[var(--dp-color-ink)] shadow-[2px_2px_0px_var(--dp-color-ink)] hover:bg-[#852f25] hover:translate-x-[-0.5px] hover:translate-y-[-0.5px] active:translate-x-[1px] active:translate-y-[1px] transition-all"
+                  >
+                    <span>Explore Hyderabad Kitchens</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
+                </div>
+              </div>
+            ) : (
+              displayOrders.map((ord) => {
+                const isDelivered = ord.status === 'delivered'
+                return (
+                  <div
+                    key={ord.id}
+                    className="bg-[var(--dp-color-scrap)] border-[1.5px] border-[var(--dp-color-line)] rounded-2xl p-6 space-y-4 shadow-[2.5px_2.5px_0px_rgba(56,53,47,0.10)] transition-all hover:-translate-y-0.5"
+                  >
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b-[1.5px] border-[var(--dp-color-line)] pb-4">
+                      <div>
+                        <div className="flex items-center gap-2.5">
+                          <span className="text-lg font-bold text-[var(--dp-color-ink)] font-['Outfit',sans-serif]">
+                            {ord.restaurantNameSnapshot}
+                          </span>
+                          <span
+                            className={`text-xs uppercase font-bold font-['Outfit',sans-serif] px-2.5 py-0.5 rounded-md border-[1.5px] border-[var(--dp-color-line)] shadow-[1px_1px_0px_var(--dp-color-line)] ${
+                              isDelivered
+                                ? 'bg-[var(--dp-color-highlight)]/40 text-[#059669]'
+                                : 'bg-[var(--dp-color-highlight)] text-[var(--dp-color-accent)] animate-pulse'
+                            }`}
+                          >
+                            {ord.status.replace('_', ' ')}
+                          </span>
+                        </div>
+                        <p className="text-xs font-['Outfit',sans-serif] text-[var(--dp-color-ink-muted)] mt-1 text-sm">
+                          Order #{ord.orderNumber} • Placed on{' '}
+                          {new Date(ord.placedAt).toLocaleDateString('en-IN', {
+                            month: 'short',
+                            day: 'numeric',
+                            year: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit',
+                          })}
+                        </p>
                       </div>
-                      <p className="text-xs font-['Outfit',sans-serif] text-[var(--dp-color-ink-muted)] mt-1 text-sm">
-                        Order #{ord.orderNumber} • Placed on{' '}
-                        {new Date(ord.placedAt).toLocaleDateString('en-IN', {
-                          month: 'short',
-                          day: 'numeric',
-                          year: 'numeric',
-                          hour: '2-digit',
-                          minute: '2-digit',
-                        })}
-                      </p>
-                    </div>
 
-                    <div className="flex flex-wrap items-center gap-2">
-                      {!isDelivered && (
-                        <Link
-                          to={`/orders/${ord.id}`}
-                          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-[var(--dp-radius-control)] bg-[var(--dp-color-accent)] text-white text-xs font-bold font-['Outfit',sans-serif] border-[1.5px] border-[var(--dp-color-ink)] shadow-[1.5px_1.5px_0px_rgba(56,53,47,0.18)] hover:translate-x-[1px] hover:translate-y-[1px] transition-all focus:outline-none focus-visible:outline-2 focus-visible:outline-dashed focus-visible:outline-[var(--dp-color-annotation)]"
-                        >
-                          <Clock className="w-3.5 h-3.5" />
-                          <span>Track Live GPS</span>
-                        </Link>
-                      )}
+                      <div className="flex flex-wrap items-center gap-2">
+                        {!isDelivered && (
+                          <Link
+                            to={`/orders/${ord.id}`}
+                            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-[var(--dp-radius-control)] bg-[var(--dp-color-accent)] text-white text-xs font-bold font-['Outfit',sans-serif] border-[1.5px] border-[var(--dp-color-ink)] shadow-[1.5px_1.5px_0px_rgba(56,53,47,0.18)] hover:translate-x-[1px] hover:translate-y-[1px] transition-all focus:outline-none focus-visible:outline-2 focus-visible:outline-dashed focus-visible:outline-[var(--dp-color-annotation)]"
+                          >
+                            <Clock className="w-3.5 h-3.5" />
+                            <span>Track Live GPS</span>
+                          </Link>
+                        )}
 
-                      <button
-                        type="button"
-                        onClick={() => handle1ClickReorder(ord)}
-                        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-[var(--dp-radius-control)] bg-[var(--dp-color-highlight)]/40 hover:bg-[var(--dp-color-highlight)] text-[var(--dp-color-ink)] text-xs font-bold font-['Outfit',sans-serif] border-[1.5px] border-[var(--dp-color-line)] shadow-[1.5px_1.5px_0px_var(--dp-color-line)] hover:translate-x-[1px] hover:translate-y-[1px] transition-all cursor-pointer focus:outline-none focus-visible:outline-2 focus-visible:outline-dashed focus-visible:outline-[var(--dp-color-annotation)]"
-                      >
-                        <RotateCcw className="w-3.5 h-3.5 text-[var(--dp-color-accent)]" />
-                        <span>Reorder 1-Click</span>
-                      </button>
-
-                      {isDelivered && (
                         <button
                           type="button"
-                          onClick={() => setReviewOrder(ord)}
-                          className="inline-flex items-center gap-1.5 px-3 py-2 rounded-[var(--dp-radius-control)] bg-[var(--dp-color-ground)] hover:bg-[var(--dp-color-scrap)] text-[var(--dp-color-ink)] text-xs font-bold font-['Outfit',sans-serif] border-[1.5px] border-[var(--dp-color-line)] shadow-[1.5px_1.5px_0px_var(--dp-color-line)] hover:translate-x-[1px] hover:translate-y-[1px] transition-all cursor-pointer focus:outline-none focus-visible:outline-2 focus-visible:outline-dashed focus-visible:outline-[var(--dp-color-annotation)]"
+                          onClick={() => handle1ClickReorder(ord)}
+                          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-[var(--dp-radius-control)] bg-[var(--dp-color-highlight)]/40 hover:bg-[var(--dp-color-highlight)] text-[var(--dp-color-ink)] text-xs font-bold font-['Outfit',sans-serif] border-[1.5px] border-[var(--dp-color-line)] shadow-[1.5px_1.5px_0px_var(--dp-color-line)] hover:translate-x-[1px] hover:translate-y-[1px] transition-all cursor-pointer focus:outline-none focus-visible:outline-2 focus-visible:outline-dashed focus-visible:outline-[var(--dp-color-annotation)]"
                         >
-                          <Star className="w-3.5 h-3.5 text-[var(--dp-color-accent)] fill-[var(--dp-color-accent)]" />
-                          <span>Rate Tasting</span>
+                          <RotateCcw className="w-3.5 h-3.5 text-[var(--dp-color-accent)]" />
+                          <span>Reorder 1-Click</span>
                         </button>
-                      )}
-                    </div>
-                  </div>
 
-                  {/* Itemized Line Items */}
-                  <div className="space-y-2">
-                    {ord.items.map((item) => (
-                      <div
-                        key={item.id}
-                        className="flex items-start justify-between text-xs py-1 text-[var(--dp-color-ink)]"
-                      >
-                        <div className="space-y-0.5">
-                          <span className="font-bold font-['Outfit',sans-serif] text-sm">
-                            {item.quantity}× {item.itemNameSnapshot}
+                        {isDelivered && (
+                          <button
+                            type="button"
+                            onClick={() => setReviewOrder(ord)}
+                            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-[var(--dp-radius-control)] bg-[var(--dp-color-ground)] hover:bg-[var(--dp-color-scrap)] text-[var(--dp-color-ink)] text-xs font-bold font-['Outfit',sans-serif] border-[1.5px] border-[var(--dp-color-line)] shadow-[1.5px_1.5px_0px_var(--dp-color-line)] hover:translate-x-[1px] hover:translate-y-[1px] transition-all cursor-pointer focus:outline-none focus-visible:outline-2 focus-visible:outline-dashed focus-visible:outline-[var(--dp-color-annotation)]"
+                          >
+                            <Star className="w-3.5 h-3.5 text-[var(--dp-color-accent)] fill-[var(--dp-color-accent)]" />
+                            <span>Rate Tasting</span>
+                          </button>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Itemized Line Items */}
+                    <div className="space-y-2">
+                      {ord.items.map((item) => (
+                        <div
+                          key={item.id}
+                          className="flex items-start justify-between text-xs py-1 text-[var(--dp-color-ink)]"
+                        >
+                          <div className="space-y-0.5">
+                            <span className="font-bold font-['Outfit',sans-serif] text-sm">
+                              {item.quantity}× {item.itemNameSnapshot}
+                            </span>
+                            {item.customizationDetailsSnapshot &&
+                              item.customizationDetailsSnapshot.length > 0 && (
+                                <div className="text-xs text-[var(--dp-color-ink-muted)] font-['Outfit',sans-serif] pl-4">
+                                  {item.customizationDetailsSnapshot.map((c) => c.optionName).join(', ')}
+                                </div>
+                              )}
+                          </div>
+                          <span className="font-mono font-bold text-[var(--dp-color-ink)]">
+                            {formatCurrency(item.totalPriceSnapshot, 'INR')}
                           </span>
-                          {item.customizationDetailsSnapshot &&
-                            item.customizationDetailsSnapshot.length > 0 && (
-                              <div className="text-xs text-[var(--dp-color-ink-muted)] font-['Outfit',sans-serif] pl-4">
-                                {item.customizationDetailsSnapshot.map((c) => c.optionName).join(', ')}
-                              </div>
-                            )}
                         </div>
-                        <span className="font-mono font-bold text-[var(--dp-color-ink)]">
-                          {formatCurrency(item.totalPriceSnapshot, 'INR')}
+                      ))}
+                    </div>
+
+                    {/* Summary Bar */}
+                    <div className="pt-3 border-t-[1.5px] border-[var(--dp-color-line)]/50 flex flex-wrap items-center justify-between text-xs text-[var(--dp-color-ink-muted)] font-['Outfit',sans-serif] text-sm">
+                      <div className="flex items-center gap-2">
+                        <MapPin className="w-4 h-4 text-[var(--dp-color-accent)]" />
+                        <span>Delivered to {ord.deliveryAddress.label} ({ord.deliveryAddress.addressLine1})</span>
+                      </div>
+
+                      <div className="flex items-center gap-3">
+                        <span className="font-bold">Total Paid:</span>
+                        <span className="text-base font-bold font-mono text-[var(--dp-color-accent)]">
+                          {formatCurrency(ord.finalPaidAmount, 'INR')}
+                        </span>
+                        <span className="text-xs font-bold font-['Outfit',sans-serif] px-2 py-0.5 rounded bg-[var(--dp-color-ground)] border-[1.5px] border-[var(--dp-color-line)] shadow-[1px_1px_0px_var(--dp-color-line)] text-[var(--dp-color-ink)]">
+                          {ord.paymentMethod}
                         </span>
                       </div>
-                    ))}
-                  </div>
-
-                  {/* Summary Bar */}
-                  <div className="pt-3 border-t-[1.5px] border-[var(--dp-color-line)]/50 flex flex-wrap items-center justify-between text-xs text-[var(--dp-color-ink-muted)] font-['Outfit',sans-serif] text-sm">
-                    <div className="flex items-center gap-2">
-                      <MapPin className="w-4 h-4 text-[var(--dp-color-accent)]" />
-                      <span>Delivered to {ord.deliveryAddress.label} ({ord.deliveryAddress.addressLine1})</span>
-                    </div>
-
-                    <div className="flex items-center gap-3">
-                      <span className="font-bold">Total Paid:</span>
-                      <span className="text-base font-bold font-mono text-[var(--dp-color-accent)]">
-                        {formatCurrency(ord.finalPaidAmount, 'INR')}
-                      </span>
-                      <span className="text-xs font-bold font-['Outfit',sans-serif] px-2 py-0.5 rounded bg-[var(--dp-color-ground)] border-[1.5px] border-[var(--dp-color-line)] shadow-[1px_1px_0px_var(--dp-color-line)] text-[var(--dp-color-ink)]">
-                        {ord.paymentMethod}
-                      </span>
                     </div>
                   </div>
-                </div>
-              )
-            })}
+                )
+              })
+            )}
           </div>
         )}
 
@@ -624,11 +642,18 @@ export const AccountPage: React.FC = () => {
         {/* Tab 4: Profile & Security */}
         {activeTab === 'profile' && (
           <div className="bg-[var(--dp-color-scrap)] border-[1.5px] border-[var(--dp-color-line)] rounded-2xl p-6 sm:p-8 space-y-6 max-w-2xl shadow-[2.5px_2.5px_0px_rgba(56,53,47,0.10)]">
-            <div className="border-b-[1.5px] border-[var(--dp-color-line)] pb-4">
-              <h2 className="text-xl font-extrabold text-[var(--dp-color-ink)] font-['Outfit',sans-serif]">
-                Account & Security Profile
-              </h2>
-              <p className="text-xs sm:text-sm text-[var(--dp-color-ink-muted)] font-['Outfit',sans-serif]">Managed via ARO customer identity directory</p>
+            <div className="border-b-[1.5px] border-[var(--dp-color-line)] pb-4 flex items-center justify-between">
+              <div>
+                <h2 className="text-xl font-extrabold text-[var(--dp-color-ink)] font-['Outfit',sans-serif]">
+                  Account & Security Profile
+                </h2>
+                <p className="text-xs sm:text-sm text-[var(--dp-color-ink-muted)] font-['Outfit',sans-serif]">
+                  Authenticated via Supabase Customer Identity Directory
+                </p>
+              </div>
+              <span className="px-2.5 py-1 rounded-md bg-[var(--dp-color-ground)] border-[1.5px] border-[var(--dp-color-line)] text-xs font-bold font-['Outfit',sans-serif] uppercase tracking-wider text-[var(--dp-color-ink)] shadow-[1px_1px_0px_var(--dp-color-line)]">
+                Standard Patron Role
+              </span>
             </div>
 
             <div className="space-y-4 text-xs">
@@ -639,8 +664,8 @@ export const AccountPage: React.FC = () => {
                 <input
                   type="text"
                   readOnly
-                  value={user?.fullName || 'Sreeram K'}
-                  className="w-full px-3 py-2.5 rounded-xl bg-[var(--dp-color-ground)] border-[1.5px] border-[var(--dp-color-line)] text-[var(--dp-color-ink)] font-bold shadow-[1px_1px_0px_var(--dp-color-line)]"
+                  value={user?.fullName || 'Patron'}
+                  className="w-full px-3 py-2.5 rounded-xl bg-[var(--dp-color-ground)] border-[1.5px] border-[var(--dp-color-line)] text-[var(--dp-color-ink)] font-bold shadow-[1px_1px_0px_var(--dp-color-line)] font-['Outfit',sans-serif]"
                 />
               </div>
 
@@ -651,23 +676,24 @@ export const AccountPage: React.FC = () => {
                 <input
                   type="email"
                   readOnly
-                  value={user?.email || 'sreeram@example.com'}
-                  className="w-full px-3 py-2.5 rounded-xl bg-[var(--dp-color-ground)] border-[1.5px] border-[var(--dp-color-line)] text-[var(--dp-color-ink)] font-bold shadow-[1px_1px_0px_var(--dp-color-line)]"
+                  value={user?.email || ''}
+                  className="w-full px-3 py-2.5 rounded-xl bg-[var(--dp-color-ground)] border-[1.5px] border-[var(--dp-color-line)] text-[var(--dp-color-ink)] font-bold shadow-[1px_1px_0px_var(--dp-color-line)] font-mono"
                 />
               </div>
 
               <div>
                 <label className="block text-xs text-[var(--dp-color-ink-muted)] font-bold uppercase tracking-wider mb-1 font-['Outfit',sans-serif]">
-                  Primary Mobile Phone
+                  Primary Contact Phone
                 </label>
                 <input
                   type="text"
                   readOnly
-                  value={user?.phone || '+91 98765 01234'}
+                  value={user?.phone || 'Not configured'}
                   className="w-full px-3 py-2.5 rounded-xl bg-[var(--dp-color-ground)] border-[1.5px] border-[var(--dp-color-line)] text-[var(--dp-color-ink)] font-bold font-mono shadow-[1px_1px_0px_var(--dp-color-line)]"
                 />
               </div>
 
+              {/* Two-Factor verification notice */}
               <div className="p-4 rounded-xl bg-[var(--dp-color-highlight)]/30 border-[1.5px] border-[var(--dp-color-line)] flex items-center justify-between shadow-[1.5px_1.5px_0px_var(--dp-color-line)]">
                 <div className="flex items-center gap-3">
                   <Shield className="w-5 h-5 text-[#059669] shrink-0" />
@@ -679,6 +705,61 @@ export const AccountPage: React.FC = () => {
                 <span className="px-2.5 py-1 rounded-md bg-[var(--dp-color-ground)] border-[1.5px] border-[var(--dp-color-line)] text-[#059669] font-bold text-xs font-['Outfit',sans-serif] shadow-[1px_1px_0px_var(--dp-color-line)]">
                   ACTIVE
                 </span>
+              </div>
+
+              {/* Patron Profile Summary Metrics */}
+              <div className="pt-4 border-t-[1.5px] border-[var(--dp-color-line)] space-y-4">
+                <h3 className="text-sm font-bold text-[var(--dp-color-ink)] font-['Outfit',sans-serif]">
+                  Account Status & Security Overview
+                </h3>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <div className="p-3 rounded-xl bg-[var(--dp-color-ground)] border-[1.5px] border-[var(--dp-color-line)] shadow-[1px_1px_0px_var(--dp-color-line)] space-y-1">
+                    <span className="text-[10px] uppercase font-bold text-[var(--dp-color-ink-muted)] block font-['Outfit',sans-serif]">
+                      Patron ID
+                    </span>
+                    <span className="font-mono text-xs font-bold text-[var(--dp-color-ink)] truncate block" title={user?.id}>
+                      {user?.id ? `${user.id.slice(0, 8)}...` : 'N/A'}
+                    </span>
+                  </div>
+
+                  <div className="p-3 rounded-xl bg-[var(--dp-color-ground)] border-[1.5px] border-[var(--dp-color-line)] shadow-[1px_1px_0px_var(--dp-color-line)] space-y-1">
+                    <span className="text-[10px] uppercase font-bold text-[var(--dp-color-ink-muted)] block font-['Outfit',sans-serif]">
+                      Orders Placed
+                    </span>
+                    <span className="text-base font-extrabold text-[var(--dp-color-accent)] font-['Outfit',sans-serif]">
+                      {orders.length}
+                    </span>
+                  </div>
+
+                  <div className="p-3 rounded-xl bg-[var(--dp-color-ground)] border-[1.5px] border-[var(--dp-color-line)] shadow-[1px_1px_0px_var(--dp-color-line)] space-y-1">
+                    <span className="text-[10px] uppercase font-bold text-[var(--dp-color-ink-muted)] block font-['Outfit',sans-serif]">
+                      Delivery Coordinates
+                    </span>
+                    <span className="text-base font-extrabold text-[var(--dp-color-ink)] font-['Outfit',sans-serif]">
+                      {addresses.length}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Legitimate Sign Out Control */}
+                <div className="pt-4 border-t-[1.5px] border-[var(--dp-color-line)] flex items-center justify-between">
+                  <div>
+                    <span className="font-bold text-xs text-[var(--dp-color-ink)] block font-['Outfit',sans-serif]">Active Session</span>
+                    <span className="text-[11px] text-[var(--dp-color-ink-muted)] font-['Outfit',sans-serif]">End customer session on this device</span>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={async () => {
+                      await logout()
+                      navigate('/home')
+                    }}
+                    className="px-4 py-2 rounded-[var(--dp-radius-control)] bg-transparent hover:bg-rose-50 text-rose-700 border-[1.5px] border-rose-300 text-xs font-bold font-['Outfit',sans-serif] cursor-pointer shadow-[1px_1px_0px_rose-200] active:translate-x-[1px] active:translate-y-[1px] transition-all"
+                  >
+                    Sign Out of ARO
+                  </button>
+                </div>
               </div>
             </div>
           </div>

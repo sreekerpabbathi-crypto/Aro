@@ -9,6 +9,23 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      admin_users: {
+        Row: {
+          user_id: string
+          email: string
+          role: 'super_admin' | 'admin' | 'manager'
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          user_id: string
+          email: string
+          role?: 'super_admin' | 'admin' | 'manager'
+          created_at?: string
+          updated_at?: string
+        }
+        Update: Partial<Database['public']['Tables']['admin_users']['Insert']>
+      }
       profiles: {
         Row: {
           id: string

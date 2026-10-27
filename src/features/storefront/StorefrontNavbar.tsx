@@ -82,7 +82,7 @@ export const StorefrontNavbar: React.FC<StorefrontNavbarProps> = ({
           {/* Delivery Location Selector */}
           <button
             type="button"
-            onClick={() => navigate('/account')}
+            onClick={() => navigate(user ? '/account' : '/auth?redirect=/account')}
             className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-[var(--dp-radius-control)] bg-[var(--dp-color-scrap)] border-[1.5px] border-[var(--dp-color-line)] text-xs font-semibold text-[var(--dp-color-ink)] shadow-[1px_1px_0px_var(--dp-color-line)] hover:border-[var(--dp-color-ink)] transition-all cursor-pointer font-['Outfit',sans-serif]"
           >
             <MapPin className="w-3.5 h-3.5 text-[var(--dp-color-accent)]" />
@@ -129,7 +129,7 @@ export const StorefrontNavbar: React.FC<StorefrontNavbarProps> = ({
             Restaurants
           </Link>
           <Link
-            to="/account"
+            to={user ? '/account' : '/auth?redirect=/account'}
             className={`transition-colors hover:text-[var(--dp-color-accent)] hover:underline decoration-1 underline-offset-4 ${
               location.pathname === '/account'
                 ? 'text-[var(--dp-color-accent)] underline decoration-1 underline-offset-4'
@@ -155,13 +155,23 @@ export const StorefrontNavbar: React.FC<StorefrontNavbarProps> = ({
             )}
           </Link>
 
-          <Link
-            to="/account"
-            className="flex items-center gap-2 px-3.5 py-2 rounded-[var(--dp-radius-control)] bg-[var(--dp-color-highlight)] hover:bg-[#ebda99] border-[1.5px] border-[var(--dp-color-ink)] shadow-[1.5px_1.5px_0px_var(--dp-color-ink)] text-xs font-bold font-['Outfit',sans-serif] tracking-wider text-[var(--dp-color-ink)] transition-all cursor-pointer"
-          >
-            <User className="w-4 h-4 text-[var(--dp-color-ink)]" />
-            <span className="hidden sm:inline">{user?.fullName?.split(' ')[0] || 'Account'}</span>
-          </Link>
+          {user ? (
+            <Link
+              to="/account"
+              className="flex items-center gap-2 px-3.5 py-2 rounded-[var(--dp-radius-control)] bg-[var(--dp-color-highlight)] hover:bg-[#ebda99] border-[1.5px] border-[var(--dp-color-ink)] shadow-[1.5px_1.5px_0px_var(--dp-color-ink)] text-xs font-bold font-['Outfit',sans-serif] tracking-wider text-[var(--dp-color-ink)] transition-all cursor-pointer"
+            >
+              <User className="w-4 h-4 text-[var(--dp-color-ink)]" />
+              <span className="hidden sm:inline">{user.fullName?.split(' ')[0] || 'Account'}</span>
+            </Link>
+          ) : (
+            <Link
+              to="/auth"
+              className="flex items-center gap-2 px-3.5 py-2 rounded-[var(--dp-radius-control)] bg-[var(--dp-color-highlight)] hover:bg-[#ebda99] border-[1.5px] border-[var(--dp-color-ink)] shadow-[1.5px_1.5px_0px_var(--dp-color-ink)] text-xs font-bold font-['Outfit',sans-serif] tracking-wider text-[var(--dp-color-ink)] transition-all cursor-pointer"
+            >
+              <User className="w-4 h-4 text-[var(--dp-color-ink)]" />
+              <span className="hidden sm:inline">Sign In</span>
+            </Link>
+          )}
         </div>
       </div>
     </header>

@@ -171,13 +171,33 @@ export const LandingFooter: React.FC = () => {
                   Order History & Cellar
                 </Link>
               </li>
+              <li>
+                <Link
+                  to="/admin/login"
+                  className="inline-flex items-center gap-1 text-[var(--dp-color-ink-muted)]/80 hover:text-[var(--dp-color-accent)] transition-colors text-[11px]"
+                >
+                  <ShieldCheck className="w-3 h-3 text-[var(--dp-color-annotation)]" />
+                  <span>Admin Portal</span>
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
 
         {/* Copyright Bar */}
         <div className="pt-8 border-t-[1.5px] border-[var(--dp-color-line)]/50 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[var(--dp-color-ink-muted)]">
-          <p className="font-['Outfit',sans-serif]">© {currentYear} ARO Technologies Inc. All rights reserved.</p>
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3 font-['Outfit',sans-serif]">
+            <span>© {currentYear} ARO Technologies Inc. All rights reserved.</span>
+            <span className="hidden sm:inline text-[var(--dp-color-line)]">•</span>
+            <Link
+              to="/admin/login"
+              className="inline-flex items-center gap-1 text-[var(--dp-color-ink-muted)] hover:text-[var(--dp-color-accent)] transition-colors font-semibold"
+              title="ARO Operations & Admin Gateway"
+            >
+              <ShieldCheck className="w-3.5 h-3.5 text-[var(--dp-color-annotation)]" />
+              <span>Admin Portal</span>
+            </Link>
+          </div>
           <p className="flex items-center gap-1.5 font-['Caveat',cursive] text-lg text-[var(--dp-color-ink)] font-bold">
             Curated for food lovers with <Heart className="w-3.5 h-3.5 text-[var(--dp-color-accent)] fill-current inline" /> in Hyderabad
           </p>

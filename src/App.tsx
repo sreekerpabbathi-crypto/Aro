@@ -2,6 +2,7 @@ import React from 'react'
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import { AuthProvider } from '@/context/AuthContext'
 import { CartProvider } from '@/context/CartContext'
+import { AdminAuthProvider } from '@/context/AdminAuthContext'
 
 // Feature Pages
 import { CinematicLandingPage } from '@/features/landing/CinematicLandingPage'
@@ -12,15 +13,42 @@ import { CartPage } from '@/features/cart/CartPage'
 import { CheckoutPage } from '@/features/checkout/CheckoutPage'
 import { OrderTrackingPage } from '@/features/orders/OrderTrackingPage'
 import { AccountPage } from '@/features/account/AccountPage'
+import { AuthPage } from '@/features/auth/AuthPage'
+
+// Admin Feature Pages & Route Guard
+import { AdminLoginPage } from '@/features/admin/AdminLoginPage'
+import { AdminRouteGuard } from '@/features/admin/AdminRouteGuard'
+import { AdminLayout } from '@/features/admin/AdminLayout'
+import { AdminOverviewPage } from '@/features/admin/AdminOverviewPage'
+import { AdminOrdersPage } from '@/features/admin/AdminOrdersPage'
+import { AdminRestaurantsPage } from '@/features/admin/AdminRestaurantsPage'
+import { AdminMenuPage } from '@/features/admin/AdminMenuPage'
 
 export const App: React.FC = () => {
   return (
     <AuthProvider>
-      <CartProvider>
-        <BrowserRouter>
-          <Routes>
-            {/* Page A: Dedicated Cinematic Editorial Landing Experience at / */}
-            <Route path="/" element={<CinematicLandingPage />} />
+      <AdminAuthProvider>
+        <CartProvider>
+          <BrowserRouter>
+            <Routes>
+              {/* Administrator Gateway & Login */}
+              <Route path="/admin/login" element={<AdminLoginPage />} />
+
+              {/* Protected Administrator Dashboard Subroutes */}
+              <Route path="/admin" element={<AdminRouteGuard />}>
+                <Route element={<AdminLayout />}>
+                  <Route index element={<AdminOverviewPage />} />
+                  <Route path="orders" element={<AdminOrdersPage />} />
+                  <Route path="restaurants" element={<AdminRestaurantsPage />} />
+                  <Route path="menu" element={<AdminMenuPage />} />
+                </Route>
+              </Route>
+
+              {/* Dedicated Customer Authentication Gateway */}
+              <Route path="/auth" element={<AuthPage />} />
+
+              {/* Page A: Dedicated Cinematic Editorial Landing Experience at / */}
+              <Route path="/" element={<CinematicLandingPage />} />
 
             {/* Page B: Real Customer-Facing Storefront at /home */}
             <Route path="/home" element={<StorefrontPage />} />
@@ -73,8 +101,9 @@ export const App: React.FC = () => {
           </Routes>
         </BrowserRouter>
       </CartProvider>
-    </AuthProvider>
-  )
+    </AdminAuthProvider>
+  </AuthProvider>
+)
 }
 
 export default App

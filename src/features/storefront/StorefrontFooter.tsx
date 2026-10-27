@@ -119,13 +119,33 @@ export const StorefrontFooter: React.FC = () => {
               <li><Link to="/cart" className="hover:text-[var(--dp-color-accent)] transition-colors">My Order Basket</Link></li>
               <li><Link to="/account" className="hover:text-[var(--dp-color-accent)] transition-colors">Account & Order History</Link></li>
               <li><Link to="/" className="hover:text-[var(--dp-color-accent)] transition-colors">Landing Page</Link></li>
+              <li>
+                <Link
+                  to="/admin/login"
+                  className="inline-flex items-center gap-1 text-[var(--dp-color-ink-muted)]/80 hover:text-[var(--dp-color-accent)] transition-colors text-[11px]"
+                >
+                  <ShieldCheck className="w-3 h-3 text-[var(--dp-color-annotation)]" />
+                  <span>Admin Portal</span>
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
 
-        {/* Copyright */}
+        {/* Copyright & Legal Bar */}
         <div className="pt-8 border-t-[1.5px] border-[var(--dp-color-line)]/50 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[var(--dp-color-ink-muted)]">
-          <p className="font-['Outfit',sans-serif]">© {currentYear} ARO Eats Hyderabad. All rights reserved.</p>
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3 font-['Outfit',sans-serif]">
+            <span>© {currentYear} ARO Eats Hyderabad. All rights reserved.</span>
+            <span className="hidden sm:inline text-[var(--dp-color-line)]">•</span>
+            <Link
+              to="/admin/login"
+              className="inline-flex items-center gap-1 text-[var(--dp-color-ink-muted)] hover:text-[var(--dp-color-accent)] transition-colors font-semibold"
+              title="Authorized Operations Gateway"
+            >
+              <ShieldCheck className="w-3.5 h-3.5 text-[var(--dp-color-annotation)]" />
+              <span>Admin Portal</span>
+            </Link>
+          </div>
           <p className="flex items-center gap-1.5 text-[var(--dp-color-ink)] font-['Caveat',cursive] text-lg font-bold">
             Crafted for Hyderabad with <Heart className="w-3.5 h-3.5 text-[var(--dp-color-accent)] fill-current" />
           </p>
