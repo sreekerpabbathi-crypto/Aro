@@ -1,3 +1,5 @@
+export type UserRole = 'customer' | 'restaurant' | 'admin'
+
 export interface CustomerAddress {
   id: string
   userId: string
@@ -20,6 +22,8 @@ export interface CustomerProfile {
   fullName: string
   phone?: string
   avatarUrl?: string
+  role?: UserRole
+  restaurantId?: string | null
   savedAddresses: CustomerAddress[]
   favoriteRestaurantIds: string[]
   createdAt: string

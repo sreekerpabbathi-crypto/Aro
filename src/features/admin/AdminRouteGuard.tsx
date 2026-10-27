@@ -1,7 +1,7 @@
 import React from 'react'
 import { Navigate, Outlet, useLocation, Link } from 'react-router-dom'
 import { useAdminAuth } from '@/context/AdminAuthContext'
-import { ShieldAlert, LogOut, ArrowLeft, Loader2, Database } from 'lucide-react'
+import { ShieldAlert, LogOut, ArrowLeft, Loader2, Database, UtensilsCrossed } from 'lucide-react'
 
 export const AdminRouteGuard: React.FC = () => {
   const { authSession, isAdmin, isLoading, error, logout } = useAdminAuth()
@@ -52,7 +52,7 @@ export const AdminRouteGuard: React.FC = () => {
           </div>
 
           <p className="text-sm text-[var(--dp-color-ink-muted)] leading-relaxed font-['Outfit',sans-serif]">
-            This portal is restricted to provisioned ARO administrators. Your current customer account does not have
+            This portal is restricted to provisioned ARO administrators. Your current account does not have
             administrator privileges.
           </p>
 
@@ -83,15 +83,23 @@ SELECT id, email, 'super_admin' FROM auth.users WHERE email = '${authSession.use
               className="w-full sm:w-auto flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-[var(--dp-radius-control)] bg-[var(--dp-color-ground)] hover:bg-[#ede6d5] border-[1.5px] border-[var(--dp-color-line)] text-xs font-bold font-['Outfit',sans-serif] text-[var(--dp-color-ink)] transition-colors shadow-[1.5px_1.5px_0px_var(--dp-color-line)] cursor-pointer"
             >
               <LogOut className="w-4 h-4 text-[var(--dp-color-accent)]" />
-              <span>Sign Out / Switch Account</span>
+              <span>Sign Out</span>
             </button>
+
+            <Link
+              to="/restaurant"
+              className="w-full sm:w-auto flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-[var(--dp-radius-control)] bg-[var(--dp-color-ground)] hover:bg-[#ede6d5] border-[1.5px] border-[var(--dp-color-line)] text-xs font-bold font-['Outfit',sans-serif] text-[var(--dp-color-ink)] transition-colors shadow-[1.5px_1.5px_0px_var(--dp-color-line)]"
+            >
+              <UtensilsCrossed className="w-4 h-4 text-[var(--dp-color-accent)]" />
+              <span>Restaurant Portal</span>
+            </Link>
 
             <Link
               to="/home"
               className="w-full sm:w-auto flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-[var(--dp-radius-control)] bg-[var(--dp-color-accent)] hover:bg-[#852f25] text-white text-xs font-bold font-['Outfit',sans-serif] border-[1.5px] border-[var(--dp-color-ink)] shadow-[2px_2px_0px_var(--dp-color-ink)] transition-transform hover:-translate-y-0.5"
             >
               <ArrowLeft className="w-4 h-4" />
-              <span>Return to Storefront</span>
+              <span>Storefront</span>
             </Link>
           </div>
         </div>
@@ -99,8 +107,6 @@ SELECT id, email, 'super_admin' FROM auth.users WHERE email = '${authSession.use
     )
   }
 
-  // 4. Authorized Administrator - render subroutes
+  // 4. Authorized Administrator
   return <Outlet />
 }
-
-export default AdminRouteGuard

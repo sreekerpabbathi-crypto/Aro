@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import {
   MapPin,
   Clock,
@@ -11,6 +11,8 @@ import {
   ArrowRight,
   ChevronRight,
   Shield,
+  Edit3,
+  AlertCircle,
 } from 'lucide-react'
 import { useAuth } from '@/context/AuthContext'
 import { useCart } from '@/context/CartContext'
@@ -23,7 +25,18 @@ import type { Order, CustomerAddress, MenuItem } from '@/types'
 
 export const AccountPage: React.FC = () => {
   const navigate = useNavigate()
-  const { user, addresses, addAddress, favorites, toggleFavorite, orders, logout, isAuthLoading } = useAuth()
+  const [searchParams, setSearchParams] = useSearchParams()
+  const {
+    user,
+    addresses,
+    addAddress,
+    favorites,
+    toggleFavorite,
+    orders,
+    logout,
+    updateProfile,
+    isAuthLoading,
+  } = useAuth()
   const { addToCart, items: cartItems } = useCart()
 
   // Route Guard: redirect unauthenticated visitors to /auth?redirect=/account
@@ -33,7 +46,88 @@ export const AccountPage: React.FC = () => {
     }
   }, [user, isAuthLoading, navigate])
 
-  const [activeTab, setActiveTab] = useState<'orders' | 'addresses' | 'favorites' | 'profile'>('orders')
+  const tabFromUrl = searchParams.get('tab')
+  const validTab =
+    tabFromUrl === 'orders' ||
+    tabFromUrl === 'addresses' ||
+    tabFromUrl === 'favorites' ||
+    tabFromUrl === 'profile'
+      ? tabFromUrl
+      : null
+
+  const [activeTab, setActiveTab] = useState<'orders' | 'addresses' | 'favorites' | 'profile'>(
+    () => validTab || 'orders'
+  )
+
+  // Keep active tab in sync if query param changes on the same route
+  const prevTabParamRef = React.useRef(validTab)
+  useEffect(() => {
+    if (validTab && validTab !== prevTabParamRef.current) {
+      prevTabParamRef.current = validTab
+      setActiveTab(validTab)
+    }
+  }, [validTab])
+
+  const handleTabChange = (tab: 'orders' | 'addresses' | 'favorites' | 'profile') => {
+    setActiveTab(tab)
+    setSearchParams({ tab }, { replace: true })
+  }
+
+  // Profile Edit State
+  const [isEditingProfile, setIsEditingProfile] = useState(false)
+  const [editFullName, setEditFullName] = useState(user?.fullName || '')
+  const [editPhone, setEditPhone] = useState(user?.phone || '')
+  const [isSavingProfile, setIsSavingProfile] = useState(false)
+  const [profileError, setProfileError] = useState<string | null>(null)
+  const [profileSuccess, setProfileSuccess] = useState<string | null>(null)
+
+  const handleSaveProfile = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setProfileError(null)
+    setProfileSuccess(null)
+
+    const trimmedName = editFullName.trim()
+    const trimmedPhone = editPhone.trim()
+
+    if (!trimmedName || trimmedName.length < 2) {
+      setProfileError('Full legal name must contain at least 2 characters.')
+      return
+    }
+
+    if (trimmedPhone) {
+      const basicPhoneRegex = /^[+]?[\d\s-]{10,15}$/
+      if (!basicPhoneRegex.test(trimmedPhone)) {
+        setProfileError('Please provide a valid phone number (10-15 digits).')
+        return
+      }
+    }
+
+    setIsSavingProfile(true)
+    const result = await updateProfile({
+      fullName: trimmedName,
+      phone: trimmedPhone || undefined,
+    })
+    setIsSavingProfile(false)
+
+    if (result.success) {
+      setProfileSuccess('Profile details updated successfully.')
+      setIsEditingProfile(false)
+      setTimeout(() => {
+        setProfileSuccess(null)
+      }, 4000)
+    } else {
+      setProfileError(result.error || 'Unable to update profile. Please try again.')
+    }
+  }
+
+  const handleCancelEditProfile = () => {
+    setIsEditingProfile(false)
+    setProfileError(null)
+    if (user) {
+      setEditFullName(user.fullName || '')
+      setEditPhone(user.phone || '')
+    }
+  }
 
   // Review modal state
   const [reviewOrder, setReviewOrder] = useState<Order | null>(null)
@@ -230,7 +324,7 @@ export const AccountPage: React.FC = () => {
                 <button
                   key={tab.id}
                   type="button"
-                  onClick={() => setActiveTab(tab.id as typeof activeTab)}
+                  onClick={() => handleTabChange(tab.id as typeof activeTab)}
                   className={`px-4 py-2.5 rounded-[var(--dp-radius-control)] text-xs font-bold font-['Outfit',sans-serif] uppercase tracking-wider whitespace-nowrap transition-all cursor-pointer flex items-center gap-2 border-[1.5px] focus:outline-none focus-visible:outline-2 focus-visible:outline-dashed focus-visible:outline-[var(--dp-color-annotation)] ${
                     isActive
                       ? 'bg-[var(--dp-color-accent)] text-white border-[var(--dp-color-ink)] shadow-[2px_2px_0px_rgba(56,53,47,0.18)] -translate-y-0.5'
@@ -642,7 +736,7 @@ export const AccountPage: React.FC = () => {
         {/* Tab 4: Profile & Security */}
         {activeTab === 'profile' && (
           <div className="bg-[var(--dp-color-scrap)] border-[1.5px] border-[var(--dp-color-line)] rounded-2xl p-6 sm:p-8 space-y-6 max-w-2xl shadow-[2.5px_2.5px_0px_rgba(56,53,47,0.10)]">
-            <div className="border-b-[1.5px] border-[var(--dp-color-line)] pb-4 flex items-center justify-between">
+            <div className="border-b-[1.5px] border-[var(--dp-color-line)] pb-4 flex flex-wrap items-center justify-between gap-3">
               <div>
                 <h2 className="text-xl font-extrabold text-[var(--dp-color-ink)] font-['Outfit',sans-serif]">
                   Account & Security Profile
@@ -651,115 +745,244 @@ export const AccountPage: React.FC = () => {
                   Authenticated via Supabase Customer Identity Directory
                 </p>
               </div>
-              <span className="px-2.5 py-1 rounded-md bg-[var(--dp-color-ground)] border-[1.5px] border-[var(--dp-color-line)] text-xs font-bold font-['Outfit',sans-serif] uppercase tracking-wider text-[var(--dp-color-ink)] shadow-[1px_1px_0px_var(--dp-color-line)]">
-                Standard Patron Role
+              <div className="flex items-center gap-2">
+                {!isEditingProfile ? (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsEditingProfile(true)
+                      setProfileError(null)
+                      setProfileSuccess(null)
+                      setEditFullName(user?.fullName || '')
+                      setEditPhone(user?.phone || '')
+                    }}
+                    className="px-3 py-1.5 rounded-[var(--dp-radius-control)] bg-[var(--dp-color-highlight)] hover:bg-[#ebda99] border-[1.5px] border-[var(--dp-color-ink)] text-xs font-bold font-['Outfit',sans-serif] text-[var(--dp-color-ink)] shadow-[1.5px_1.5px_0px_var(--dp-color-ink)] transition-all flex items-center gap-1.5 cursor-pointer active:translate-x-[1px] active:translate-y-[1px]"
+                  >
+                    <Edit3 className="w-3.5 h-3.5 text-[var(--dp-color-ink)]" />
+                    <span>Edit Profile</span>
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={handleCancelEditProfile}
+                    className="px-3 py-1.5 rounded-[var(--dp-radius-control)] bg-[var(--dp-color-ground)] hover:bg-[var(--dp-color-scrap)] border-[1.5px] border-[var(--dp-color-line)] text-xs font-bold font-['Outfit',sans-serif] text-[var(--dp-color-ink-muted)] shadow-[1px_1px_0px_var(--dp-color-line)] transition-all cursor-pointer"
+                  >
+                    Cancel
+                  </button>
+                )}
+                <span className="px-2.5 py-1 rounded-md bg-[var(--dp-color-ground)] border-[1.5px] border-[var(--dp-color-line)] text-xs font-bold font-['Outfit',sans-serif] uppercase tracking-wider text-[var(--dp-color-ink)] shadow-[1px_1px_0px_var(--dp-color-line)]">
+                  Standard Patron Role
+                </span>
+              </div>
+            </div>
+
+            {/* Profile Update Feedback */}
+            {profileSuccess && (
+              <div className="p-3.5 rounded-xl bg-emerald-50 border-[1.5px] border-emerald-300 text-emerald-900 text-xs font-bold font-['Outfit',sans-serif] flex items-center gap-2 shadow-[1.5px_1.5px_0px_emerald-200] animate-in fade-in">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                <span>{profileSuccess}</span>
+              </div>
+            )}
+            {profileError && (
+              <div className="p-3.5 rounded-xl bg-rose-50 border-[1.5px] border-rose-300 text-rose-900 text-xs font-bold font-['Outfit',sans-serif] flex items-center gap-2 shadow-[1.5px_1.5px_0px_rose-200] animate-in fade-in">
+                <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
+                <span>{profileError}</span>
+              </div>
+            )}
+
+            {/* Profile Form (Editable or Readonly) */}
+            {isEditingProfile ? (
+              <form onSubmit={handleSaveProfile} className="space-y-4 text-xs">
+                <div>
+                  <label className="block text-xs text-[var(--dp-color-ink-muted)] font-bold uppercase tracking-wider mb-1 font-['Outfit',sans-serif]">
+                    Full Legal Name *
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={editFullName}
+                    onChange={(e) => setEditFullName(e.target.value)}
+                    placeholder="e.g. Sreeram K"
+                    className="w-full px-3 py-2.5 rounded-xl bg-[var(--dp-color-ground)] border-[1.5px] border-[var(--dp-color-ink)] text-[var(--dp-color-ink)] font-bold shadow-[1.5px_1.5px_0px_var(--dp-color-ink)] font-['Outfit',sans-serif] focus:outline-none focus-visible:outline-2 focus-visible:outline-dashed focus-visible:outline-[var(--dp-color-annotation)]"
+                  />
+                  <p className="mt-1 text-[11px] text-[var(--dp-color-ink-muted)] font-['Outfit',sans-serif]">
+                    Your full name will be shown in the navigation bar and on delivery dispatch orders.
+                  </p>
+                </div>
+
+                <div>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="block text-xs text-[var(--dp-color-ink-muted)] font-bold uppercase tracking-wider font-['Outfit',sans-serif]">
+                      Registered Email Address
+                    </label>
+                    <span className="text-[10px] uppercase font-bold text-[var(--dp-color-ink-muted)] bg-[var(--dp-color-ground)] px-1.5 py-0.5 rounded border border-[var(--dp-color-line)]">
+                      Read-Only Identity
+                    </span>
+                  </div>
+                  <input
+                    type="email"
+                    readOnly
+                    disabled
+                    value={user?.email || ''}
+                    className="w-full px-3 py-2.5 rounded-xl bg-[var(--dp-color-ground)]/60 border-[1.5px] border-[var(--dp-color-line)] text-[var(--dp-color-ink-muted)] font-bold shadow-[1px_1px_0px_var(--dp-color-line)] font-mono cursor-not-allowed opacity-80"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs text-[var(--dp-color-ink-muted)] font-bold uppercase tracking-wider mb-1 font-['Outfit',sans-serif]">
+                    Primary Contact Phone (Optional)
+                  </label>
+                  <input
+                    type="tel"
+                    value={editPhone}
+                    onChange={(e) => setEditPhone(e.target.value)}
+                    placeholder="+91 98765 01234"
+                    className="w-full px-3 py-2.5 rounded-xl bg-[var(--dp-color-ground)] border-[1.5px] border-[var(--dp-color-ink)] text-[var(--dp-color-ink)] font-bold font-mono shadow-[1.5px_1.5px_0px_var(--dp-color-ink)] focus:outline-none focus-visible:outline-2 focus-visible:outline-dashed focus-visible:outline-[var(--dp-color-annotation)]"
+                  />
+                  <p className="mt-1 text-[11px] text-[var(--dp-color-ink-muted)] font-['Outfit',sans-serif]">
+                    Used for SMS dispatch notifications and courier communication.
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-3 pt-2">
+                  <button
+                    type="submit"
+                    disabled={isSavingProfile}
+                    className="px-5 py-2.5 rounded-[var(--dp-radius-control)] bg-[var(--dp-color-accent)] hover:bg-[#852f25] text-white text-xs font-bold font-['Outfit',sans-serif] uppercase tracking-wider border-[1.5px] border-[var(--dp-color-ink)] shadow-[2px_2px_0px_var(--dp-color-ink)] hover:translate-x-[1px] hover:translate-y-[1px] transition-all cursor-pointer disabled:opacity-50 flex items-center gap-2"
+                  >
+                    {isSavingProfile ? (
+                      <>
+                        <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                        <span>Saving Changes...</span>
+                      </>
+                    ) : (
+                      <>
+                        <CheckCircle2 className="w-4 h-4" />
+                        <span>Save Changes</span>
+                      </>
+                    )}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleCancelEditProfile}
+                    disabled={isSavingProfile}
+                    className="px-4 py-2.5 rounded-[var(--dp-radius-control)] bg-[var(--dp-color-ground)] hover:bg-[var(--dp-color-scrap)] text-[var(--dp-color-ink)] text-xs font-bold font-['Outfit',sans-serif] border-[1.5px] border-[var(--dp-color-line)] shadow-[1px_1px_0px_var(--dp-color-line)] transition-all cursor-pointer disabled:opacity-50"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            ) : (
+              <div className="space-y-4 text-xs">
+                <div>
+                  <label className="block text-xs text-[var(--dp-color-ink-muted)] font-bold uppercase tracking-wider mb-1 font-['Outfit',sans-serif]">
+                    Full Legal Name
+                  </label>
+                  <input
+                    type="text"
+                    readOnly
+                    value={user?.fullName || 'Patron'}
+                    className="w-full px-3 py-2.5 rounded-xl bg-[var(--dp-color-ground)] border-[1.5px] border-[var(--dp-color-line)] text-[var(--dp-color-ink)] font-bold shadow-[1px_1px_0px_var(--dp-color-line)] font-['Outfit',sans-serif]"
+                  />
+                </div>
+
+                <div>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="block text-xs text-[var(--dp-color-ink-muted)] font-bold uppercase tracking-wider font-['Outfit',sans-serif]">
+                      Registered Email Address
+                    </label>
+                    <span className="text-[10px] uppercase font-bold text-[var(--dp-color-ink-muted)] bg-[var(--dp-color-ground)] px-1.5 py-0.5 rounded border border-[var(--dp-color-line)]">
+                      Read-Only Identity
+                    </span>
+                  </div>
+                  <input
+                    type="email"
+                    readOnly
+                    value={user?.email || ''}
+                    className="w-full px-3 py-2.5 rounded-xl bg-[var(--dp-color-ground)] border-[1.5px] border-[var(--dp-color-line)] text-[var(--dp-color-ink)] font-bold shadow-[1px_1px_0px_var(--dp-color-line)] font-mono"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs text-[var(--dp-color-ink-muted)] font-bold uppercase tracking-wider mb-1 font-['Outfit',sans-serif]">
+                    Primary Contact Phone
+                  </label>
+                  <input
+                    type="text"
+                    readOnly
+                    value={user?.phone || 'Not configured'}
+                    className="w-full px-3 py-2.5 rounded-xl bg-[var(--dp-color-ground)] border-[1.5px] border-[var(--dp-color-line)] text-[var(--dp-color-ink)] font-bold font-mono shadow-[1px_1px_0px_var(--dp-color-line)]"
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* Two-Factor verification notice */}
+            <div className="p-4 rounded-xl bg-[var(--dp-color-highlight)]/30 border-[1.5px] border-[var(--dp-color-line)] flex items-center justify-between shadow-[1.5px_1.5px_0px_var(--dp-color-line)]">
+              <div className="flex items-center gap-3">
+                <Shield className="w-5 h-5 text-[#059669] shrink-0" />
+                <div>
+                  <span className="font-bold text-[var(--dp-color-ink)] block font-['Outfit',sans-serif]">Two-Factor Authentication</span>
+                  <span className="text-[#059669] text-xs font-['Outfit',sans-serif]">SMS OTP verification active for Hyderabad dispatches</span>
+                </div>
+              </div>
+              <span className="px-2.5 py-1 rounded-md bg-[var(--dp-color-ground)] border-[1.5px] border-[var(--dp-color-line)] text-[#059669] font-bold text-xs font-['Outfit',sans-serif] shadow-[1px_1px_0px_var(--dp-color-line)]">
+                ACTIVE
               </span>
             </div>
 
-            <div className="space-y-4 text-xs">
-              <div>
-                <label className="block text-xs text-[var(--dp-color-ink-muted)] font-bold uppercase tracking-wider mb-1 font-['Outfit',sans-serif]">
-                  Full Legal Name
-                </label>
-                <input
-                  type="text"
-                  readOnly
-                  value={user?.fullName || 'Patron'}
-                  className="w-full px-3 py-2.5 rounded-xl bg-[var(--dp-color-ground)] border-[1.5px] border-[var(--dp-color-line)] text-[var(--dp-color-ink)] font-bold shadow-[1px_1px_0px_var(--dp-color-line)] font-['Outfit',sans-serif]"
-                />
-              </div>
+            {/* Patron Profile Summary Metrics */}
+            <div className="pt-4 border-t-[1.5px] border-[var(--dp-color-line)] space-y-4">
+              <h3 className="text-sm font-bold text-[var(--dp-color-ink)] font-['Outfit',sans-serif]">
+                Account Status & Security Overview
+              </h3>
 
-              <div>
-                <label className="block text-xs text-[var(--dp-color-ink-muted)] font-bold uppercase tracking-wider mb-1 font-['Outfit',sans-serif]">
-                  Registered Email Address
-                </label>
-                <input
-                  type="email"
-                  readOnly
-                  value={user?.email || ''}
-                  className="w-full px-3 py-2.5 rounded-xl bg-[var(--dp-color-ground)] border-[1.5px] border-[var(--dp-color-line)] text-[var(--dp-color-ink)] font-bold shadow-[1px_1px_0px_var(--dp-color-line)] font-mono"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs text-[var(--dp-color-ink-muted)] font-bold uppercase tracking-wider mb-1 font-['Outfit',sans-serif]">
-                  Primary Contact Phone
-                </label>
-                <input
-                  type="text"
-                  readOnly
-                  value={user?.phone || 'Not configured'}
-                  className="w-full px-3 py-2.5 rounded-xl bg-[var(--dp-color-ground)] border-[1.5px] border-[var(--dp-color-line)] text-[var(--dp-color-ink)] font-bold font-mono shadow-[1px_1px_0px_var(--dp-color-line)]"
-                />
-              </div>
-
-              {/* Two-Factor verification notice */}
-              <div className="p-4 rounded-xl bg-[var(--dp-color-highlight)]/30 border-[1.5px] border-[var(--dp-color-line)] flex items-center justify-between shadow-[1.5px_1.5px_0px_var(--dp-color-line)]">
-                <div className="flex items-center gap-3">
-                  <Shield className="w-5 h-5 text-[#059669] shrink-0" />
-                  <div>
-                    <span className="font-bold text-[var(--dp-color-ink)] block font-['Outfit',sans-serif]">Two-Factor Authentication</span>
-                    <span className="text-[#059669] text-xs font-['Outfit',sans-serif]">SMS OTP verification active for Hyderabad dispatches</span>
-                  </div>
-                </div>
-                <span className="px-2.5 py-1 rounded-md bg-[var(--dp-color-ground)] border-[1.5px] border-[var(--dp-color-line)] text-[#059669] font-bold text-xs font-['Outfit',sans-serif] shadow-[1px_1px_0px_var(--dp-color-line)]">
-                  ACTIVE
-                </span>
-              </div>
-
-              {/* Patron Profile Summary Metrics */}
-              <div className="pt-4 border-t-[1.5px] border-[var(--dp-color-line)] space-y-4">
-                <h3 className="text-sm font-bold text-[var(--dp-color-ink)] font-['Outfit',sans-serif]">
-                  Account Status & Security Overview
-                </h3>
-
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  <div className="p-3 rounded-xl bg-[var(--dp-color-ground)] border-[1.5px] border-[var(--dp-color-line)] shadow-[1px_1px_0px_var(--dp-color-line)] space-y-1">
-                    <span className="text-[10px] uppercase font-bold text-[var(--dp-color-ink-muted)] block font-['Outfit',sans-serif]">
-                      Patron ID
-                    </span>
-                    <span className="font-mono text-xs font-bold text-[var(--dp-color-ink)] truncate block" title={user?.id}>
-                      {user?.id ? `${user.id.slice(0, 8)}...` : 'N/A'}
-                    </span>
-                  </div>
-
-                  <div className="p-3 rounded-xl bg-[var(--dp-color-ground)] border-[1.5px] border-[var(--dp-color-line)] shadow-[1px_1px_0px_var(--dp-color-line)] space-y-1">
-                    <span className="text-[10px] uppercase font-bold text-[var(--dp-color-ink-muted)] block font-['Outfit',sans-serif]">
-                      Orders Placed
-                    </span>
-                    <span className="text-base font-extrabold text-[var(--dp-color-accent)] font-['Outfit',sans-serif]">
-                      {orders.length}
-                    </span>
-                  </div>
-
-                  <div className="p-3 rounded-xl bg-[var(--dp-color-ground)] border-[1.5px] border-[var(--dp-color-line)] shadow-[1px_1px_0px_var(--dp-color-line)] space-y-1">
-                    <span className="text-[10px] uppercase font-bold text-[var(--dp-color-ink-muted)] block font-['Outfit',sans-serif]">
-                      Delivery Coordinates
-                    </span>
-                    <span className="text-base font-extrabold text-[var(--dp-color-ink)] font-['Outfit',sans-serif]">
-                      {addresses.length}
-                    </span>
-                  </div>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div className="p-3 rounded-xl bg-[var(--dp-color-ground)] border-[1.5px] border-[var(--dp-color-line)] shadow-[1px_1px_0px_var(--dp-color-line)] space-y-1">
+                  <span className="text-[10px] uppercase font-bold text-[var(--dp-color-ink-muted)] block font-['Outfit',sans-serif]">
+                    Patron ID
+                  </span>
+                  <span className="font-mono text-xs font-bold text-[var(--dp-color-ink)] truncate block" title={user?.id}>
+                    {user?.id ? `${user.id.slice(0, 8)}...` : 'N/A'}
+                  </span>
                 </div>
 
-                {/* Legitimate Sign Out Control */}
-                <div className="pt-4 border-t-[1.5px] border-[var(--dp-color-line)] flex items-center justify-between">
-                  <div>
-                    <span className="font-bold text-xs text-[var(--dp-color-ink)] block font-['Outfit',sans-serif]">Active Session</span>
-                    <span className="text-[11px] text-[var(--dp-color-ink-muted)] font-['Outfit',sans-serif]">End customer session on this device</span>
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={async () => {
-                      await logout()
-                      navigate('/home')
-                    }}
-                    className="px-4 py-2 rounded-[var(--dp-radius-control)] bg-transparent hover:bg-rose-50 text-rose-700 border-[1.5px] border-rose-300 text-xs font-bold font-['Outfit',sans-serif] cursor-pointer shadow-[1px_1px_0px_rose-200] active:translate-x-[1px] active:translate-y-[1px] transition-all"
-                  >
-                    Sign Out of ARO
-                  </button>
+                <div className="p-3 rounded-xl bg-[var(--dp-color-ground)] border-[1.5px] border-[var(--dp-color-line)] shadow-[1px_1px_0px_var(--dp-color-line)] space-y-1">
+                  <span className="text-[10px] uppercase font-bold text-[var(--dp-color-ink-muted)] block font-['Outfit',sans-serif]">
+                    Orders Placed
+                  </span>
+                  <span className="text-base font-extrabold text-[var(--dp-color-accent)] font-['Outfit',sans-serif]">
+                    {orders.length}
+                  </span>
                 </div>
+
+                <div className="p-3 rounded-xl bg-[var(--dp-color-ground)] border-[1.5px] border-[var(--dp-color-line)] shadow-[1px_1px_0px_var(--dp-color-line)] space-y-1">
+                  <span className="text-[10px] uppercase font-bold text-[var(--dp-color-ink-muted)] block font-['Outfit',sans-serif]">
+                    Delivery Coordinates
+                  </span>
+                  <span className="text-base font-extrabold text-[var(--dp-color-ink)] font-['Outfit',sans-serif]">
+                    {addresses.length}
+                  </span>
+                </div>
+              </div>
+
+              {/* Legitimate Sign Out Control */}
+              <div className="pt-4 border-t-[1.5px] border-[var(--dp-color-line)] flex items-center justify-between">
+                <div>
+                  <span className="font-bold text-xs text-[var(--dp-color-ink)] block font-['Outfit',sans-serif]">Active Session</span>
+                  <span className="text-[11px] text-[var(--dp-color-ink-muted)] font-['Outfit',sans-serif]">End customer session on this device</span>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={async () => {
+                    await logout()
+                    navigate('/home')
+                  }}
+                  className="px-4 py-2 rounded-[var(--dp-radius-control)] bg-transparent hover:bg-rose-50 text-rose-700 border-[1.5px] border-rose-300 text-xs font-bold font-['Outfit',sans-serif] cursor-pointer shadow-[1px_1px_0px_rose-200] active:translate-x-[1px] active:translate-y-[1px] transition-all"
+                >
+                  Sign Out of ARO
+                </button>
               </div>
             </div>
           </div>

@@ -22,6 +22,10 @@ interface CartContextType {
     customizations?: Array<{ groupId: string; groupName: string; option: CustomizationOption }>,
     quantity?: number
   ) => void
+  addComboToCart: (
+    comboItems: Array<{ menuItem: MenuItem; quantity: number }>,
+    restaurant: Restaurant
+  ) => boolean
   resolveConflict: (replace: boolean) => void
   updateQuantity: (cartItemId: string, delta: number) => void
   removeItem: (cartItemId: string) => void
@@ -177,6 +181,56 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     })
   }
 
+  const addComboToCart = (
+    comboItems: Array<{ menuItem: MenuItem; quantity: number }>,
+    restaurant: Restaurant
+  ): boolean => {
+    if (!comboItems || comboItems.length === 0) return false
+
+    // Single-restaurant enforcement
+    if (restaurantId && restaurantId !== restaurant.id && items.length > 0) {
+      const currentRes = getRestaurantBySlug(restaurantId)?.name || 'Current Restaurant'
+      setConflict({
+        pendingItem: comboItems[0].menuItem,
+        pendingCustomizations: [],
+        pendingRestaurantId: restaurant.id,
+        newRestaurantName: restaurant.name,
+        currentRestaurantName: currentRes,
+      })
+      return false
+    }
+
+    setRestaurantId(restaurant.id)
+    setItems((prev) => {
+      const updated = [...prev]
+      for (const entry of comboItems) {
+        const cartItemId = `${entry.menuItem.id}__`
+        const unitPrice = entry.menuItem.price
+        const existingIndex = updated.findIndex((it) => it.id === cartItemId)
+        if (existingIndex >= 0) {
+          const existing = updated[existingIndex]
+          const newQty = existing.quantity + entry.quantity
+          updated[existingIndex] = {
+            ...existing,
+            quantity: newQty,
+            totalPrice: newQty * unitPrice,
+          }
+        } else {
+          updated.push({
+            id: cartItemId,
+            menuItem: entry.menuItem,
+            quantity: entry.quantity,
+            selectedCustomizations: [],
+            unitPrice,
+            totalPrice: entry.quantity * unitPrice,
+          })
+        }
+      }
+      return updated
+    })
+    return true
+  }
+
   const resolveConflict = (replace: boolean) => {
     if (replace && conflict) {
       // Discard previous restaurant items and start new cart
@@ -274,6 +328,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
         appliedCoupon,
         conflict,
         addToCart,
+        addComboToCart,
         resolveConflict,
         updateQuantity,
         removeItem,

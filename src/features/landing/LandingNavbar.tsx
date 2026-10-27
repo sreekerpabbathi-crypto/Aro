@@ -4,6 +4,7 @@ import { ShoppingBag, User, MapPin, ArrowRight, Menu, X, Sparkles } from 'lucide
 import { useCart } from '@/context/CartContext'
 import { useAuth } from '@/context/AuthContext'
 import { ChilliDoodle } from '@/components/sketch/SketchDoodles'
+import { UserAccountDropdown } from '@/components/layout/UserAccountDropdown'
 
 export const LandingNavbar: React.FC = () => {
   const navigate = useNavigate()
@@ -132,15 +133,11 @@ export const LandingNavbar: React.FC = () => {
             )}
           </Link>
 
-          {/* Account / Sign In Button */}
+          {/* Account Dropdown / Sign In Button */}
           {user ? (
-            <Link
-              to="/account"
-              className="hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-[var(--dp-radius-control)] bg-[var(--dp-color-scrap)] border-[1.5px] border-[var(--dp-color-line)] text-xs font-semibold text-[var(--dp-color-ink)] shadow-[1.5px_1.5px_0px_var(--dp-color-line)] hover:border-[var(--dp-color-ink)] active:translate-x-[1px] active:translate-y-[1px] transition-all font-['Outfit',sans-serif]"
-            >
-              <User className="w-3.5 h-3.5 text-[var(--dp-color-ink)]" />
-              <span>{user?.fullName?.split(' ')[0] || 'Account'}</span>
-            </Link>
+            <div className="hidden sm:block">
+              <UserAccountDropdown />
+            </div>
           ) : (
             <Link
               to="/auth"

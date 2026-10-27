@@ -1,12 +1,13 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react'
-import type { CustomerProfile, CustomerAddress, Order } from '@/types'
-import { supabase, isSupabaseConfigured } from '@/lib/supabase'
+import type { CustomerProfile, CustomerAddress, Order, UserRole } from '@/types'
+import { supabase, isSupabaseConfigured, formatAuthError } from '@/lib/supabase'
 import { createOrderInSupabase, fetchCustomerOrders } from '@/services/orderService'
 
 export interface AuthContextType {
   user: CustomerProfile | null
   isAuthenticated: boolean
   isAuthLoading: boolean
+  role: UserRole | null
   addresses: CustomerAddress[]
   favorites: string[]
   orders: Order[]
@@ -17,7 +18,15 @@ export interface AuthContextType {
   updateOrderStatus: (orderId: string, status: Order['status']) => void
   loginAsDemoUser: () => void
   logout: () => Promise<void>
-  signInWithEmail: (email: string, password: string) => Promise<{ success: boolean; error?: string }>
+  updateProfile: (updates: {
+    fullName?: string
+    phone?: string
+    avatarUrl?: string
+  }) => Promise<{ success: boolean; error?: string }>
+  signInWithEmail: (
+    email: string,
+    password: string
+  ) => Promise<{ success: boolean; role?: UserRole; error?: string }>
   signUpWithEmail: (
     email: string,
     password: string,
@@ -66,6 +75,7 @@ const DEFAULT_OPT_IN_DEMO_PROFILE: CustomerProfile = {
   fullName: 'Sreeram K',
   phone: '+91 98765 01234',
   avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80',
+  role: 'customer',
   savedAddresses: DEFAULT_OPT_IN_DEMO_ADDRESSES,
   favoriteRestaurantIds: ['b0000002-0000-0000-0000-000000000002'],
   createdAt: '2026-01-15T10:00:00Z',
@@ -129,12 +139,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (!profileErr && dbProfile) {
         profileData = dbProfile
       } else {
-        // Safe profile creation/synchronization if missing
+        // Safe profile creation/synchronization if missing in database
         const newRecord = {
           id: sessionUser.id,
           email: sessionUser.email || '',
           full_name: sessionUser.user_metadata?.full_name || 'Gourmet Patron',
           phone: sessionUser.user_metadata?.phone || sessionUser.phone || null,
+          role: 'customer',
         }
         const { data: inserted } = await supabase
           .from('profiles')
@@ -143,6 +154,31 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           .maybeSingle()
 
         profileData = inserted || newRecord
+      }
+
+      // Check admin status in admin_users table
+      let isAdminUser = false
+      try {
+        const { data: adminRecord } = await supabase
+          .from('admin_users')
+          .select('role')
+          .eq('user_id', sessionUser.id)
+          .maybeSingle()
+        if (adminRecord && adminRecord.role) {
+          isAdminUser = true
+        }
+      } catch {
+        // admin_users table may not exist yet if migration not applied
+      }
+
+      // Authoritative Role Resolution
+      let resolvedRole: UserRole = 'customer'
+      if (isAdminUser || profileData?.role === 'admin') {
+        resolvedRole = 'admin'
+      } else if (profileData?.role === 'restaurant' || profileData?.restaurant_id) {
+        resolvedRole = 'restaurant'
+      } else {
+        resolvedRole = 'customer'
       }
 
       // 2. Fetch saved addresses
@@ -168,13 +204,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         isDefault: Boolean(row.is_default),
       }))
 
-      // 3. Construct unified CustomerProfile
+      // 3. Construct unified CustomerProfile with resolved role and optional restaurant association
       const activeProfile: CustomerProfile = {
         id: sessionUser.id,
         email: profileData?.email || sessionUser.email || '',
         fullName: profileData?.full_name || sessionUser.user_metadata?.full_name || 'Gourmet Patron',
         phone: profileData?.phone || sessionUser.user_metadata?.phone || '',
         avatarUrl: profileData?.avatar_url || sessionUser.user_metadata?.avatar_url || undefined,
+        role: resolvedRole,
+        restaurantId: profileData?.restaurant_id || null,
         savedAddresses: mappedAddresses,
         favoriteRestaurantIds: [],
         createdAt: profileData?.created_at || sessionUser.created_at || new Date().toISOString(),
@@ -221,15 +259,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
 
     // Initial check
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      syncUserData(session?.user || null)
-    }).catch((err) => {
-      console.warn('[ARO Auth] Initial session check warning:', err)
-      setIsAuthLoading(false)
-    })
+    supabase.auth
+      .getSession()
+      .then(({ data: { session } }) => {
+        syncUserData(session?.user || null)
+      })
+      .catch((err) => {
+        console.warn('[ARO Auth] Initial session check warning:', err)
+        setIsAuthLoading(false)
+      })
 
     // Realtime auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
       syncUserData(session?.user || null)
     })
 
@@ -347,12 +390,82 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }
 
+  const updateProfile = async (updates: {
+    fullName?: string
+    phone?: string
+    avatarUrl?: string
+  }): Promise<{ success: boolean; error?: string }> => {
+    if (!user) {
+      return { success: false, error: 'User is not currently authenticated.' }
+    }
+
+    try {
+      const trimmedFullName = updates.fullName !== undefined ? updates.fullName.trim() : user.fullName
+      const trimmedPhone = updates.phone !== undefined ? updates.phone.trim() : user.phone
+      const trimmedAvatarUrl = updates.avatarUrl !== undefined ? updates.avatarUrl.trim() : user.avatarUrl
+
+      if (isSupabaseConfigured) {
+        const dbUpdates: Record<string, any> = {
+          full_name: trimmedFullName,
+          phone: trimmedPhone || null,
+          updated_at: new Date().toISOString(),
+        }
+        if (updates.avatarUrl !== undefined) {
+          dbUpdates.avatar_url = trimmedAvatarUrl || null
+        }
+
+        const { error } = await supabase
+          .from('profiles')
+          .update(dbUpdates)
+          .eq('id', user.id)
+
+        if (error) {
+          console.error('[ARO Auth] Failed to update profile in Supabase:', error)
+          return { success: false, error: formatAuthError(error) }
+        }
+
+        // Also update Supabase Auth user metadata
+        try {
+          await supabase.auth.updateUser({
+            data: {
+              full_name: trimmedFullName,
+              phone: trimmedPhone || null,
+            },
+          })
+        } catch {
+          // non-critical if auth metadata update fails
+        }
+      }
+
+      const updatedProfile: CustomerProfile = {
+        ...user,
+        fullName: trimmedFullName,
+        phone: trimmedPhone,
+        avatarUrl: trimmedAvatarUrl || undefined,
+        updatedAt: new Date().toISOString(),
+      }
+
+      setUser(updatedProfile)
+
+      try {
+        localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(updatedProfile))
+      } catch {
+        // ignore
+      }
+
+      return { success: true }
+    } catch (err: any) {
+      console.error('[ARO Auth] Unexpected profile update error:', err)
+      return { success: false, error: formatAuthError(err) }
+    }
+  }
+
   const signInWithEmail = async (
     email: string,
     password: string
-  ): Promise<{ success: boolean; error?: string }> => {
+  ): Promise<{ success: boolean; role?: UserRole; error?: string }> => {
     if (!isSupabaseConfigured) {
-      return { success: false, error: 'Database authentication is not configured' }
+      return { success: false, error: formatAuthError('not configured') }
     }
 
     try {
@@ -362,14 +475,44 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       })
 
       if (error || !data.user) {
-        return { success: false, error: error?.message || 'Invalid email or password' }
+        return { success: false, error: formatAuthError(error || 'Invalid credentials') }
       }
 
       await syncUserData(data.user)
-      return { success: true }
+
+      // Query role immediately for caller redirection
+      let determinedRole: UserRole = 'customer'
+      try {
+        const { data: adminRecord } = await supabase
+          .from('admin_users')
+          .select('role')
+          .eq('user_id', data.user.id)
+          .maybeSingle()
+
+        if (adminRecord && adminRecord.role) {
+          determinedRole = 'admin'
+        } else {
+          const { data: profRecord } = await supabase
+            .from('profiles')
+            .select('role, restaurant_id')
+            .eq('id', data.user.id)
+            .maybeSingle()
+
+          if (profRecord?.role === 'admin') {
+            determinedRole = 'admin'
+          } else if (profRecord?.role === 'restaurant' || profRecord?.restaurant_id) {
+            determinedRole = 'restaurant'
+          } else {
+            determinedRole = 'customer'
+          }
+        }
+      } catch {
+        determinedRole = 'customer'
+      }
+
+      return { success: true, role: determinedRole }
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Sign in failed'
-      return { success: false, error: message }
+      return { success: false, error: formatAuthError(err) }
     }
   }
 
@@ -380,27 +523,32 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     phone?: string
   ): Promise<{ success: boolean; emailConfirmationRequired?: boolean; error?: string }> => {
     if (!isSupabaseConfigured) {
-      return { success: false, error: 'Database authentication is not configured' }
+      return { success: false, error: formatAuthError('not configured') }
     }
 
     try {
+      const cleanEmail = email.trim().toLowerCase()
+      const cleanFullName = fullName.trim()
+      const cleanPhone = phone?.trim() || null
+
       const { data, error } = await supabase.auth.signUp({
-        email: email.trim(),
+        email: cleanEmail,
         password,
         options: {
           data: {
-            full_name: fullName.trim(),
-            phone: phone?.trim() || null,
+            full_name: cleanFullName,
+            phone: cleanPhone,
+            role: 'customer',
           },
         },
       })
 
       if (error) {
-        return { success: false, error: error.message }
+        return { success: false, error: formatAuthError(error) }
       }
 
       if (!data.user) {
-        return { success: false, error: 'Registration failed to create user' }
+        return { success: false, error: 'Registration failed to create user account. Please try again.' }
       }
 
       // Check if email confirmation is required by Supabase settings (no active session returned)
@@ -408,14 +556,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return { success: true, emailConfirmationRequired: true }
       }
 
-      // If session is active (auto-confirm enabled), upsert profile in DB
+      // If session is active (auto-confirm enabled), safely upsert profile in profiles table
       try {
-        await supabase.from('profiles').upsert({
-          id: data.user.id,
-          email: email.trim(),
-          full_name: fullName.trim(),
-          phone: phone?.trim() || null,
-        })
+        await supabase.from('profiles').upsert(
+          {
+            id: data.user.id,
+            email: cleanEmail,
+            full_name: cleanFullName,
+            phone: cleanPhone,
+            role: 'customer',
+          },
+          { onConflict: 'id' }
+        )
       } catch (e) {
         console.warn('[ARO Auth] Profile upsert notice:', e)
       }
@@ -423,8 +575,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       await syncUserData(data.user)
       return { success: true, emailConfirmationRequired: false }
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Registration failed'
-      return { success: false, error: message }
+      return { success: false, error: formatAuthError(err) }
     }
   }
 
@@ -432,7 +583,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     email: string
   ): Promise<{ success: boolean; error?: string }> => {
     if (!isSupabaseConfigured) {
-      return { success: false, error: 'Database authentication is not configured' }
+      return { success: false, error: formatAuthError('not configured') }
     }
 
     try {
@@ -441,12 +592,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       })
 
       if (error) {
-        return { success: false, error: error.message }
+        return { success: false, error: formatAuthError(error) }
       }
       return { success: true }
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Password reset failed'
-      return { success: false, error: message }
+      return { success: false, error: formatAuthError(err) }
     }
   }
 
@@ -458,6 +608,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         user,
         isAuthenticated: Boolean(user),
         isAuthLoading,
+        role: user?.role || null,
         addresses,
         favorites,
         orders,
@@ -468,6 +619,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         updateOrderStatus,
         loginAsDemoUser,
         logout,
+        updateProfile,
         signInWithEmail,
         signUpWithEmail,
         resetPasswordForEmail,

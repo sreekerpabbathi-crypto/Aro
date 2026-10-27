@@ -6,6 +6,7 @@ import { StorefrontCategories } from './StorefrontCategories'
 import { StorefrontFeaturedRestaurants } from './StorefrontFeaturedRestaurants'
 import { StorefrontPopularDishes, type DishItem } from './StorefrontPopularDishes'
 import { StorefrontOffers } from './StorefrontOffers'
+import { SmartBudgetOptimizer } from '@/features/budget/SmartBudgetOptimizer'
 import { StorefrontFooter } from './StorefrontFooter'
 import { CartConflictModal } from '@/components/common/CartConflictModal'
 import { useCart } from '@/context/CartContext'
@@ -92,6 +93,9 @@ export const StorefrontPage: React.FC = () => {
         />
 
         {/* Special Privileges & Offers */}
+        {/* Smart Budget Optimizer Interactive Section */}
+        <SmartBudgetOptimizer embedded={true} />
+
         <StorefrontOffers />
       </main>
 

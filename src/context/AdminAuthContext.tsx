@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react'
 import type { Session } from '@supabase/supabase-js'
-import { supabase, isSupabaseConfigured } from '@/lib/supabase'
+import { supabase, isSupabaseConfigured, formatAuthError } from '@/lib/supabase'
 import { verifyAdminStatus } from '@/services/adminService'
 import type { AdminUser } from '@/types'
 
@@ -64,10 +64,15 @@ export const AdminAuthProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     }
 
     // 1. Initial session restoration
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setAuthSession(session)
-      checkUserAdminAuthorization(session)
-    })
+    supabase.auth
+      .getSession()
+      .then(({ data: { session } }) => {
+        setAuthSession(session)
+        checkUserAdminAuthorization(session)
+      })
+      .catch(() => {
+        setIsLoading(false)
+      })
 
     // 2. Real-time auth state listener
     const {
@@ -87,9 +92,11 @@ export const AdminAuthProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     password: string
   ): Promise<{ success: boolean; error?: string }> => {
     if (!isSupabaseConfigured) {
+      const unconfigMsg = formatAuthError('not configured')
+      setError(unconfigMsg)
       return {
         success: false,
-        error: 'Supabase client is not configured. Please check environment variables.',
+        error: unconfigMsg,
       }
     }
 
@@ -105,7 +112,7 @@ export const AdminAuthProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
       if (authError || !data.session) {
         setIsLoading(false)
-        const msg = authError?.message || 'Invalid email or password'
+        const msg = formatAuthError(authError || 'Invalid credentials')
         setError(msg)
         return { success: false, error: msg }
       }
@@ -143,7 +150,7 @@ export const AdminAuthProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       return { success: true }
     } catch (err) {
       setIsLoading(false)
-      const message = err instanceof Error ? err.message : 'Login failed'
+      const message = formatAuthError(err)
       setError(message)
       return { success: false, error: message }
     }

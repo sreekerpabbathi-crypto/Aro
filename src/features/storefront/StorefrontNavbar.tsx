@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { Search, ShoppingBag, MapPin, User, ChevronDown } from 'lucide-react'
+import { Search, ShoppingBag, MapPin, User, ChevronDown, Sparkles } from 'lucide-react'
 import { useCart } from '@/context/CartContext'
 import { useAuth } from '@/context/AuthContext'
+import { UserAccountDropdown } from '@/components/layout/UserAccountDropdown'
 
 interface StorefrontNavbarProps {
   onSearchChange?: (query: string) => void
@@ -129,18 +130,22 @@ export const StorefrontNavbar: React.FC<StorefrontNavbarProps> = ({
             Restaurants
           </Link>
           <Link
-            to={user ? '/account' : '/auth?redirect=/account'}
-            className={`transition-colors hover:text-[var(--dp-color-accent)] hover:underline decoration-1 underline-offset-4 ${
-              location.pathname === '/account'
+            to="/budget-optimizer"
+            className={`inline-flex items-center gap-1.5 transition-colors hover:text-[var(--dp-color-accent)] hover:underline decoration-1 underline-offset-4 ${
+              location.pathname === '/budget-optimizer'
                 ? 'text-[var(--dp-color-accent)] underline decoration-1 underline-offset-4'
                 : 'text-[var(--dp-color-ink)]'
             }`}
           >
-            Orders & Account
+            <Sparkles className="w-3.5 h-3.5 text-[var(--dp-color-accent)]" />
+            <span>Smart Budget</span>
+            <span className="px-1.5 py-0.2 rounded bg-[var(--dp-color-highlight)] text-[var(--dp-color-ink)] text-[9px] font-black uppercase font-mono border border-[var(--dp-color-ink)]">
+              AI
+            </span>
           </Link>
         </nav>
 
-        {/* Customer Controls: Cart & Profile */}
+        {/* Customer Controls: Cart & Profile Dropdown */}
         <div className="flex items-center gap-3 shrink-0">
           <Link
             to="/cart"
@@ -156,13 +161,7 @@ export const StorefrontNavbar: React.FC<StorefrontNavbarProps> = ({
           </Link>
 
           {user ? (
-            <Link
-              to="/account"
-              className="flex items-center gap-2 px-3.5 py-2 rounded-[var(--dp-radius-control)] bg-[var(--dp-color-highlight)] hover:bg-[#ebda99] border-[1.5px] border-[var(--dp-color-ink)] shadow-[1.5px_1.5px_0px_var(--dp-color-ink)] text-xs font-bold font-['Outfit',sans-serif] tracking-wider text-[var(--dp-color-ink)] transition-all cursor-pointer"
-            >
-              <User className="w-4 h-4 text-[var(--dp-color-ink)]" />
-              <span className="hidden sm:inline">{user.fullName?.split(' ')[0] || 'Account'}</span>
-            </Link>
+            <UserAccountDropdown />
           ) : (
             <Link
               to="/auth"

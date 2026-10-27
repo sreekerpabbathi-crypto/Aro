@@ -33,6 +33,8 @@ export interface Database {
           full_name: string
           phone: string | null
           avatar_url: string | null
+          role: 'customer' | 'restaurant' | 'admin'
+          restaurant_id: string | null
           created_at: string
           updated_at: string
         }
@@ -42,6 +44,8 @@ export interface Database {
           full_name: string
           phone?: string | null
           avatar_url?: string | null
+          role?: 'customer' | 'restaurant' | 'admin'
+          restaurant_id?: string | null
           created_at?: string
           updated_at?: string
         }

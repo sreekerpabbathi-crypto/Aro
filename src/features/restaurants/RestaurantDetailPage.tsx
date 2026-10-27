@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { useParams, Link, useNavigate } from 'react-router-dom'
-import { Star, Clock, MapPin, Search, ArrowLeft, Plus, Heart, ShieldCheck } from 'lucide-react'
+import { Star, Clock, MapPin, Search, ArrowLeft, Plus, Heart, ShieldCheck, Sparkles } from 'lucide-react'
 import { getRestaurantBySlug, fetchRestaurantByIdOrSlug } from '@/services/catalogService'
 import { useCart } from '@/context/CartContext'
 import { useAuth } from '@/context/AuthContext'
@@ -208,6 +208,14 @@ export const RestaurantDetailPage: React.FC = () => {
               >
                 All Courses
               </button>
+              <Link
+                to={`/budget-optimizer?restaurant=${restaurant.id || restaurant.slug}`}
+                className="px-3.5 py-2 rounded-[var(--dp-radius-control)] text-xs font-bold uppercase font-['Outfit',sans-serif] tracking-wider border-[1.5px] bg-[var(--dp-color-highlight)] text-[var(--dp-color-ink)] border-[var(--dp-color-ink)] shadow-[1.5px_1.5px_0px_var(--dp-color-ink)] hover:bg-[#ebda99] whitespace-nowrap transition-all flex items-center gap-1.5"
+                title="Optimize combos under your budget for this kitchen"
+              >
+                <Sparkles className="w-3.5 h-3.5 text-[var(--dp-color-accent)]" />
+                <span>Smart Budget Combos</span>
+              </Link>
               {restaurant.categories?.map((cat) => (
                 <button
                   key={cat.id}

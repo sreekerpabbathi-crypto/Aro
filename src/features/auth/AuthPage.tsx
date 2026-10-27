@@ -48,7 +48,13 @@ export const AuthPage: React.FC = () => {
   // If user is already logged in, redirect them directly to intended destination
   useEffect(() => {
     if (!isAuthLoading && isAuthenticated && user) {
-      navigate(redirectTarget, { replace: true })
+      if (user.role === 'admin') {
+        navigate('/admin', { replace: true })
+      } else if (user.role === 'restaurant') {
+        navigate('/restaurant', { replace: true })
+      } else {
+        navigate(redirectTarget, { replace: true })
+      }
     }
   }, [isAuthenticated, isAuthLoading, user, redirectTarget, navigate])
 
@@ -73,9 +79,15 @@ export const AuthPage: React.FC = () => {
     setLoading(false)
 
     if (result.success) {
-      setSuccessMessage('Welcome back! Redirecting you to your dining destination...')
+      setSuccessMessage('Welcome back! Redirecting you...')
       setTimeout(() => {
-        navigate(redirectTarget, { replace: true })
+        if (result.role === 'admin') {
+          navigate('/admin', { replace: true })
+        } else if (result.role === 'restaurant') {
+          navigate('/restaurant', { replace: true })
+        } else {
+          navigate(redirectTarget, { replace: true })
+        }
       }, 400)
     } else {
       setErrorMessage(result.error || 'Invalid email or password. Please verify and try again.')
@@ -87,29 +99,45 @@ export const AuthPage: React.FC = () => {
     e.preventDefault()
     clearFeedback()
 
-    if (!fullName.trim()) {
-      setErrorMessage('Please enter your full legal name.')
+    const trimmedName = fullName.trim()
+    if (!trimmedName || trimmedName.length < 2) {
+      setErrorMessage('Please enter your full legal name (minimum 2 characters).')
       return
     }
 
+    const trimmedEmail = email.trim()
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailRegex.test(email.trim())) {
+    if (!trimmedEmail || !emailRegex.test(trimmedEmail)) {
       setErrorMessage('Please enter a valid email address.')
       return
     }
 
-    if (password.length < 6) {
+    const trimmedPhone = phone.trim()
+    if (trimmedPhone) {
+      const digitsOnly = trimmedPhone.replace(/[\s\-()+]/g, '')
+      if (digitsOnly.length < 10 || digitsOnly.length > 15 || !/^\d+$/.test(digitsOnly)) {
+        setErrorMessage('Please enter a valid 10-digit phone number (or leave blank).')
+        return
+      }
+    }
+
+    if (!password || password.length < 6) {
       setErrorMessage('Password must be at least 6 characters long.')
       return
     }
 
+    if (!confirmPassword) {
+      setErrorMessage('Please confirm your password.')
+      return
+    }
+
     if (password !== confirmPassword) {
-      setErrorMessage('Passwords do not match. Please verify.')
+      setErrorMessage('Passwords do not match. Please verify and re-enter.')
       return
     }
 
     setLoading(true)
-    const result = await signUpWithEmail(email.trim(), password, fullName.trim(), phone.trim() || undefined)
+    const result = await signUpWithEmail(trimmedEmail, password, trimmedName, trimmedPhone || undefined)
     setLoading(false)
 
     if (result.success) {
